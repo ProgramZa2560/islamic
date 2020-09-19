@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <ImageView
+        android:id="@+id/bt_menu1"
+        android:layout_width="325dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/bt_m1"
+        android:onClick="@string/bt_m1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.207"
+        app:srcCompat="@drawable/component_17__1" />
+
+    <ImageView
+        android:id="@+id/bt_menu2"
+        android:layout_width="325dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/bt_m2"
+        android:onClick="@string/bt_m3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.377"
+        app:srcCompat="@drawable/component_19__1" />
+
+    <ImageView
+        android:id="@+id/bt_menu3"
+        android:layout_width="325dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/bt_m3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547"
+        app:srcCompat="@drawable/group_183" />
+
+    <ImageView
+        android:id="@+id/bt_menu4"
+        android:layout_width="325dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/bt_m4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.72"
+        app:srcCompat="@drawable/component_21__2" />
+
+    <ImageView
+        android:id="@+id/bt_menu5"
+        android:layout_width="325dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/_30_2563"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.892"
+        app:srcCompat="@drawable/listbt" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

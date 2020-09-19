@@ -1,10 +1,78 @@
 <resources>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+<!--        <item name="android:fontFamily">@font/fontsarabun</item>-->
+        <!--        <item name="windowNoTitle">true</item>-->
+
     </style>
+
+    <style name="Toolbar.Small.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/toolbar_title_text_size_mini</item>
+    </style>
+
+    <style name="Toolbar.Medium.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/toolbar_title_text_size</item>
+    </style>
+
+    <style name="Toolbar.Small.SubTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/toolbar_sub_title_text_size_mini</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="AppTheme.Widget"/>
+
+    <style name="AppTheme.Widget.TextView" parent="android:Widget.Holo.Light.TextView">
+        <!--        <item name="fontPath">fonts/Roboto-ThinItalic.ttf</item>-->
+    </style>
+
+
+
+    <!--    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">-->
+    <!--        <item name="colorAccent">#FFCC00</item>-->
+    <!--        <item name="android:textColorPrimary">#FFFFFF</item>-->
+    <!--        <item name="android:background">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--&lt;!&ndash;        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog</item>&ndash;&gt;-->
+
+    <!--    </style>-->
+
+    <style name="SwitchApproveButton">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">#FFF</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+<!--        <item name="android:fontFamily">@font/fontsarabun</item>-->
+    </style>
+
+
+
+    <!--   NoThemeBarStatus   -->
+    <style name="AppNoThemeBarStatus" parent="@style/Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+<!--        <item name="android:fontFamily">@font/fontsarabun</item>-->
+        <!--        <item name="android:textViewStyle">@style/AppTheme.Widget.TextView</item>-->
+
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"
+
+        />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"
+        />
+
 
 </resources>

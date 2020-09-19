@@ -1,6 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <!--    <color name="colorPrimary">#008577</color>-->
+    <!--    <color name="colorPrimaryDark">#00574B</color>-->
+    <!--    <color name="colorAccent">#D81B60</color>-->
+
+    <!--    <color name="white">#ffffff</color>-->
+    <color name="light_gray">#f0f0f0</color>
+    <!--    <color name="transparent">#00000000</color>-->
+    <color name="app_text">#2a2928</color>
+    <color name="app_light_text">#62605e</color>
+
+    <color name="colorPrimary">#fc813d</color>
+    <color name="colorPrimaryDark">#f66421</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="gray">#C8C8C8</color>
+
+    <color name="colorsky">#21A9F4</color>
+    <color name="colorblue">#138DD8</color>
+    <color name="colorbluel">#138DD8</color>
+
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="app_background">#7a9cac</color>
+
+    <color name="icon_enabled">#FFFFFFFF</color>
+    <color name="icon_disabled">#FF63727B</color>
+    <color name="transparent">#00000000</color>
+    <color name="bg_splash_screen">#FFFFFF</color>
+    <color name="card_item_press">#A7A7A7</color>
+
+    <color name="red">#FF8083</color>
+    <color name="red_warning">#a0fcaa8a</color>
+    <color name="red_brown">#c9363a</color>
+    <color name="green">#B3FFBA</color>
+    <color name="orange">#FEE378</color>
+
+    <color name="blue_sky">#CCFFFF</color>
+    <color name="pink">#FF99FF</color>
+
+    <color name="text_enabled">#FFFFFFFF</color>
+    <color name="text_disabled">#4DFFFFFF</color>
+
+    <color name="black_transparent">#af000000</color>
+    <color name="default_background_color">#fff3f3f3</color>
+    <color name="sync_complete">#2f8c41</color>
+
+    <color name="light_grey2">#DDD</color>
+    <color name="white_grey">#f2f2f2</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="primary_hover">#4b9fc5</color>
+    <color name="border_primary_hover">#21a9f4</color>
+    <color name="border_primary">#21a9f4</color>
+    <color name="primary">#21a9f4</color>
+
+    <color name="border_success">#2f8c41</color>
+    <color name="success">#568f61</color>
+    <color name="success_hover">#7fa987</color>
+    <color name="border_success_hover">#7fa987</color>
+
+    <color name="border_danger">#8c2f31</color>
+    <color name="danger">#8f5657</color>
+    <color name="danger_hover">#a97f84</color>
+    <color name="border_danger_hover">#a97f84</color>
+
+    <color name="black">#000000</color>
+
+    <color name="label_edit_text">#737676</color>
+    <color name="header_color">#21a9f4</color>
+    <color name="header_text">#138dd8</color>
+    <color name="background_layout">#f3f3f3</color>
+    <color name="text_detail">#adacac</color>
+    <color name="text_detail2">#717171</color>
+    <color name="warning">#e4632c</color>
+
+    <!-- history -->
+    <color name="history_selected">#62bced</color>
+    <color name="history_events">#00ff00</color>
+    <color name="public_history_events">#f73de7</color>
+    <color name="public_cancel_history_events">#8c2f31</color>
+
+    <color name="primary_tran">#2f21a9f4</color>
+
+    <color name="overlay_color">#80000000</color>
+    <color name="colorDarkGrey">#A9A9A9</color>
+
+    <color name="colorBlueCheck">#00BBFF</color>
+
+    <color name="gradientStart">#0ba360</color>
+    <color name="gradientEnd">#3cba92</color>
+    <color name="outstart">#FF0829</color>
+    <color name="outend">#FF1D3B</color>
+
+    <color name="shader">#33000000</color>
+    <color name="colorlow">#88888888</color>
+
 </resources>
