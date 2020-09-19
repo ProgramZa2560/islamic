@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.main.place.ui.main.PlaceFragment;
 
 public class PlaceActivity extends AppCompatActivity {

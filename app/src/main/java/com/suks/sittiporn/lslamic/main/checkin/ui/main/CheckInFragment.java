@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.suks.sittiporn.lslamic.main.checkin.R;
+import com.suks.sittiporn.lslamic.R;
 
 public class CheckInFragment extends Fragment {
 

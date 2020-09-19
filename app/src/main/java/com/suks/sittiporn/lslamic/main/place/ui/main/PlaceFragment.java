@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.suks.sittiporn.lslamic.main.place.R;
+import com.suks.sittiporn.lslamic.R;
+
 
 public class PlaceFragment extends Fragment {
 

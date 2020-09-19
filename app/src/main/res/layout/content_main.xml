@@ -6,20 +6,21 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <ImageView
+
+
+    <Button
         android:id="@+id/bt_menu1"
         android:layout_width="325dp"
         android:layout_height="90dp"
         android:contentDescription="@string/bt_m1"
-        android:onClick="@string/bt_m1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.207"
-        app:srcCompat="@drawable/component_17__1" />
+        android:background="@drawable/component_17__1" />
 
-    <ImageView
+    <Button
         android:id="@+id/bt_menu2"
         android:layout_width="325dp"
         android:layout_height="90dp"
@@ -30,9 +31,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.377"
-        app:srcCompat="@drawable/component_19__1" />
+        android:background="@drawable/component_19__1" />
 
-    <ImageView
+    <Button
         android:id="@+id/bt_menu3"
         android:layout_width="325dp"
         android:layout_height="90dp"
@@ -42,9 +43,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.547"
-        app:srcCompat="@drawable/group_183" />
+        android:background="@drawable/group_183" />
 
-    <ImageView
+    <Button
         android:id="@+id/bt_menu4"
         android:layout_width="325dp"
         android:layout_height="90dp"
@@ -55,9 +56,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.72"
-        app:srcCompat="@drawable/component_21__2" />
+        android:background="@drawable/component_21__2" />
 
-    <ImageView
+    <Button
         android:id="@+id/bt_menu5"
         android:layout_width="325dp"
         android:layout_height="90dp"
@@ -67,7 +68,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.892"
-        app:srcCompat="@drawable/listbt" />
+        android:background="@drawable/listbt" />
 
 
 

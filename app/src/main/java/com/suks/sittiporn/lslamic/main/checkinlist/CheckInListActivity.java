@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.main.checkinlist.ui.main.CheckInListFragment;
 
 public class CheckInListActivity extends AppCompatActivity {
