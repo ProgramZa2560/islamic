@@ -26,7 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".main.place.PlaceActivity"></activity>
+        <activity android:name=".main.checkinlist.detail.DetailCheckInActivity"></activity>
+        <activity android:name=".about.AboutActivity" />
+        <activity android:name=".help.HelpActivity" />
+        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".main.place.PlaceActivity" />
         <activity android:name=".main.checkinlist.CheckInListActivity" />
         <activity android:name=".main.checkin.CheckInActivity" />
         <activity android:name=".main.time.TimeActivity" />
