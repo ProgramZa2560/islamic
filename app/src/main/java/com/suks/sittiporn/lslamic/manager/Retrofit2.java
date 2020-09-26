@@ -1,9 +1,9 @@
 package com.suks.sittiporn.lslamic.manager;
 
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
-
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Retrofit2 {
 
 //    public static String BASE_URL = "http://sittiporn-suks.com/api_rongphai/";
-    public static String BASE_URL = "http://rongphai-traing.com/api_rongphai_production/";
+    public static String BASE_URL = "https://sittiporn-suks.com/apiIslamic/";
     private static Retrofit retrofit;
     private static Retrofit getRetrofitInstance(){
 
@@ -46,7 +46,6 @@ public class Retrofit2 {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(BASE_URL)
-//                .baseUrl("http://164.115.27.227/MDFishingAPI/api/")
                 .build();
 
         return retrofit;

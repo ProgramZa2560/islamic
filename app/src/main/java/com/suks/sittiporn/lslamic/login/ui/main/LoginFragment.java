@@ -30,6 +30,7 @@ import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
+import com.suks.sittiporn.lslamic.realm.RealmUtil;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -39,12 +40,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginFragment extends Fragment {
 
-    private EditText user, password;
+    private EditText user;
+    private EditText password;
     private Button login;
     private Button register;
     //    private TextView register, forgetpassword;
     static final int REQUEST_LOCATION = 1;
     private int count = 0;
+
+    String email;
+    String pass;
 
 //
 //    @BindView(R.id.btn_login)
@@ -97,14 +102,18 @@ public class LoginFragment extends Fragment {
 
     private void initinstanceState() {
         user.setSingleLine();
-        user.getText().toString().toLowerCase();
-        password.getText().toString();
+//        email = user.getText().toString().toLowerCase();
+//        pass = password.getText().toString();
+
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                email = user.getText().toString().toLowerCase();
+                pass = password.getText().toString();
 
-                if (!password.getText().toString().equals("") && !user.getText().toString().equals("")) {
+                if (!pass.equals("") && !email.equals("")) {
 
                     if (Build.VERSION.SDK_INT > 22) {
 
@@ -136,11 +145,11 @@ public class LoginFragment extends Fragment {
                                         });
                             }
                         } else {
-                            login(user.getText().toString(), password.getText().toString());
+                            login(email, pass);
                         }
 
                     } else {
-                        login(user.getText().toString(), password.getText().toString());
+                        login(email, pass);
                     }
                 } else {
                     Toast.makeText(getContext(), "กรุณากรอกข้อมูลให้ครบถ้วน", Toast.LENGTH_LONG).show();
@@ -219,11 +228,20 @@ public class LoginFragment extends Fragment {
 
     }
 
-    void login(String user, String password) {
-        MemberRequestModel model = new MemberRequestModel();
-        model.setUser_user(user);
-        model.setUser_password(password);
+    void login(String email, String pass) {
 
+
+//        Intent intent = new Intent(getContext(), HomeActivity.class);
+//        intent.putExtra("vv", "vv");
+//        intent.addCategory(Intent.CATEGORY_HOME);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+
+
+        MemberRequestModel model = new MemberRequestModel();
+        model.setUser(email);
+        model.setPass(pass);
+        Toast.makeText(getContext(), email+"SSSSSSS"+pass, Toast.LENGTH_SHORT).show();
         ApiService apiService = Retrofit2.getApiService();
         Observable<MemberModel> observable = apiService.login(model);
         observable.subscribeOn(Schedulers.io())
@@ -236,10 +254,10 @@ public class LoginFragment extends Fragment {
                     }
                     @Override
                     public void onNext(MemberModel response) {
-//                        int count = RealmUtil.addMemberRealm(response);
+                        int count = RealmUtil.addMemberRealm(response);
 //                        if (count > 0) {
                         Intent intent = new Intent(getContext(), HomeActivity.class);
-                        intent.putExtra("vv", "vv");
+//                        intent.putExtra("vv", "vv");
                         intent.addCategory(Intent.CATEGORY_HOME);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

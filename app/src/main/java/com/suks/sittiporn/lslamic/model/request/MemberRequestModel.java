@@ -2,22 +2,22 @@ package com.suks.sittiporn.lslamic.model.request;
 
 public class MemberRequestModel {
 
-    private String user_user;
-    private String user_password;
+    private String user;
+    private String pass;
 
-    public String getUser_user() {
-        return user_user;
+    public String getUser() {
+        return user;
     }
 
-    public void setUser_user(String user_user) {
-        this.user_user = user_user;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }

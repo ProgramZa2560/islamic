@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+        <font
+            android:font="@font/prompthin"
+            android:fontStyle="normal" />
+<!--    <font-->
+<!--        android:font="@font/thsarabunnew"/>-->
+
+        <font
+            android:font="@font/promptitalic"
+            android:fontStyle="italic" />
+
+
+</font-family>

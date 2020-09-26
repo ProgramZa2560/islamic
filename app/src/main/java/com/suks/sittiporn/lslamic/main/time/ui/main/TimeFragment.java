@@ -1,7 +1,5 @@
 package com.suks.sittiporn.lslamic.main.time.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,7 +31,6 @@ public class TimeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(TimeViewModel.class);
         // TODO: Use the ViewModel
     }
 

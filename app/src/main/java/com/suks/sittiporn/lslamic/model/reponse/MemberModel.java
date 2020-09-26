@@ -13,7 +13,7 @@ public class MemberModel {
     @SerializedName("mesage")
     private String mesage;
     @SerializedName("data")
-    private MemberDataReponseModel memberDataReponseModel;
+    private MemberDataReponseModel data;
 
     public String getResult() {
         return result;
@@ -31,11 +31,11 @@ public class MemberModel {
         this.mesage = mesage;
     }
 
-    public MemberDataReponseModel getMemberDataReponseModel() {
-        return memberDataReponseModel;
+    public MemberDataReponseModel getData() {
+        return data;
     }
 
-    public void setMemberDataReponseModel(MemberDataReponseModel memberDataReponseModel) {
-        this.memberDataReponseModel = memberDataReponseModel;
+    public void setData(MemberDataReponseModel data) {
+        this.data = data;
     }
 }

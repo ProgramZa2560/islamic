@@ -34,7 +34,7 @@
         android:background="#F8F8F8"
         android:backgroundTint="#F8F8F8"
         android:hint="@string/email"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:selectAllOnFocus="true"
         android:textColor="#ACACAC"
         android:textColorHighlight="#EAEAEA"

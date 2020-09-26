@@ -1,6 +1,5 @@
 package com.suks.sittiporn.lslamic.main.checkin.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -32,7 +31,6 @@ public class CheckInFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(CheckInViewModel.class);
         // TODO: Use the ViewModel
     }
 

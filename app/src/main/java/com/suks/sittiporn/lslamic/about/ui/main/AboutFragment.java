@@ -1,6 +1,5 @@
 package com.suks.sittiporn.lslamic.about.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -33,7 +32,7 @@ public class AboutFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AboutViewModel.class);
+//        mViewModel = ViewModelProviders.of(this).get(AboutViewModel.class);
         // TODO: Use the ViewModel
     }
 

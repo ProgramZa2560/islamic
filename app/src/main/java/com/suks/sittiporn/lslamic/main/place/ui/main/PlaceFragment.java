@@ -1,6 +1,5 @@
 package com.suks.sittiporn.lslamic.main.place.ui.main;
 
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -33,7 +32,6 @@ public class PlaceFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PlaceViewModel.class);
         // TODO: Use the ViewModel
     }
 

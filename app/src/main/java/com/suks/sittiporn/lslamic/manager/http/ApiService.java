@@ -15,7 +15,7 @@ public interface ApiService {
 //    @GET("getMenu.php")
 //    Observable<ShipListModel> getList(@Query("isAdd") boolean isAdd);
 
-    @POST("rongphai_login2.php")
+    @POST("login.php")
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<MemberModel> login(@Body MemberRequestModel requestModel);
 
