@@ -1,4 +1,4 @@
-package com.suks.sittiporn.lslamic.main.time;
+package com.suks.sittiporn.lslamic.main.favorite;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,20 +7,20 @@ import android.view.MenuItem;
 
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.main.checkinlist.ui.main.CheckInListFragment;
-import com.suks.sittiporn.lslamic.main.time.ui.main.TimeFragment;
+import com.suks.sittiporn.lslamic.main.favorite.ui.main.FavoriteFragment;
 import com.suks.sittiporn.lslamic.util.BaseActivity;
 
-public class TimeActivity  extends BaseActivity {
+public class FavoriteActivity  extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.time_activity);
+        setContentView(R.layout.favorite_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, TimeFragment.newInstance())
+                    .replace(R.id.container, FavoriteFragment.newInstance())
                     .commitNow();
         }
     }

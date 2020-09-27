@@ -52,6 +52,12 @@ public class RealmUtil {
         return member;
     }
 
+    public static String getMemberId(){
+        String id = "";
+        Realm realm = Realm.getDefaultInstance();
+        id = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? realm.where(LiginDataModelRealm.class).findFirst().getId() : "";
+        return id;
+    }
 
     public static int deleteRealm(Context context) {
 //        config(context);

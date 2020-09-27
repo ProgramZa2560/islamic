@@ -1,11 +1,13 @@
-package com.suks.sittiporn.lslamic.main.checkinlist.ui.main;
+package com.suks.sittiporn.lslamic.main.favorite.ui.main;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.adapter.FavoriteAdapter;
 import com.suks.sittiporn.lslamic.adapter.ListCheckInAdapter;
+import com.suks.sittiporn.lslamic.main.checkinlist.ui.main.CheckInListFragment;
+import com.suks.sittiporn.lslamic.main.checkinlist.ui.main.CheckInListViewModel;
 import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
@@ -33,11 +38,12 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class CheckInListFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
+
 
     private CheckInListViewModel mViewModel;
     private RecyclerView recyclerView;
-    private ListCheckInAdapter mAdapter;
+    private FavoriteAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SearchView search;
@@ -51,7 +57,7 @@ public class CheckInListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.check_in_list_fragment, container, false);
+        return inflater.inflate(R.layout.favorite_fragment, container, false);
     }
 
     @Override
@@ -99,7 +105,7 @@ public class CheckInListFragment extends Fragment {
 
         ApiService apiService = Retrofit2.getApiService();
 
-        Observable<LocationListModel> observable = apiService.getListLocation(id);
+        Observable<LocationListModel> observable = apiService.getListFavoriteUse(id);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .unsubscribeOn(Schedulers.io())
@@ -132,7 +138,7 @@ public class CheckInListFragment extends Fragment {
                         swipeRefreshLayout.setRefreshing(false);
                         mLayoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(mLayoutManager);
-                        mAdapter = new ListCheckInAdapter(getContext(), list);
+                        mAdapter = new FavoriteAdapter(getContext(), list);
                         recyclerView.setAdapter(mAdapter);
                         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                             @Override
@@ -183,5 +189,6 @@ public class CheckInListFragment extends Fragment {
 
         return model;
     }
+
 
 }

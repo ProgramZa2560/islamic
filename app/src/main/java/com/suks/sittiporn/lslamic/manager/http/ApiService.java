@@ -1,5 +1,6 @@
 package com.suks.sittiporn.lslamic.manager.http;
 
+import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
@@ -24,6 +25,10 @@ public interface ApiService {
     @GET("getListLocation.php")
     Observable<LocationListModel> getListLocation(@Query("id") String id);
 
+    @GET("getTime.php")
+    Observable<GetTimeModel> getTime(@Query("date") String date);
 
+    @GET("getListFavoriteUse.php")
+    Observable<LocationListModel> getListFavoriteUse(@Query("id") String id);
 
 }
