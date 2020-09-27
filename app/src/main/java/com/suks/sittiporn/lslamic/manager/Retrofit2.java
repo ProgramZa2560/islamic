@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Retrofit2 {
 
 //    public static String BASE_URL = "http://sittiporn-suks.com/api_rongphai/";
-    public static String BASE_URL = "https://sittiporn-suks.com/apiIslamic/";
+    public static String BASE_URL = "https://lslamicplace.com/apiIslamic/";
     private static Retrofit retrofit;
     private static Retrofit getRetrofitInstance(){
 

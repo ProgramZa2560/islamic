@@ -45,22 +45,31 @@ public class RealmUtil {
 
     }
 
-//    public static int deleteRealm() {
-//        Realm realm = Realm.getDefaultInstance();
+    public static boolean getMember(){
+        boolean member = false;
+        Realm realm = Realm.getDefaultInstance();
+        member = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? true : false;
+        return member;
+    }
+
+
+    public static int deleteRealm(Context context) {
+//        config(context);
 //        realm.beginTransaction();
-//
-//        if (realm.where(LiginDataModelRealm.class).findAll() == null) {
-//            return 0;
-//        } else if (realm.where(LiginDataModelRealm.class) == null) {
-//            return 0;
-//        }
 //        RealmResults<LiginDataModelRealm> Members = realm.where(LiginDataModelRealm.class).findAll();
 //        Members.deleteAllFromRealm();
 //        realm.commitTransaction();
-//
-//        return Members.size();
-//
-//    }
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
+
+        return 0;
+
+    }
 //
 //    public static String getMemberRealm() {
 //        ;

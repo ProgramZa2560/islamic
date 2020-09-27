@@ -4,14 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ApprovedListModel {
+public class LocationListModel {
 
     @SerializedName("success")
     private String success;
     @SerializedName("message")
     private String message;
     @SerializedName("data")
-    private List<ApprovedListDataReponseModel> approvedListDataReponseModels;
+    private List<LocationReponseModel> data;
 
     public String getSuccess() {
         return success;
@@ -29,12 +29,11 @@ public class ApprovedListModel {
         this.message = message;
     }
 
-
-    public List<ApprovedListDataReponseModel> getApprovedListDataReponseModels() {
-        return approvedListDataReponseModels;
+    public List<LocationReponseModel> getData() {
+        return data;
     }
 
-    public void setApprovedListDataReponseModels(List<ApprovedListDataReponseModel> approvedListDataReponseModels) {
-        this.approvedListDataReponseModels = approvedListDataReponseModels;
+    public void setData(List<LocationReponseModel> data) {
+        this.data = data;
     }
 }

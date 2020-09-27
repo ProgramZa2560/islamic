@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.suks.sittiporn.lslamic.home.HomeActivity;
 import com.suks.sittiporn.lslamic.login.LoginActivity;
+import com.suks.sittiporn.lslamic.realm.RealmUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,15 +17,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
+                boolean member = RealmUtil.getMember();
+                if (member){
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                }
 
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
+
 //                }
             }
         }, 4000);
