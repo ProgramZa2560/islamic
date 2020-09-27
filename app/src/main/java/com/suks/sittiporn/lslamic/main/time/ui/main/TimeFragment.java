@@ -1,5 +1,6 @@
 package com.suks.sittiporn.lslamic.main.time.ui.main;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,9 +12,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
@@ -22,10 +26,13 @@ import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.util.DateTimeAppUtils;
+import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -39,11 +46,16 @@ public class TimeFragment extends Fragment {
     String id;
     String currentDate;
     LinearLayout llviewlooad;
+    ImageView ic_date;
     Switch switch1;
     Switch switch2;
     Switch switch3;
     Switch switch4;
     Switch switch5;
+    DateTimeAppUtils dateTimeAppUtils;
+    TextView dateText;
+    Calendar myCalendar;
+    DatePickerDialog.OnDateSetListener datedate;
 
     public static TimeFragment newInstance() {
         return new TimeFragment();
@@ -75,6 +87,8 @@ public class TimeFragment extends Fragment {
         progressBar.setIndeterminateDrawable(doubleBounce);
 
         llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
+        ic_date = (ImageView) view.findViewById(R.id.ic_date);
+        dateText = (TextView) view.findViewById(R.id.date);
         switch1 = (Switch) view.findViewById(R.id.switch1);
         switch2 = (Switch) view.findViewById(R.id.switch2);
         switch3 = (Switch) view.findViewById(R.id.switch3);
@@ -93,12 +107,49 @@ public class TimeFragment extends Fragment {
 
     }
     private void initi(){
+        myCalendar = Calendar.getInstance();
         llviewlooad.setVisibility(View.GONE);
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-        currentDate = date.format(c.getTime());
+        SimpleDateFormat date2 = new SimpleDateFormat("yyyy-MM-dd");
+        currentDate = date2.format(c.getTime());
         getTime(currentDate);
+        dateText.setText(currentDate);
 
+
+        datedate = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        ic_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                String datestart = DateTimeUtils.toFormat(dateTimeAppUtils.getCalendar(), DateTimeUtils.yyyy_MM_dd);
+//                String datestart = dateTimeAppUtils.createDatePicketDialog();
+                new DatePickerDialog(getContext(), datedate, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
+
+            }
+        });
+    }
+
+    private void updateLabel() {
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        dateText.setText(sdf.format(myCalendar.getTime()));
+        getTime(dateText.getText().toString());
     }
 
 

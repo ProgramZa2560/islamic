@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.about.AboutActivity;
 import com.suks.sittiporn.lslamic.login.LoginActivity;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.BaseActivity;
@@ -67,15 +68,13 @@ public class HomeActivity extends BaseActivity {
             return true;
         }
 
-//        if (id == R.id.info) {
-//
-//            Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-//            intent.addCategory(Intent.CATEGORY_HOME);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(intent);
-//
-//            return true;
-//        }
+        if (id == R.id.info) {
+
+            Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
 //        if (id == R.id.setting) {
 //
 //            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
