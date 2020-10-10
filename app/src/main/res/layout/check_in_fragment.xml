@@ -5,19 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/bt_menu7"
-        android:layout_width="235dp"
-        android:layout_height="70dp"
-        android:contentDescription="@string/bt_m4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@drawable/component_21__2" />
-
     <TextView
         android:id="@+id/address12"
         android:layout_width="wrap_content"
@@ -62,7 +49,7 @@
         app:srcCompat="@drawable/save" />
 
     <ImageView
-        android:id="@+id/bt_can2"
+        android:id="@+id/bt_can"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:contentDescription="@string/ica"
@@ -80,7 +67,7 @@
         android:layout_height="52dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@android:string/untitled"
+        android:hint=""
         android:inputType="textShortMessage|textLongMessage|textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +75,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.169" />
+
+    <ImageView
+        android:id="@+id/imageViewMaps"
+        android:layout_width="80dp"
+        android:layout_height="70dp"
+        android:contentDescription="@string/camera"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25"
+        app:srcCompat="@drawable/ic_action_maps" />
+
+    <TextView
+        android:id="@+id/txt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ตำแหน่งที่ตั้ง"
+        android:textColor="#001273"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
 
 <!--    <EditText-->
 <!--        android:id="@+id/editTextAddress2"-->
@@ -106,12 +121,12 @@
 <!--        app:layout_constraintVertical_bias="0.301" />-->
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/editTextNumberRoom"
         android:layout_width="149dp"
         android:layout_height="45dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/number"
+        android:hint="0"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +170,7 @@
         android:layout_width="149dp"
         android:layout_height="47dp"
         android:ems="10"
-        android:hint="@string/number"
+        android:hint="0"
         android:importantForAutofill="no"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -222,7 +237,7 @@
 <!--        app:layout_constraintVertical_bias="0.37" />-->
 
     <ImageView
-        android:id="@+id/imageView16"
+        android:id="@+id/imageView1"
         android:layout_width="69dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -235,7 +250,7 @@
         android:contentDescription="TODO" />
 
     <ImageView
-        android:id="@+id/imageView19"
+        android:id="@+id/imageView2"
         android:layout_width="69dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -247,7 +262,7 @@
         app:srcCompat="@drawable/frame" />
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/imageView3"
         android:layout_width="69dp"
         android:layout_height="69dp"
         app:layout_constraintBottom_toBottomOf="parent"

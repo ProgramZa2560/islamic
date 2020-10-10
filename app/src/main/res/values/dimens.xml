@@ -30,4 +30,12 @@
     <dimen name="recycler_view_clip_padding">56dp</dimen>
     <dimen name="tab_height">40dp</dimen>
     <dimen name="fragment_bottom">58dp</dimen>
+
+    <dimen name="image_show_size">300dp</dimen>
+    <dimen name="dp_list_news">100dp</dimen>
+    <dimen name="dm_card_news">160dp</dimen>
+    <dimen name="size_close_news">36dp</dimen>
+
+    <dimen name="margin8dp">8dp</dimen>
+    <dimen name="image_profile">80dp</dimen>
 </resources>

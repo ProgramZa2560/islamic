@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.main.checkinlist.detail.DetailCheckInActivity;
 import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
 
 import java.util.ArrayList;
@@ -77,8 +78,11 @@ public class ListCheckInAdapter extends RecyclerView.Adapter implements Filterab
 
         public void bindView(final int position) {
 //
-            tv_time.setText(mDataset.get(position).getTimeStart() +"-"+ mDataset.get(position).getTimeStart());
-            tv_room.setText(mDataset.get(position).getNumberfull());
+            tv_time.setText(mDataset.get(position).getTimeStart().split(":")[0] +":"+
+                    mDataset.get(position).getTimeStart().split(":")[1] +"-"+
+                    mDataset.get(position).getTimeEnd().split(":")[0] +":"+
+                    mDataset.get(position).getTimeEnd().split(":")[1] +" น.");
+            tv_room.setText(mDataset.get(position).getRoomnumber());
             tv_person.setText(mDataset.get(position).getNumberfull());
             tv_head_name.setText(mDataset.get(position).getName());
             String url = BASE_URL + mDataset.get(position).getImage_url();
@@ -103,11 +107,17 @@ public class ListCheckInAdapter extends RecyclerView.Adapter implements Filterab
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(context, DetailApprovedActivity.class);
-//                    intent.putExtra("examination_id", mDataset.get(position).getExamination_status_id());
-//                    intent.putExtra("examination_url", mDataset.get(position).getExamination_status_slip());
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    v.getContext().startActivity(intent);
+                    Intent intent = new Intent(context, DetailCheckInActivity.class);
+                    intent.putExtra("locationId", mDataset.get(position).getId());
+                    intent.putExtra("time", tv_time.getText().toString());
+                    intent.putExtra("room", mDataset.get(position).getRoomnumber());
+                    intent.putExtra("person", mDataset.get(position).getNumberfull());
+                    intent.putExtra("name", mDataset.get(position).getName());
+                    intent.putExtra("lat", mDataset.get(position).getLatitude());
+                    intent.putExtra("lng", mDataset.get(position).getLongitude());
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    v.getContext().startActivity(intent);
 
                 }
             });

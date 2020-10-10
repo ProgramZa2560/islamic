@@ -1,8 +1,12 @@
 package com.suks.sittiporn.lslamic.manager.http;
 
+import com.suks.sittiporn.lslamic.model.reponse.AddCommentModel;
+import com.suks.sittiporn.lslamic.model.reponse.CommentListModel;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
+import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
+import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 
 import io.reactivex.Observable;
@@ -30,5 +34,16 @@ public interface ApiService {
 
     @GET("getListFavoriteUse.php")
     Observable<LocationListModel> getListFavoriteUse(@Query("id") String id);
+
+    @GET("getComment.php")
+    Observable<CommentListModel> getListComment(@Query("location_id") String location_id);
+
+    @POST("addComment.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<AddCommentModel> addComent(@Body CommentRequestModel requestModel);
+
+    @GET("getImgLocation.php")
+    Observable<ImgListModel> getListImgLocation(@Query("id") String id);
+
 
 }

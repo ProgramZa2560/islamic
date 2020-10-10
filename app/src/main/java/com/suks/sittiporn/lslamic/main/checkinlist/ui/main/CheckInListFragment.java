@@ -87,11 +87,11 @@ public class CheckInListFragment extends Fragment {
     private void initinstanceState() {
 
         id = RealmUtil.getMemberId();
-        getList(id);
+        getList("");
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getList(id);
+                getList("");
             }
         });
     }
@@ -174,6 +174,7 @@ public class CheckInListFragment extends Fragment {
             model.setLatitude(reponseModel.getLatitude());
             model.setLongitude(reponseModel.getLongitude());
             model.setNumberfull(reponseModel.getNumberfull());
+            model.setRoomnumber(reponseModel.getRoomnumber());
             model.setStatus(reponseModel.getStatus());
             model.setTimeEnd(reponseModel.getTimeEnd());
             model.setTimeStart(reponseModel.getTimeStart());

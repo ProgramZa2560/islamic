@@ -9,6 +9,7 @@ public class LocationReponseModel {
     private String county;
     private String zone;
     private String numberfull;
+    private String roomnumber;
     private String status;
     private String datetime;
     private String date;
@@ -118,5 +119,13 @@ public class LocationReponseModel {
 
     public void setImage_url(String image_url) {
         this.image_url = image_url;
+    }
+
+    public String getRoomnumber() {
+        return roomnumber;
+    }
+
+    public void setRoomnumber(String roomnumber) {
+        this.roomnumber = roomnumber;
     }
 }
