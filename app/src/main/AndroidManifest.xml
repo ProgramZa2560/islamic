@@ -42,6 +42,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider> <!-- Service -->
+
         <activity android:name=".main.maps.MapsIslamicActivity" />
         <activity
             android:name=".main.favorite.FavoriteActivity"
@@ -57,7 +67,8 @@
         <activity
             android:name=".main.checkinlist.CheckInListActivity"
             android:label="CheckInList" />
-        <activity android:name=".main.checkin.CheckInActivity" />
+        <activity android:name=".main.checkin.CheckInActivity"
+            android:label="เพิ่ม"/>
         <activity
             android:name=".main.time.TimeActivity"
             android:label="Time" />
