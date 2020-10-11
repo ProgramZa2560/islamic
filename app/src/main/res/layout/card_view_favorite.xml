@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:src="@drawable/background"
+                android:src="@drawable/camera200"
                 android:text="คำขออนุมัติ"
                 android:textColor="@color/white" />
 

@@ -6,7 +6,10 @@ import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
+import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
+import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
+import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 
 import io.reactivex.Observable;
@@ -44,6 +47,14 @@ public interface ApiService {
 
     @GET("getImgLocation.php")
     Observable<ImgListModel> getListImgLocation(@Query("id") String id);
+
+    @POST("addImage.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessModel> addImg(@Body ImgRequestModel requestModel);
+
+    @POST("addLocation.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<LocationListModel> addLocation(@Body LocationRequestModel requestModel);
 
 
 }

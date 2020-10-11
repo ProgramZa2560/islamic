@@ -1,19 +1,26 @@
 package com.suks.sittiporn.lslamic.main.checkin.ui.main;
 
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
@@ -28,13 +35,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.suks.sittiporn.lslamic.BuildConfig;
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.home.HomeActivity;
+import com.suks.sittiporn.lslamic.manager.Retrofit2;
+import com.suks.sittiporn.lslamic.manager.http.ApiService;
+import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
+import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
+import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
+import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 import com.suks.sittiporn.lslamic.util.GalleryDispatcher;
 
 import java.io.ByteArrayOutputStream;
@@ -45,11 +61,18 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.LOCATION_SERVICE;
 import static com.suks.sittiporn.lslamic.util.GalleryDispatcher.REQUEST_CODE_CAMERA;
 import static com.suks.sittiporn.lslamic.util.GalleryDispatcher.REQUEST_CODE_GALLERY;
 
@@ -63,11 +86,18 @@ public class CheckInFragment extends Fragment {
     ImageView imageView1;
     ImageView imageView2;
     ImageView imageView3;
+    Button bt_save;
+    Button bt_can;
     EditText editTextNumberRoom;
     EditText editTextNumber;
     private Uri photoUri;
-    String encodedImage = "";
+    String encodedImage1 = "";
+    String encodedImage2 = "";
+    String encodedImage3 = "";
     int btnNumber = 0;
+
+    String time;
+    String date;
 
     private static final int PICK_IMAGE = 10;
     private static final int SELECT_FILE = 2;
@@ -77,6 +107,14 @@ public class CheckInFragment extends Fragment {
 
     private Uri filePath;
     Bitmap bitmap;
+
+    String n;
+
+    private static final int REQUEST_LOCATION = 1;
+    Button btnGetLocation;
+    TextView showLocation;
+    private LocationManager locationManager;
+    String latitude, longitude;
 
     private static final OkHttpClient client = new OkHttpClient();
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
@@ -115,20 +153,118 @@ public class CheckInFragment extends Fragment {
 
     }
 
+    private void getLocation() {
+        locationManager = (LocationManager) getContext()
+                .getSystemService(LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (locationGPS != null) {
+                double lat = locationGPS.getLatitude();
+                double longi = locationGPS.getLongitude();
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+//                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+            } else {
+                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        txt_location.setText(latitude +", "+ longitude);
+    }
+
     private void init(View view, Bundle savedInstanceState) {
 
         id = RealmUtil.getMemberId();
-
         editTextNameplace = (EditText) view.findViewById(R.id.editTextNameplace);
         txt_location = (TextView) view.findViewById(R.id.txt_location);
         imageViewMaps = (ImageView) view.findViewById(R.id.imageViewMaps);
         imageView1 = (ImageView) view.findViewById(R.id.imageView1);
         imageView2 = (ImageView) view.findViewById(R.id.imageView2);
         imageView3 = (ImageView) view.findViewById(R.id.imageView3);
+        bt_save = (Button) view.findViewById(R.id.bt_save);
+        bt_can = (Button) view.findViewById(R.id.bt_can);
         editTextNumberRoom = (EditText) view.findViewById(R.id.editTextNumberRoom);
         editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
 
+        getLocation();
 
+        bt_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               if (editTextNameplace.getText().toString().equals("")){
+
+                   final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                   adbConfirmExit.create();
+                   adbConfirmExit.setTitle("ผิดพลาด");
+                   adbConfirmExit.setMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+                   adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface arg0, int arg1) {
+
+                       }
+                   });
+                   adbConfirmExit.create().show();
+
+               }else {
+                   final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                   adbConfirmExit.create();
+                   adbConfirmExit.setTitle("เพิ่มสถานที่");
+                   adbConfirmExit.setMessage("คุณต้องการเพิ่มเพิ่มสถานที่ใช่หรือไม่?");
+                   adbConfirmExit.setPositiveButton("บันทึก", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface arg0, int arg1) {
+
+                           addLocation(editTextNumberRoom.getText().toString(),
+                                   editTextNumber.getText().toString(),
+                                   editTextNameplace.getText().toString());
+
+                       }
+                   });
+                   adbConfirmExit.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface arg0, int arg1) {
+
+                       }
+                   });
+
+                   adbConfirmExit.create().show();
+
+               }
+
+
+
+
+
+            }
+        });
+
+        bt_can.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                adbConfirmExit.create();
+                adbConfirmExit.setTitle("กลับเมนูหลัก");
+                adbConfirmExit.setMessage("");
+                adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                        getActivity().onBackPressed();
+
+                    }
+                });
+                adbConfirmExit.create().show();
+
+
+
+            }
+        });
 
         imageViewMaps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,8 +294,6 @@ public class CheckInFragment extends Fragment {
             }
         });
 
-
-
     }
 
     public String encodeImage(Bitmap bm) {
@@ -180,16 +314,8 @@ public class CheckInFragment extends Fragment {
             e.printStackTrace();
         }
         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//        selectedImage = Bitmap.createScaledBitmap(selectedImage, 120, 120, false);
-//        String encodedImage = encodeImage(selectedImage);
-//        encodedImage = galleryDispatcher.encodeImage(Bitmap.createScaledBitmap(selectedImage, 120, 120, false));
-        encodedImage = encodeImage(selectedImage);
-
-        //        String encodedImage = encodeImage(selectedImage););
-//        path = convertMediaUriToPath(photoUri);
-//         path = photoUri.getPath();
-
         if (this.btnNumber == 1){
+            encodedImage1 = encodeImage(selectedImage);
             Glide.with(imageView1.getContext())
                     .load(uri)
                     .apply(new RequestOptions().fitCenter()
@@ -197,6 +323,7 @@ public class CheckInFragment extends Fragment {
                             .skipMemoryCache(true))
                     .into(imageView1);
         }else if (this.btnNumber == 2){
+            encodedImage2 = encodeImage(selectedImage);
             Glide.with(imageView2.getContext())
                     .load(uri)
                     .apply(new RequestOptions().fitCenter()
@@ -204,6 +331,7 @@ public class CheckInFragment extends Fragment {
                             .skipMemoryCache(true))
                     .into(imageView2);
         }else {
+            encodedImage3 = encodeImage(selectedImage);
             Glide.with(imageView3.getContext())
                     .load(uri)
                     .apply(new RequestOptions().fitCenter()
@@ -258,7 +386,6 @@ public class CheckInFragment extends Fragment {
                                 } catch (IOException ex) {
                                     ex.printStackTrace();
                                 }
-                                // Continue only if the File was successfully created
                                 if (photoFile != null) {
                                     //  photoUri = Uri.fromFile(photoFile);
                                     photoUri = FileProvider.getUriForFile(getContext(), BuildConfig.APPLICATION_ID + ".provider", photoFile);
@@ -266,7 +393,6 @@ public class CheckInFragment extends Fragment {
                                     startActivityForResult(takePictureIntent, REQUEST_CODE_CAMERA);
                                 }
                             }
-//                            galleryDispatcher.dispatchTakePictureIntent(CheckInFragment.this, REQUEST_CODE_CAMERA);
                         }else {
                             captureCAPTURE();
                         }
@@ -275,8 +401,6 @@ public class CheckInFragment extends Fragment {
                         if (Build.VERSION.SDK_INT > 23) {
 
                             Intent selectFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
-
-                            //if (selectFileIntent.resolveActivity(fragment.getActivity().getPackageManager()) != null) {
                             try {
                                 selectFileIntent.setType("image/*");
                                 selectFileIntent.putExtra("CONTENT_TYPE", "image/*");
@@ -288,26 +412,27 @@ public class CheckInFragment extends Fragment {
                             } catch (Exception ex) {
                                 ex.printStackTrace();
                             }
-
-//                            galleryDispatcher.dispatchGalleryIntent(CheckInFragment.this, GalleryDispatcher.REQUEST_CODE_GALLERY);
                         }else {
                             captureImage();
                         }
                         return true;
                     case R.id.action_remove:
                         photoUri = null;
-                        encodedImage = "";
+
 
                         if (btnNumber == 1){
+                            encodedImage1 = "";
                             Glide.with(imageView1.getContext())
                                     .load(R.drawable.camera200)
                                     .into(imageView1);
 
                         }else if (btnNumber == 2){
+                            encodedImage2 = "";
                             Glide.with(imageView2.getContext())
                                     .load(R.drawable.camera200)
                                     .into(imageView2);
                         }else {
+                            encodedImage3 = "";
                             Glide.with(imageView3.getContext())
                                     .load(R.drawable.camera200)
                                     .into(imageView3);
@@ -317,56 +442,9 @@ public class CheckInFragment extends Fragment {
                         break;
                 }
                 return false;
-//                    case R.id.action_camera:
-//                        galleryDispatcher.dispatchTakePictureIntent(PaymentFragment.this, REQUEST_CAMERA);
-//                        return true;
-//                    case R.id.action_gallery:
-////                        Intent selectFileIntent = new Intent(
-////                                Intent.ACTION_PICK,
-////                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-////                        selectFileIntent.setType("image/*");
-////                        startActivityForResult(
-////                                Intent.createChooser(selectFileIntent, "Select File"),
-////                                SELECT_FILE);
-////                        return true;
-//                        galleryDispatcher.dispatchGalleryIntent(PaymentFragment.this, GalleryDispatcher.REQUEST_CODE_GALLERY);
-//                        return true;
-//                    case R.id.action_remove:
-//                        photoUri = null;
-//                        Glide.with(imgSlip.getContext())
-//                                .load(R.drawable.camera200)
-////                                .apply(new RequestOptions().fitCenter()
-////                                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-////                                        .skipMemoryCache(true))
-//                                .into(imgSlip);
-//                        break;
-//                }
-//                return false;
             }
         });
         popup.show();
-
-//        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(getContext());
-//        pictureDialog.setTitle(R.string.select_action);
-//        String[] pictureDialogItems = {
-//                getString(R.string.select_photo_from_gallery),
-//                getString(R.string.capture_photo_from_camera)};
-//        pictureDialog.setItems(pictureDialogItems,
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        switch (which) {
-//                            case 0:
-//                                captureImage();
-//
-//                                break;
-//                            case 1:
-//                                captureCAPTURE();
-//                                break;
-//                        }
-//                    }
-//                });
-//        pictureDialog.show();
     }
 
     private void captureImage() {
@@ -423,13 +501,16 @@ public class CheckInFragment extends Fragment {
 //                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), uri);
                         Bitmap resizedBitmap = Bitmap.createScaledBitmap(
                                 bitmap, 200, 150, false);
-                        encodedImage = encodeImage(resizedBitmap);
+
 
                        if (this.btnNumber == 1){
+                           encodedImage1 = encodeImage(resizedBitmap);
                            imageView1.setImageBitmap(resizedBitmap);
                        }else if (this.btnNumber == 2){
+                           encodedImage2 = encodeImage(resizedBitmap);
                            imageView2.setImageBitmap(resizedBitmap);
                        }else {
+                           encodedImage3 = encodeImage(resizedBitmap);
                            imageView3.setImageBitmap(resizedBitmap);
                        }
 
@@ -450,14 +531,18 @@ public class CheckInFragment extends Fragment {
                         bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
                         Bitmap resizedBitmap = Bitmap.createScaledBitmap(
                                 bitmap, 200, 150, false);
-                        encodedImage = encodeImage(resizedBitmap);
+
 //                        cardView.setVisibility(View.VISIBLE);
                         if (this.btnNumber == 1){
+                            encodedImage1 = encodeImage(resizedBitmap);
                             imageView1.setImageBitmap(resizedBitmap);
                         }else if (this.btnNumber == 2){
+                            encodedImage2 = encodeImage(resizedBitmap);
                             imageView2.setImageBitmap(resizedBitmap);
                         }else {
+                            encodedImage3 = encodeImage(resizedBitmap);
                             imageView3.setImageBitmap(resizedBitmap);
+
                         }
 
                         photoUri = filePath;
@@ -472,6 +557,151 @@ public class CheckInFragment extends Fragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private void addLocation(final String editTextNumberRoom, final String editTextNumber,
+                             final String name) {
+
+        time = DateTimeUtils.getDate("HH:mm:ss");
+        date = DateTimeUtils.getDate("yyyy-MM-dd");
+        LocationRequestModel requestModel = new LocationRequestModel();
+        requestModel.setLatitude(latitude);
+        requestModel.setLongitude(longitude);
+        requestModel.setName_l(name);
+        requestModel.setNumberFull(editTextNumber);
+        requestModel.setStatus("0");
+        requestModel.setRoomNumber(editTextNumberRoom);
+        requestModel.setTimeStart(time);
+        requestModel.setTimeEnd(time);
+        requestModel.setUser_id(id);
+        requestModel.setDatetime(date+ " " + time);
+
+        ApiService apiService = Retrofit2.getApiService();
+        Observable<LocationListModel> observable = apiService.addLocation(requestModel);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<LocationListModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(LocationListModel response) {
+                        if (response.getSuccess().equals("true")) {
+                            if (encodedImage1 !=  ""){
+                                addImgLocation(response.getData().get(0).getId(), 1);
+                            }
+                            if (encodedImage2 !=  ""){
+                                addImgLocation(response.getData().get(0).getId(), 2);
+                            }
+
+                            if (encodedImage3 !=  ""){
+                                addImgLocation(response.getData().get(0).getId(), 3);
+                            }
+
+                        } else {
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+
+    private void addImgLocation(final String locationId, int btnNumber) {
+        Random rand = new Random();
+        for (int i = 0; i < 6; i++) {
+            if (i == 0) {
+                n = String.valueOf(rand.nextInt(9) + 0);
+            } else {
+                n = n + String.valueOf(rand.nextInt(9) + 0);
+            }
+        }
+
+        ImgRequestModel requestModel = new ImgRequestModel();
+        requestModel.setLocation_id(locationId);
+        if (btnNumber == 1){
+            requestModel.setUrl(encodedImage1.trim());
+        }else if (btnNumber == 2){
+            requestModel.setUrl(encodedImage2.trim());
+        }else {
+            requestModel.setUrl(encodedImage3.trim());
+        }
+        requestModel.setNameUrl(id + "_" + locationId + "_" + date + "_" + n + ".png");
+
+
+        ApiService apiService = Retrofit2.getApiService();
+        Observable<SuccessModel> observable = apiService.addImg(requestModel);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<SuccessModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(SuccessModel response) {
+                        if (response.getResult().equals("true")) {
+
+                            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                            adbConfirmExit.create();
+                            adbConfirmExit.setTitle("กลับเมนูหลัก");
+                            adbConfirmExit.setMessage(response.getMesage());
+                            adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+
+                                    Intent intent = new Intent(getContext(), HomeActivity.class);
+//                                    intent.putExtra("vv", "vv");
+                                    intent.addCategory(Intent.CATEGORY_HOME);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+//                                    getActivity().finish();
+
+                                }
+                            });
+                            adbConfirmExit.create().show();
+                        } else {
+//                            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+//                            adbConfirmExit.create();
+//                            adbConfirmExit.setTitle("เกิดความผิดพลาด");
+//                            adbConfirmExit.setMessage(response.getMesage());
+//                            adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface arg0, int arg1) {
+//
+//                                }
+//                            });
+//                            adbConfirmExit.create().show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(getContext(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
 
 }

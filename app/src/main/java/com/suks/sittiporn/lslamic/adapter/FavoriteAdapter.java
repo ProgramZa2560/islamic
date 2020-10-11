@@ -79,20 +79,26 @@ public class FavoriteAdapter extends RecyclerView.Adapter implements Filterable 
             tv_room.setText(mDataset.get(position).getNumberfull());
             tv_person.setText(mDataset.get(position).getNumberfull());
             tv_head_name.setText(mDataset.get(position).getName());
-            String url = BASE_URL + mDataset.get(position).getImage_url();
-//            Glide.with(context)
-//                    .load(url)
-//                    .fitCenter()
-//                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
-//                    .placeholder(R.mipmap.ic_launcher)
-//                    .into(img_room);
+
+            String path = "";
+            String url = "";
+            try {
+                path = mDataset.get(position).getImage_url().split("/")[0];
+            }catch (Throwable e){
+            }
+
+            if (path.equals("img")){
+                url = BASE_URL + mDataset.get(position).getImage_url();
+            }else {
+                url = "https://lslamicplace.com/locationmuslim/" + mDataset.get(position).getImage_url();
+            }
 
             Glide.with(context)
                     .load(url)
                     .apply(new RequestOptions()
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.bg_home)
-                            .error(R.drawable.bg_home)
+                            .placeholder(R.drawable.camera200)
+                            .error(R.drawable.camera200)
                             .fitCenter())
 //                .placeholder(R.drawable.ic_photo)
 //                .fitCenter()

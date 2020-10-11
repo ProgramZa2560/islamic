@@ -45,14 +45,27 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 //        App app = mApps.get(position);
-        String url = "https://lslamicplace.com/locationmuslim/" + mApps.get(position).getImage_url();
+        String path = "";
+        String url = "";
+        try {
+            path = mApps.get(position).getImage_url().split("/")[0];
+        }catch (Throwable e){
+
+        }
+
+        if (path.equals("img")){
+             url = BASE_URL + mApps.get(position).getImage_url();
+        }else {
+             url = "https://lslamicplace.com/locationmuslim/" + mApps.get(position).getImage_url();
+        }
+
 
         Glide.with(context)
                 .load(url)
                 .apply(new RequestOptions()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.bg_home)
-                        .error(R.drawable.bg_home)
+                        .placeholder(R.drawable.frame)
+                        .error(R.drawable.frame)
                         .fitCenter())
                 .into(holder.imageView);
         holder.card_view.setOnClickListener(new View.OnClickListener() {
