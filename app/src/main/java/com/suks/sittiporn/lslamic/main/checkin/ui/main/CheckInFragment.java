@@ -34,12 +34,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.suks.sittiporn.lslamic.BuildConfig;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.home.HomeActivity;
@@ -98,6 +102,8 @@ public class CheckInFragment extends Fragment {
 
     String time;
     String date;
+
+    LinearLayout llviewlooad;
 
     private static final int PICK_IMAGE = 10;
     private static final int SELECT_FILE = 2;
@@ -178,7 +184,12 @@ public class CheckInFragment extends Fragment {
 
     private void init(View view, Bundle savedInstanceState) {
 
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.spin_kit);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+
         id = RealmUtil.getMemberId();
+        llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
         editTextNameplace = (EditText) view.findViewById(R.id.editTextNameplace);
         txt_location = (TextView) view.findViewById(R.id.txt_location);
         imageViewMaps = (ImageView) view.findViewById(R.id.imageViewMaps);
@@ -189,6 +200,8 @@ public class CheckInFragment extends Fragment {
         bt_can = (Button) view.findViewById(R.id.bt_can);
         editTextNumberRoom = (EditText) view.findViewById(R.id.editTextNumberRoom);
         editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
+
+        llviewlooad.setVisibility(View.GONE);
 
         getLocation();
 
@@ -219,6 +232,7 @@ public class CheckInFragment extends Fragment {
                        @Override
                        public void onClick(DialogInterface arg0, int arg1) {
 
+                           llviewlooad.setVisibility(View.VISIBLE);
                            addLocation(editTextNumberRoom.getText().toString(),
                                    editTextNumber.getText().toString(),
                                    editTextNameplace.getText().toString());
@@ -654,6 +668,7 @@ public class CheckInFragment extends Fragment {
 
                     @Override
                     public void onNext(SuccessModel response) {
+                        llviewlooad.setVisibility(View.GONE);
                         if (response.getResult().equals("true")) {
 
                             final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
@@ -692,6 +707,7 @@ public class CheckInFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        llviewlooad.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
                     }
 

@@ -94,7 +94,6 @@ public class TimeFragment extends Fragment {
         switch3 = (Switch) view.findViewById(R.id.switch3);
         switch4 = (Switch) view.findViewById(R.id.switch4);
         switch5 = (Switch) view.findViewById(R.id.switch5);
-        llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
         llviewlooad.setVisibility(View.GONE);
         initi();
 

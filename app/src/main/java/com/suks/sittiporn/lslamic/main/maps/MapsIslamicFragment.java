@@ -2,9 +2,14 @@ package com.suks.sittiporn.lslamic.main.maps;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +28,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.main.time.ui.main.TimeFragment;
 
+import static android.content.Context.LOCATION_SERVICE;
+
 public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
 
     private GoogleMap mMap;
@@ -33,6 +40,12 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
     private TextView infoSnippet;
     private Button infoButton;
     private OnInfoWindowElemTouchListener infoButtonListener;
+
+    private static final int REQUEST_LOCATION = 1;
+    Button btnGetLocation;
+    TextView showLocation;
+    private LocationManager locationManager;
+    String latitude, longitude;
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -136,11 +149,14 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
 
 
 
+
     }
 
     private void init(View view, Bundle savedInstanceState) {
 
         mapWrapperLayout = (MapWrapperLayout)view.findViewById(R.id.map_relative_layout);
+
+        getLocation();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
 //        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
@@ -154,6 +170,29 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
 
     private void initinstanceState() {
 
+    }
+
+    private void getLocation() {
+        locationManager = (LocationManager) getContext()
+                .getSystemService(LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (locationGPS != null) {
+                double lat = locationGPS.getLatitude();
+                double longi = locationGPS.getLongitude();
+                latitude = String.valueOf(lat);
+                longitude = String.valueOf(longi);
+//                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+            } else {
+                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
+            }
+        }
+//        txt_location.setText(latitude +", "+ longitude);
     }
 
 
