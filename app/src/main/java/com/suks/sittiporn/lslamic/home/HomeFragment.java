@@ -22,6 +22,7 @@ import com.suks.sittiporn.lslamic.main.MapsActivity;
 import com.suks.sittiporn.lslamic.main.checkin.CheckInActivity;
 import com.suks.sittiporn.lslamic.main.checkinlist.CheckInListActivity;
 import com.suks.sittiporn.lslamic.main.favorite.FavoriteActivity;
+import com.suks.sittiporn.lslamic.main.maps.CustomInfoWindowMapsActivity;
 import com.suks.sittiporn.lslamic.main.maps.MapsIslamicActivity;
 import com.suks.sittiporn.lslamic.main.place.PlaceActivity;
 import com.suks.sittiporn.lslamic.main.time.TimeActivity;
@@ -95,7 +96,7 @@ public class HomeFragment extends Fragment implements
         bt_menu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MapsActivity.class);
+                Intent intent = new Intent(getContext(), CustomInfoWindowMapsActivity.class);
                 startActivity(intent);
 
             }

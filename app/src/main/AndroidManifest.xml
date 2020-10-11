@@ -62,6 +62,10 @@
             android:name=".about.AboutActivity"
             android:label="Info" />
         <activity android:name=".help.HelpActivity" />
+        <activity android:name=".main.maps.CustomInfoWindowMapsActivity"
+            android:label="maps"/>
+
+
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".main.place.PlaceActivity" />
         <activity
