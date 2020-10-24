@@ -17,10 +17,12 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
-    <permission android:name="myPackageName.permission.MAPS_RECEIVE" android:protectionLevel="signature" />
+    <permission
+        android:name="myPackageName.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="myPackageName.permission.MAPS_RECEIVE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
 
     <application
         android:name=".MyApplication"
@@ -34,7 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".register.RegisterActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -56,28 +58,28 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider> <!-- Service -->
-
         <activity android:name=".main.maps.MapsIslamicActivity" />
         <activity
             android:name=".main.favorite.FavoriteActivity"
             android:label="Favorite" />
-        <activity android:name=".main.checkinlist.detail.DetailCheckInActivity"
-            android:label="รายละเอียด"/>
+        <activity
+            android:name=".main.checkinlist.detail.DetailCheckInActivity"
+            android:label="รายละเอียด" />
         <activity
             android:name=".about.AboutActivity"
             android:label="Info" />
         <activity android:name=".help.HelpActivity" />
-        <activity android:name=".main.maps.CustomInfoWindowMapsActivity"
-            android:label="maps"/>
-
-
+        <activity
+            android:name=".main.maps.CustomInfoWindowMapsActivity"
+            android:label="maps" />
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".main.place.PlaceActivity" />
         <activity
             android:name=".main.checkinlist.CheckInListActivity"
             android:label="CheckInList" />
-        <activity android:name=".main.checkin.CheckInActivity"
-            android:label="เพิ่ม"/>
+        <activity
+            android:name=".main.checkin.CheckInActivity"
+            android:label="เพิ่ม" />
         <activity
             android:name=".main.time.TimeActivity"
             android:label="Time" />

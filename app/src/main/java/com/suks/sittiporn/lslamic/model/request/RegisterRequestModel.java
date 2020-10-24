@@ -2,31 +2,40 @@ package com.suks.sittiporn.lslamic.model.request;
 
 public class RegisterRequestModel {
 
-    private String user_user;
-    private String user_password;
-    private String user_status;
+    private String email;
+    private String pass;
+    private String fristname;
+    private String lastname;
 
-    public String getUser_user() {
-        return user_user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser_user(String user_user) {
-        this.user_user = user_user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUser_password() {
-        return user_password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setUser_password(String user_password) {
-        this.user_password = user_password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
-    public String getUser_status() {
-        return user_status;
+    public String getFristname() {
+        return fristname;
     }
 
-    public void setUser_status(String user_status) {
-        this.user_status = user_status;
+    public void setFristname(String fristname) {
+        this.fristname = fristname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 }

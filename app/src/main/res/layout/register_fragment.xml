@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/text_size_16">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_size_16"
+        android:background="@drawable/bg_overry_bg_oran"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/text_size_16"
+            android:paddingRight="@dimen/text_size_16"
+            android:paddingBottom="@dimen/text_size_16">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="อีเมล :"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etuser_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#dad2d2"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="false">
+
+                    <EditText
+                        android:id="@+id/user_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/normal_edittext"
+                        android:inputType="textEmailAddress"
+                        android:hint="กรอกอีเมล"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ชื่อ :"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/firstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#dad2d2"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="false">
+
+                    <EditText
+                        android:id="@+id/firstNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/normal_edittext"
+                        android:inputType="text"
+                        android:hint="ชื่อ"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="นามสกุล :"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="#dad2d2"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="false">
+
+                    <EditText
+                        android:id="@+id/lastNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@drawable/normal_edittext"
+                        android:inputType="text"
+                        android:hint="นามสกุล"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="รหัสผ่าน :"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etpasswordeditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorPrimary"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/password_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/normal_edittext"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2"
+                        android:layout_weight="1"
+                        android:inputType="textPassword"
+                        android:maxLength="15"
+                        android:hint="กรอกรหัสผ่าน 4-15 ตัว"
+                        android:minEms="4"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ยืนยันรหัสผ่าน :"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorPrimary"
+                    app:hintEnabled="false"
+                    app:passwordToggleEnabled="true">
+
+                    <EditText
+                        android:id="@+id/re_password_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/normal_edittext"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2"
+                        android:layout_weight="1"
+                        android:inputType="textPassword"
+                        android:hint="กรอกยืนยันรหัสผ่าน 4-15 ตัว"
+                        android:maxLength="15"
+                        android:minEms="4"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_size_16"
+        android:layout_marginTop="@dimen/text_size_16"
+        android:background="@drawable/btn_register"
+        android:text="สมัครสมาชิก"
+        android:textColor="#ffff"
+        android:textSize="24sp" />
+</LinearLayout>

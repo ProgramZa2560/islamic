@@ -7,10 +7,12 @@ import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
+import com.suks.sittiporn.lslamic.model.reponse.SuccessRegisterModel;
 import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
 import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
+import com.suks.sittiporn.lslamic.model.request.RegisterRequestModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -28,6 +30,9 @@ public interface ApiService {
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<MemberModel> login(@Body MemberRequestModel requestModel);
 
+    @POST("register.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessRegisterModel> register(@Body RegisterRequestModel requestModel);
 
     @GET("getListLocation.php")
     Observable<LocationListModel> getListLocation(@Query("id") String id);

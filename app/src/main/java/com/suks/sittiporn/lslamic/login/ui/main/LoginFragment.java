@@ -31,6 +31,7 @@ import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.register.RegisterActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -191,15 +192,15 @@ public class LoginFragment extends Fragment {
                                     });
                         }
                     } else {
-//                        Intent intent = new Intent(getContext(), RegisterActivity.class);
-//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        startActivity(intent);
+                        Intent intent = new Intent(getContext(), RegisterActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
                     }
 
                 } else {
-//                    Intent intent = new Intent(getContext(), RegisterActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
+                    Intent intent = new Intent(getContext(), RegisterActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
 
 

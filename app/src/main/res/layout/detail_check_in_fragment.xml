@@ -116,9 +116,9 @@
 
                         <ImageView
                             android:id="@+id/imgLocation"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:src="@drawable/ic_action_maps"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_action_maps" />
                     </LinearLayout>
 
 
