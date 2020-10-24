@@ -171,4 +171,5 @@
     <string name="title_activity_menu">MenuActivity</string>
 
     <string name="select_image" tools:ignore="MissingTranslation">select_image</string>
+    <string name="unknown_location">unknown location</string>
 </resources>

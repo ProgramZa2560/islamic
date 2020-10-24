@@ -1,6 +1,10 @@
 package com.suks.sittiporn.lslamic.model.reponse;
 
-public class LocationReponseModel {
+import org.parceler.Parcel;
+
+import java.io.Serializable;
+
+public class LocationReponseModel implements Serializable {
 
     private String id;
     private String name;

@@ -19,7 +19,7 @@ public class MapsIslamicActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, MapsIslamicFragment.newInstance())
+                    .replace(R.id.container, MapsIslamicFragment.newInstance(null))
                     .commitNow();
         }
     }

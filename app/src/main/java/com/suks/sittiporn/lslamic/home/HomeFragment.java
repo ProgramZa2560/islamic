@@ -26,6 +26,18 @@ import com.suks.sittiporn.lslamic.main.maps.CustomInfoWindowMapsActivity;
 import com.suks.sittiporn.lslamic.main.maps.MapsIslamicActivity;
 import com.suks.sittiporn.lslamic.main.place.PlaceActivity;
 import com.suks.sittiporn.lslamic.main.time.TimeActivity;
+import com.suks.sittiporn.lslamic.manager.Retrofit2;
+import com.suks.sittiporn.lslamic.manager.http.ApiService;
+import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
+import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
+
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment implements
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -35,6 +47,8 @@ public class HomeFragment extends Fragment implements
     Button bt_menu3;
     Button bt_menu4;
     Button bt_menu5;
+
+    LocationListModel locationListModel;
 
     public interface Listener {
         void onChangeLanguage(String language);
@@ -86,17 +100,77 @@ public class HomeFragment extends Fragment implements
 //            }
 //        });
 //        btn_register = (Button) view.findViewById(R.id.btn_register);
-
+        getList("");
         initinstanceState();
 
     }
+
+    private void getList(String id) {
+
+        ApiService apiService = Retrofit2.getApiService();
+
+        Observable<LocationListModel> observable = apiService.getListLocation(id);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<LocationListModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(LocationListModel dataModel) {
+                        locationListModel = dataModel;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    public LocationReponseModel transform(LocationReponseModel reponseModel) {
+        LocationReponseModel model = null;
+        if (reponseModel != null) {
+            model = new LocationReponseModel();
+            model.setId(reponseModel.getId());
+            model.setName(reponseModel.getName());
+            model.setCounty(reponseModel.getCounty());
+            model.setDate(reponseModel.getDate());
+            model.setDatetime(reponseModel.getDatetime());
+            model.setLatitude(reponseModel.getLatitude());
+            model.setLongitude(reponseModel.getLongitude());
+            model.setNumberfull(reponseModel.getNumberfull());
+            model.setRoomnumber(reponseModel.getRoomnumber());
+            model.setStatus(reponseModel.getStatus());
+            model.setTimeEnd(reponseModel.getTimeEnd());
+            model.setTimeStart(reponseModel.getTimeStart());
+            model.setZone(reponseModel.getZone());
+            model.setImage_url(reponseModel.getImage_url());
+        }
+
+        return model;
+    }
+
 
     private void initinstanceState() {
 
         bt_menu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CustomInfoWindowMapsActivity.class);
+//                Intent intent = new Intent(getContext(), CustomInfoWindowMapsActivity.class);
+//                intent.pu
+//                startActivity(intent);
+
+                Intent intent = CustomInfoWindowMapsActivity.callingIntent(getContext(), locationListModel);
                 startActivity(intent);
 
             }

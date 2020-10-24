@@ -1,10 +1,17 @@
 package com.suks.sittiporn.lslamic.model.reponse;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LocationListModel {
+//@Parcel
+public class LocationListModel implements Serializable {
     @SerializedName("success")
     private String success;
     @SerializedName("message")
