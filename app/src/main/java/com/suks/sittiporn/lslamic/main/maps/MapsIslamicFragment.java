@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,17 +23,21 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.main.time.ui.main.TimeFragment;
+import com.suks.sittiporn.lslamic.util.GPSTracker;
 
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
 
     private GoogleMap mMap;
+    private Circle circle;
 
     private MapWrapperLayout mapWrapperLayout;
     private ViewGroup infoWindow;
@@ -45,11 +50,33 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
     Button btnGetLocation;
     TextView showLocation;
     private LocationManager locationManager;
-    String latitude, longitude;
+    Double latitude, longitude;
 
+
+    private void addLocation(LatLng latLng, String locationName) {
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title(locationName);
+        mMap.addMarker(markerOptions);
+//        mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Sydney"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+
+
+    }
+
+
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
+
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+
+        LatLng currentLatLng = new LatLng(latitude, longitude);
+
 
         // MapWrapperLayout initialization
         // 39 - default marker height
@@ -97,27 +124,58 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
+//        mMap.addCircle()
+//        addLocation(currentLatLng,"home");
+//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20f));
+//        drawCircle(currentLatLng, 5000.0);
+//        mMap.addMarker(new MarkerOptions()
+//                .title("")
+//                .snippet("Czech Republic")
+//                .position(new LatLng(50.08, 14.43)));
+//
+
         // Let's add a couple of markers
+
+
+
         mMap.addMarker(new MarkerOptions()
-                .title("Prague")
+                .title("เวสเกต")
                 .snippet("Czech Republic")
-                .position(new LatLng(50.08, 14.43)));
+                .position(new LatLng(13.876748, 100.412112)));
 
         mMap.addMarker(new MarkerOptions()
-                .title("Paris")
+                .title("นน")
                 .snippet("France")
-                .position(new LatLng(48.86,2.33)));
+                .position(new LatLng(13.881360, 100.499542)));
 
         mMap.addMarker(new MarkerOptions()
-                .title("London")
+                .title("ออฟฟิต")
                 .snippet("United Kingdom")
-                .position(new LatLng(51.51,-0.1)));
+                .position(new LatLng(13.877365, 100.511733)));
     }
 
+    private void drawCircle(LatLng latLng, Double radius) {
+        if(mMap == null) return;
+        if (circle != null)
+            circle.remove();
+
+        int strokeColor = getResources().getColor(R.color.border_primary);
+        int shadeColor = getResources().getColor(R.color.primary_tran);
+        CircleOptions circleOptions = new CircleOptions().center(latLng)
+                .radius(radius)
+
+                .fillColor(shadeColor)
+                .strokeColor(strokeColor)
+                .strokeWidth(1);
+
+        circle = mMap.addCircle(circleOptions);
+
+    }
 
     public static int getPixelsFromDp(Context context, float dp) {
         final float scale = context.getResources().getDisplayMetrics().density;
-        return (int)(dp * scale + 0.5f);
+        return (int)(dp * scale + 3.0f);
     }
     public static MapsIslamicFragment newInstance() {
         return new MapsIslamicFragment();
@@ -136,6 +194,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
         return view;
     }
 
+
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -153,6 +213,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
     }
 
     private void init(View view, Bundle savedInstanceState) {
+
 
         mapWrapperLayout = (MapWrapperLayout)view.findViewById(R.id.map_relative_layout);
 
@@ -185,8 +246,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback{
             if (locationGPS != null) {
                 double lat = locationGPS.getLatitude();
                 double longi = locationGPS.getLongitude();
-                latitude = String.valueOf(lat);
-                longitude = String.valueOf(longi);
+                latitude = lat;
+                longitude = longi;
 //                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
             } else {
                 Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
