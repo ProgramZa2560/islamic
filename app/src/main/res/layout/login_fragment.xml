@@ -105,6 +105,7 @@
         app:srcCompat="@drawable/lslamic_1" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/registerhere"
         android:layout_width="86dp"
         android:layout_height="23dp"
@@ -122,13 +123,13 @@
 
     <TextView
         android:id="@+id/forgotpass"
-        android:layout_width="78dp"
+        android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:contentDescription="@string/bt_registerhere"
         android:foregroundTint="#E8E3E3"
         android:onClick="@string/bt_registerhere"
         android:text="@string/forgotpass"
-        android:textColor="#4C4C4C"
+        android:textColor="@color/colorBlueCheck"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.87"

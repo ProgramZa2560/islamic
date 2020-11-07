@@ -82,7 +82,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     Button btnGetLocation;
     TextView showLocation;
     private  LocationManager locationManager;
-    Double latitude, longitude;
+    Double latitude = 0.0, longitude = 0.0;
     ImageButton searchMaps;
      FixLocationListAdapter locationAdapter;
     private RecyclerView.LayoutManager manager;
@@ -278,6 +278,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         this.init(view, savedInstanceState);
     }
 
@@ -286,7 +287,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         mapWrapperLayout = (MapWrapperLayout) view.findViewById(R.id.map_relative_layout);
         searchMaps = (ImageButton) view.findViewById(R.id.searchMaps);
-
+        getLocation();
         searchMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,7 +295,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
             }
         });
 
-        getLocation();
+
 //        getList("");
 
 
@@ -395,7 +396,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //            edt_Lat.setText(location.getLat());
 //            edt_Lng.setText(location.getLng());
             LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()),Double.parseDouble(location.getLongitude()));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20f));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mapsSet(location);
             dialog.dismiss();

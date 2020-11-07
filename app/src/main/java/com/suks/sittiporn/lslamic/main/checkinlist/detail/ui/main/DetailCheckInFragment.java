@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,9 @@ public class DetailCheckInFragment extends Fragment {
     TextView tvPerson;
     TextView tvTime;
 
+    ImageButton star;
+    boolean isEnable = true;
+
     List<ImgReponseModel> list = new ArrayList<>();
 
 
@@ -127,8 +132,18 @@ public class DetailCheckInFragment extends Fragment {
         tvPerson.setText(person + " คน");
         tvTime.setText(time);
 
+        boolean favorite = false;
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
+        isEnable = favorite;
+        if (isEnable){
+//            isEnable = false;
+            star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_off));
+        }else{
+//            isEnable = true;
+            star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_on));
+        }
 
 //        setupAdapter();
         getListImgLocation(locationId);;
@@ -200,6 +215,21 @@ public class DetailCheckInFragment extends Fragment {
             }
         });
 
+        star.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (isEnable){
+                    isEnable = false;
+                    star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_off));
+                }else{
+                    isEnable = true;
+                    star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_on));
+                }
+//                isEnable = !isEnable;
+            }
+        });
+
 
     }
 
@@ -214,6 +244,7 @@ public class DetailCheckInFragment extends Fragment {
         editText_Comment = (EditText) view.findViewById(R.id.editText_Comment);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewImg);
         btnComment = (Button) view.findViewById(R.id.btnComment);
+        star = (ImageButton) view.findViewById(R.id.star);
 
         imgLocation = (ImageView) view.findViewById(R.id.imgLocation);
         tv_location = (TextView) view.findViewById(R.id.tv_location);

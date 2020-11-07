@@ -48,15 +48,6 @@
                     android:orientation="horizontal">
 
 
-                    <!--            <TextView-->
-                    <!--                android:layout_width="0dp"-->
-                    <!--                android:layout_height="wrap_content"-->
-                    <!--                android:layout_weight="1"-->
-                    <!--                android:text="ชื่อ : "-->
-                    <!--                android:textAlignment="textEnd"-->
-                    <!--                android:textStyle="bold"-->
-                    <!--                android:textSize="@dimen/text_size_24"/>-->
-
                     <TextView
                         android:id="@+id/tvName"
                         android:layout_width="0dp"
@@ -65,6 +56,14 @@
                         android:text="มัสยิด ท่าอิฐ"
                         android:textAlignment="center"
                         android:textSize="@dimen/text_size_24"/>
+
+                    <ImageButton
+                        android:paddingEnd="@dimen/padding16dp"
+                        android:id="@+id/star"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:src="@android:drawable/btn_star" />
 
                 </LinearLayout>
 
