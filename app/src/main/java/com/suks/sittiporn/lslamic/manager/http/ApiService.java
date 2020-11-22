@@ -7,6 +7,7 @@ import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
+import com.suks.sittiporn.lslamic.model.reponse.ProfileResponeModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessRegisterModel;
 import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
@@ -15,6 +16,7 @@ import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.model.request.RegisterRequestModel;
+import com.suks.sittiporn.lslamic.model.request.UpdateProfileRequestModel;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -74,6 +76,12 @@ public interface ApiService {
     Observable<FavoriteByLocationResponeModel> getFavoritebyLocation(@Query("user_id") String user_id,
                                                                      @Query("location_id") String location_id);
 
+    @GET("getProfile.php")
+    Observable<ProfileResponeModel> getProfile(@Query("id") String id);
+
+    @POST("updateProfile.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessModel> updateProfile(@Body UpdateProfileRequestModel requestModel);
 
 
 }

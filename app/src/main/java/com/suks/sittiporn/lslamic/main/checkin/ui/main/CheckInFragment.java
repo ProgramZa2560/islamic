@@ -95,7 +95,7 @@ public class CheckInFragment extends Fragment {
     EditText editTextNumberRoom;
     EditText editTextNumber;
     EditText editTextDesc;
-    private Uri photoUri;
+
     String encodedImage1 = "";
     String encodedImage2 = "";
     String encodedImage3 = "";
@@ -111,14 +111,15 @@ public class CheckInFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
     public static final int REQUEST_CODE_CAMERA = 1001;
     public static final int REQUEST_CODE_GALLERY = 1002;
-
+    private Uri photoUri;
     private Uri filePath;
-    Bitmap bitmap;
 
+    Bitmap bitmap;
+    private static final int REQUEST_LOCATION = 1;
     String n;
     String x;
 
-    private static final int REQUEST_LOCATION = 1;
+
     Button btnGetLocation;
     TextView showLocation;
     private LocationManager locationManager;
