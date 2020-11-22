@@ -138,19 +138,21 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
             @Override
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
-                Toast.makeText(getContext(), marker.getTitle() + "'s button clicked! \n" +
-                        marker.getSnippet() + "'s button getSnippet! \n", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), marker.getTitle() + "'s button clicked! \n" +
+//                        marker.getSnippet() + "'s button getSnippet! \n", Toast.LENGTH_SHORT).show();
 
                 String sub = marker.getSnippet();
 
                 Intent intent = new Intent(getContext(), DetailCheckInActivity.class);
-                intent.putExtra("locationId", sub.split(", ")[1]);
-                intent.putExtra("time", sub.split(", ")[4]);
-                intent.putExtra("room", sub.split(", ")[5]);
-                intent.putExtra("person", sub.split(", ")[6]);
-                intent.putExtra("name", sub.split(", ")[0]);
-                intent.putExtra("lat", sub.split(", ")[2]);
-                intent.putExtra("lng", sub.split(", ")[3]);
+                intent.putExtra("locationId", sub.split(", ")[2]);
+                intent.putExtra("time", "");
+                intent.putExtra("room","");
+                intent.putExtra("person", "");
+                intent.putExtra("name","");
+                intent.putExtra("lat", sub.split(", ")[0]);
+                intent.putExtra("lng", sub.split(", ")[1]);
+                intent.putExtra("location","");
+                intent.putExtra("desc", "");
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 v.getContext().startActivity(intent);
@@ -213,13 +215,17 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
                 locationReponseModel.getTimeEnd().split(":")[0] + ":" +
                 locationReponseModel.getTimeEnd().split(":")[1] + " น.";
 
-        String sub = locationReponseModel.getName() + ", " +
-                locationReponseModel.getId() + ", " +
+        String sub =
+//                locationReponseModel.getName() + ", " +
+
                 locationReponseModel.getLatitude() + ", " +
                 locationReponseModel.getLongitude() + ", " +
-                time + ", " +
-                locationReponseModel.getRoomnumber() + ", " +
-                locationReponseModel.getNumberfull();
+//                time + ", " +
+//                locationReponseModel.getRoomnumber() + ", " +
+//                locationReponseModel.getNumberfull() + ", " +
+//                locationReponseModel.getAddress()  + ", "
+                  locationReponseModel.getId()
+                ;
 
         mMap.addMarker(new MarkerOptions()
                 .title(locationReponseModel.getName())

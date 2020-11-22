@@ -34,6 +34,9 @@ public interface ApiService {
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<SuccessRegisterModel> register(@Body RegisterRequestModel requestModel);
 
+    @GET("getLocation.php")
+    Observable<LocationListModel> getLocation(@Query("id") String id);
+
     @GET("getListLocation.php")
     Observable<LocationListModel> getListLocation(@Query("id") String id);
 

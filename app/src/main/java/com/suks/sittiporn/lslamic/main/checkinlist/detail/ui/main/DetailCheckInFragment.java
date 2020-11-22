@@ -134,11 +134,9 @@ public class DetailCheckInFragment extends Fragment {
         binID(view, savedInstanceState);
 
         tv_location.setText(lat +", " + lng);
-        tvName.setText(name);
-        tvRoom.setText(room + " ห้อง");
-        tvPerson.setText(person + " คน");
-        tvTime.setText(time);
-        tvDesc.setText(desc);
+
+        getDescLocation(locationId);
+        getListComment(locationId);
 
         boolean favorite = false;
 
@@ -154,7 +152,6 @@ public class DetailCheckInFragment extends Fragment {
         }
 
 //        setupAdapter();
-        getListImgLocation(location);;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView recyclerView, int newState) {
@@ -173,7 +170,7 @@ public class DetailCheckInFragment extends Fragment {
 
         });
 
-        getListComment(locationId);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -270,7 +267,7 @@ public class DetailCheckInFragment extends Fragment {
         name = intent.getStringExtra("name");
         lat = intent.getStringExtra("lat");
         lng = intent.getStringExtra("lng");
-        location = intent.getStringExtra("location");
+
         desc = intent.getStringExtra("desc");
 
 
@@ -457,6 +454,93 @@ public class DetailCheckInFragment extends Fragment {
                     }
                 });
 
+    }
+
+    private void getDescLocation(String id) {
+
+        ApiService apiService = Retrofit2.getApiService();
+
+        Observable<LocationListModel> observable = apiService.getLocation(id);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<LocationListModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(LocationListModel dataModel) {
+                        List<LocationReponseModel> list = new ArrayList<>();
+                        tvName.setText(dataModel.getData().get(0).getName());
+                        tvRoom.setText(dataModel.getData().get(0).getRoomnumber() + " ห้อง");
+                        tvPerson.setText(dataModel.getData().get(0).getNumberfull() + " คน");
+//                        tvTime.setText(.getTimeEnd());
+                        tvTime.setText(dataModel.getData().get(0).getTimeStart().split(":")[0] +":"+
+                                dataModel.getData().get(0).getTimeStart().split(":")[1] +"-"+
+                                dataModel.getData().get(0).getTimeEnd().split(":")[0] +":"+
+                                dataModel.getData().get(0).getTimeEnd().split(":")[1] +" น.");
+                        tvDesc.setText(dataModel.getData().get(0).getAddress());
+                        getListImgLocation(dataModel.getData().get(0).getLocation());
+
+
+//                        for (int i = 0; i < dataModel.getData().size(); i++) {
+//                            LocationReponseModel reponseModel = new LocationReponseModel();
+//                            reponseModel.setName(dataModel.getApprovedListDataReponseModels().get(i).getExamination_status_id());
+//                            reponseModel.setExamination_status_head(dataModel.getApprovedListDataReponseModels().get(i).getExamination_status_head());
+//                            reponseModel.setExamination_status_user(dataModel.getApprovedListDataReponseModels().get(i).getExamination_status_user());
+//                            reponseModel.setExamination_set_id(dataModel.getApprovedListDataReponseModels().get(i).getExamination_set_id());
+//                            reponseModel.setExamination_set(dataModel.getApprovedListDataReponseModels().get(i).getExamination_set());
+//                            reponseModel.setExamination_status_user_id(dataModel.getApprovedListDataReponseModels().get(i).getExamination_status_user_id());
+//                            reponseModel.setExamination_status_slip(dataModel.getApprovedListDataReponseModels().get(i).getExamination_status_slip());
+//                            list.add(reponseModel);
+//                        }
+
+//                        for(LocationReponseModel model : dataModel.getData()){
+//                            LocationReponseModel locationReponseModel = transform(model);
+//                            list.add(locationReponseModel);
+//
+//                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+    public LocationReponseModel transform(LocationReponseModel reponseModel) {
+        LocationReponseModel model = null;
+        if (reponseModel != null) {
+            model = new LocationReponseModel();
+            model.setId(reponseModel.getId());
+            model.setName(reponseModel.getName());
+            model.setCounty(reponseModel.getCounty());
+            model.setDate(reponseModel.getDate());
+            model.setDatetime(reponseModel.getDatetime());
+            model.setLatitude(reponseModel.getLatitude());
+            model.setLongitude(reponseModel.getLongitude());
+            model.setNumberfull(reponseModel.getNumberfull());
+            model.setRoomnumber(reponseModel.getRoomnumber());
+            model.setStatus(reponseModel.getStatus());
+            model.setTimeEnd(reponseModel.getTimeEnd());
+            model.setTimeStart(reponseModel.getTimeStart());
+            model.setZone(reponseModel.getZone());
+            model.setImage_url(reponseModel.getImage_url());
+            model.setLocation(reponseModel.getLocation());
+            model.setAddress(reponseModel.getAddress());
+        }
+
+        return model;
     }
 
 }
