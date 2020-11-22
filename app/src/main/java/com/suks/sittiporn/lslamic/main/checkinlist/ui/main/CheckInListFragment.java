@@ -184,6 +184,7 @@ public class CheckInListFragment extends Fragment {
             model.setTimeStart(reponseModel.getTimeStart());
             model.setZone(reponseModel.getZone());
             model.setImage_url(reponseModel.getImage_url());
+            model.setLocation(reponseModel.getLocation());
         }
 
         return model;

@@ -79,6 +79,7 @@ public class DetailCheckInFragment extends Fragment {
     String name;
     String lat;
     String lng;
+    String location;
 
     ImageView imgLocation;
     TextView tv_location;
@@ -150,7 +151,7 @@ public class DetailCheckInFragment extends Fragment {
         }
 
 //        setupAdapter();
-        getListImgLocation(locationId);;
+        getListImgLocation(location);;
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView recyclerView, int newState) {
@@ -265,6 +266,7 @@ public class DetailCheckInFragment extends Fragment {
         name = intent.getStringExtra("name");
         lat = intent.getStringExtra("lat");
         lng = intent.getStringExtra("lng");
+        location = intent.getStringExtra("location");
 
 
 
