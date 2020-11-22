@@ -34,5 +34,9 @@ public class PlaceFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // TODO: Use the ViewModel
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
 }

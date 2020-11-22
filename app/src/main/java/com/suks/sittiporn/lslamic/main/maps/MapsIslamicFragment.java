@@ -81,12 +81,11 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     private static final int REQUEST_LOCATION = 1;
     Button btnGetLocation;
     TextView showLocation;
-    private  LocationManager locationManager;
+    private LocationManager locationManager;
     Double latitude = 0.0, longitude = 0.0;
     ImageButton searchMaps;
-     FixLocationListAdapter locationAdapter;
+    FixLocationListAdapter locationAdapter;
     private RecyclerView.LayoutManager manager;
-
 
 
     private void addLocation(LatLng latLng, String locationName) {
@@ -100,6 +99,10 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -111,7 +114,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
 
-        LatLng currentLatLng = new LatLng(latitude, longitude);
+//        LatLng currentLatLng = new LatLng(latitude, longitude);
+        LatLng currentLatLng = getLocation();
 //
 
         // MapWrapperLayout initialization
@@ -135,7 +139,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
             protected void onClickConfirmed(View v, Marker marker) {
                 // Here we can perform some action triggered after clicking the button
                 Toast.makeText(getContext(), marker.getTitle() + "'s button clicked! \n" +
-                        marker.getSnippet()  + "'s button getSnippet! \n" , Toast.LENGTH_SHORT).show();
+                        marker.getSnippet() + "'s button getSnippet! \n", Toast.LENGTH_SHORT).show();
 
                 String sub = marker.getSnippet();
 
@@ -197,17 +201,17 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     private void setMapsLocation(List<LocationReponseModel> list) {
         if (list != null) {
             for (int i = 0; i < list.size(); i++) {
-            mapsSet(list.get(i));
+                mapsSet(list.get(i));
             }
         }
     }
 
-    private  void mapsSet(LocationReponseModel locationReponseModel){
+    private void mapsSet(LocationReponseModel locationReponseModel) {
 
-        String time =locationReponseModel.getTimeStart().split(":")[0] +":"+
-                locationReponseModel.getTimeStart().split(":")[1] +"-"+
-                locationReponseModel.getTimeEnd().split(":")[0] +":"+
-                locationReponseModel.getTimeEnd().split(":")[1] +" น.";
+        String time = locationReponseModel.getTimeStart().split(":")[0] + ":" +
+                locationReponseModel.getTimeStart().split(":")[1] + "-" +
+                locationReponseModel.getTimeEnd().split(":")[0] + ":" +
+                locationReponseModel.getTimeEnd().split(":")[1] + " น.";
 
         String sub = locationReponseModel.getName() + ", " +
                 locationReponseModel.getId() + ", " +
@@ -287,7 +291,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         mapWrapperLayout = (MapWrapperLayout) view.findViewById(R.id.map_relative_layout);
         searchMaps = (ImageButton) view.findViewById(R.id.searchMaps);
-        getLocation();
+
         searchMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -303,6 +307,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map);
 //        mapFragment.getMapAsync(this);
     }
+
     public void dialogListMapsS() {
 
 //        Toast.makeText(getContext(), "testtttttttt", Toast.LENGTH_LONG).show();
@@ -325,10 +330,9 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
                 WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
 
-
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        locationAdapter = new FixLocationListAdapter(getContext(),  locationListModel.getData(), location);
+        locationAdapter = new FixLocationListAdapter(getContext(), locationListModel.getData(), location);
         nestedScrollView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(locationAdapter);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -353,7 +357,6 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         });
         dialog.show();
     }
-    
 
 
     @Override
@@ -366,9 +369,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     }
 
-    private void getLocation() {
-        locationManager = (LocationManager) getContext()
-                .getSystemService(LOCATION_SERVICE);
+    private LatLng getLocation() {
+        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(
                 getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -387,6 +389,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
             }
         }
 //        txt_location.setText(latitude +", "+ longitude);
+        LatLng currentLatLng = new LatLng(latitude, longitude);
+        return currentLatLng;
     }
 
     FixLocationListAdapter.Listener location = new FixLocationListAdapter.Listener() {
@@ -395,7 +399,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //            edt_Name.setText(location.getLocationName());
 //            edt_Lat.setText(location.getLat());
 //            edt_Lng.setText(location.getLng());
-            LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()),Double.parseDouble(location.getLongitude()));
+            LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mapsSet(location);

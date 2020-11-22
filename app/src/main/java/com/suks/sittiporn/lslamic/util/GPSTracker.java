@@ -239,7 +239,7 @@ public class GPSTracker implements GoogleApiClient.ConnectionCallbacks, GoogleAp
 //        } else {
 //            currentLocation = location();
 //            return currentLocation;
-//        }
+
 
         return currentLocation;
 //        }
@@ -255,18 +255,18 @@ public class GPSTracker implements GoogleApiClient.ConnectionCallbacks, GoogleAp
 
     }
 
-//    public static Location location() {
-//
-//        Location location = new Location(Context.LOCATION_SERVICE);
-//        location.setLatitude(latLng().latitude);
-//        location.setLongitude(latLng().longitude);
-//
-//        LATITUDE = location.getLatitude();
-//        LONGITUDE = location.getLongitude();
-//        canGetLocation = true;
-//
-//        return location;
-//    }
+    public static Location location() {
+
+        Location location = new Location(Context.LOCATION_SERVICE);
+        location.setLatitude(latLng().latitude);
+        location.setLongitude(latLng().longitude);
+
+        LATITUDE = location.getLatitude();
+        LONGITUDE = location.getLongitude();
+        canGetLocation = true;
+
+        return location;
+    }
 
     public static double Lng() {
         return 0;

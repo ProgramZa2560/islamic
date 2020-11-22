@@ -60,6 +60,11 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     public static LoginFragment newInstance() {
         LoginFragment fragment = new LoginFragment();
         return fragment;

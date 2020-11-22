@@ -155,6 +155,11 @@ public class CheckInFragment extends Fragment {
         this.initinstanceState();
     }
 
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//    }
+
     private void initinstanceState() {
 
     }
@@ -179,6 +184,7 @@ public class CheckInFragment extends Fragment {
                 Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
             }
         }
+
         txt_location.setText(latitude +", "+ longitude);
     }
 

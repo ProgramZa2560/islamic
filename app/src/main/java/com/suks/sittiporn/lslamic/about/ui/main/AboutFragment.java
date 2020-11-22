@@ -51,6 +51,11 @@ public class AboutFragment extends Fragment {
         this.initinstanceState(view, savedInstanceState);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     private void initinstanceState(View view, Bundle savedInstanceState) {
 
 //        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.spin_kit);

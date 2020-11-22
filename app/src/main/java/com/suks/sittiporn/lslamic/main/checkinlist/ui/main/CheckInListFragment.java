@@ -65,6 +65,10 @@ public class CheckInListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.init(view, savedInstanceState);
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     @Override
     public void onResume() {

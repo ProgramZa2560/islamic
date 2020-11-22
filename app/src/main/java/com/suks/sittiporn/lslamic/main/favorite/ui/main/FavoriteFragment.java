@@ -78,6 +78,11 @@ public class FavoriteFragment extends Fragment {
         this.initinstanceState();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     private void init(View view, Bundle savedInstanceState) {
 //        Intent intent = getActivity().getIntent();
 //        examination_head_id = intent.getStringExtra("examination_id");

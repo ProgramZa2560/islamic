@@ -33,4 +33,9 @@ public class HelpFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 }

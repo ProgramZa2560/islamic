@@ -121,6 +121,10 @@ public class DetailCheckInFragment extends Fragment {
         super.onResume();
         this.initinstanceState();
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 
     private void init(View view, Bundle savedInstanceState) {
 
