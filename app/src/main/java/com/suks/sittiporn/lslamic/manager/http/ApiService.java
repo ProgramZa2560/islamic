@@ -9,6 +9,7 @@ import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessRegisterModel;
 import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
+import com.suks.sittiporn.lslamic.model.request.FavoriteUseRequestModel;
 import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
@@ -63,6 +64,10 @@ public interface ApiService {
     @POST("addLocation.php")
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<LocationListModel> addLocation(@Body LocationRequestModel requestModel);
+
+    @POST("addFavoriteUse.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessModel> addFavoriteUse(@Body FavoriteUseRequestModel requestModel);
 
 
 }

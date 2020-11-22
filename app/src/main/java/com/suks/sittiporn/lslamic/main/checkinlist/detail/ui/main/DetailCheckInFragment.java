@@ -44,13 +44,18 @@ import com.suks.sittiporn.lslamic.model.reponse.ImgReponseModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
+import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.request.CommentRequestModel;
+import com.suks.sittiporn.lslamic.model.request.FavoriteUseRequestModel;
+import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -124,6 +129,7 @@ public class DetailCheckInFragment extends Fragment {
         super.onResume();
         this.initinstanceState();
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -133,7 +139,7 @@ public class DetailCheckInFragment extends Fragment {
 
         binID(view, savedInstanceState);
 
-        tv_location.setText(lat +", " + lng);
+        tv_location.setText(lat + ", " + lng);
 
         getDescLocation(locationId);
         getListComment(locationId);
@@ -143,12 +149,12 @@ public class DetailCheckInFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         isEnable = favorite;
-        if (isEnable){
+        if (isEnable) {
 //            isEnable = false;
-            star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_off));
-        }else{
+            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+        } else {
 //            isEnable = true;
-            star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_on));
+            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
         }
 
 //        setupAdapter();
@@ -164,7 +170,8 @@ public class DetailCheckInFragment extends Fragment {
 //
 //                    }
 //                }
-                getListImgLocation(locationId);;
+                getListImgLocation(locationId);
+                ;
 //                setupAdapter();
             }
 
@@ -191,11 +198,10 @@ public class DetailCheckInFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        addComment("2020-10-10","12:00", editText_Comment.getText().toString());
+                        addComment("2020-10-10", "12:00", editText_Comment.getText().toString());
                     }
                 });
                 adbConfirmExit.create().show();
-
 
 
             }
@@ -224,12 +230,16 @@ public class DetailCheckInFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (isEnable){
+                if (isEnable) {
                     isEnable = false;
-                    star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_off));
-                }else{
+                    star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+                    addFavoriteUse("0");
+
+                } else {
                     isEnable = true;
-                    star.setImageDrawable(ContextCompat.getDrawable(getContext(),android.R.drawable.btn_star_big_on));
+                    star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+                    addFavoriteUse("1");
+
                 }
 //                isEnable = !isEnable;
             }
@@ -271,20 +281,20 @@ public class DetailCheckInFragment extends Fragment {
         desc = intent.getStringExtra("desc");
 
 
-
         id = RealmUtil.getMemberId();
 
     }
 
     private void setupAdapter() {
-        getListImgLocation(locationId);;
+        getListImgLocation(locationId);
+        ;
 
 
     }
 
     private List<ImgReponseModel> getApps() {
 
-          getListImgLocation(locationId);
+        getListImgLocation(locationId);
 
 //        List<ImgReponseModel> apps =   getListImgLocation(locationId);
 //        ;
@@ -354,8 +364,9 @@ public class DetailCheckInFragment extends Fragment {
 
         return model;
     }
-  public ImgReponseModel transform(ImgReponseModel reponseModel) {
-      ImgReponseModel model = null;
+
+    public ImgReponseModel transform(ImgReponseModel reponseModel) {
+        ImgReponseModel model = null;
         if (reponseModel != null) {
             model = new ImgReponseModel();
             model.setImage_url(reponseModel.getImage_url());
@@ -434,7 +445,6 @@ public class DetailCheckInFragment extends Fragment {
                         mRecyclerView.setAdapter(snapAdapter);
 
 
-
 //                        swipeRefreshLayout.setRefreshing(false);
 //                        mLayoutManager = new LinearLayoutManager(getContext());
 //                        recyclerViewComment.setLayoutManager(mLayoutManager);
@@ -477,10 +487,10 @@ public class DetailCheckInFragment extends Fragment {
                         tvRoom.setText(dataModel.getData().get(0).getRoomnumber() + " ห้อง");
                         tvPerson.setText(dataModel.getData().get(0).getNumberfull() + " คน");
 //                        tvTime.setText(.getTimeEnd());
-                        tvTime.setText(dataModel.getData().get(0).getTimeStart().split(":")[0] +":"+
-                                dataModel.getData().get(0).getTimeStart().split(":")[1] +"-"+
-                                dataModel.getData().get(0).getTimeEnd().split(":")[0] +":"+
-                                dataModel.getData().get(0).getTimeEnd().split(":")[1] +" น.");
+                        tvTime.setText(dataModel.getData().get(0).getTimeStart().split(":")[0] + ":" +
+                                dataModel.getData().get(0).getTimeStart().split(":")[1] + "-" +
+                                dataModel.getData().get(0).getTimeEnd().split(":")[0] + ":" +
+                                dataModel.getData().get(0).getTimeEnd().split(":")[1] + " น.");
                         tvDesc.setText(dataModel.getData().get(0).getAddress());
                         getListImgLocation(dataModel.getData().get(0).getLocation());
 
@@ -518,6 +528,7 @@ public class DetailCheckInFragment extends Fragment {
                 });
 
     }
+
     public LocationReponseModel transform(LocationReponseModel reponseModel) {
         LocationReponseModel model = null;
         if (reponseModel != null) {
@@ -541,6 +552,50 @@ public class DetailCheckInFragment extends Fragment {
         }
 
         return model;
+    }
+
+
+    private void addFavoriteUse(final String status) {
+
+
+        FavoriteUseRequestModel requestModel = new FavoriteUseRequestModel();
+        requestModel.setLocation_id(locationId);
+        requestModel.setUser_id(RealmUtil.getMemberId());
+        requestModel.setStatus(status);
+
+        ApiService apiService = Retrofit2.getApiService();
+        Observable<SuccessModel> observable = apiService.addFavoriteUse(requestModel);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<SuccessModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+//                        llviewlooad.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onNext(SuccessModel response) {
+                        if (status.equals("1")) {
+                            Toast.makeText(getContext(), "ถูกใจแล้ว", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(), "ยกเลิกถูกใจ", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Toast.makeText(getContext(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
     }
 
 }

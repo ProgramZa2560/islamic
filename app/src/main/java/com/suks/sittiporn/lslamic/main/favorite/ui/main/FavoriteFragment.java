@@ -49,8 +49,8 @@ public class FavoriteFragment extends Fragment {
     private SearchView search;
     private String id;
 
-    public static CheckInListFragment newInstance() {
-        return new CheckInListFragment();
+    public static FavoriteFragment newInstance() {
+        return new FavoriteFragment();
     }
 
     @Nullable
