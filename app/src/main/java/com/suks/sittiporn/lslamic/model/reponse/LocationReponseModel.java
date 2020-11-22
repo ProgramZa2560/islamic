@@ -21,6 +21,7 @@ public class LocationReponseModel implements Serializable {
     private String timeEnd;
     private String image_url;
     private String location;
+    private String address;
 
     public String getId() {
         return id;
@@ -140,5 +141,13 @@ public class LocationReponseModel implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

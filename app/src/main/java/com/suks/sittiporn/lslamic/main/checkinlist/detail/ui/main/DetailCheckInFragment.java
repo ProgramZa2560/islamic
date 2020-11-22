@@ -80,6 +80,7 @@ public class DetailCheckInFragment extends Fragment {
     String lat;
     String lng;
     String location;
+    String desc;
 
     ImageView imgLocation;
     TextView tv_location;
@@ -87,6 +88,7 @@ public class DetailCheckInFragment extends Fragment {
     TextView tvRoom;
     TextView tvPerson;
     TextView tvTime;
+    TextView tvDesc;
 
     ImageButton star;
     boolean isEnable = true;
@@ -136,6 +138,7 @@ public class DetailCheckInFragment extends Fragment {
         tvRoom.setText(room + " ห้อง");
         tvPerson.setText(person + " คน");
         tvTime.setText(time);
+        tvDesc.setText(desc);
 
         boolean favorite = false;
 
@@ -257,6 +260,7 @@ public class DetailCheckInFragment extends Fragment {
         tvRoom = (TextView) view.findViewById(R.id.tvRoom);
         tvPerson = (TextView) view.findViewById(R.id.tvPerson);
         tvTime = (TextView) view.findViewById(R.id.tvTime);
+        tvDesc = (TextView) view.findViewById(R.id.tv_desc);
 
         Intent intent = getActivity().getIntent();
         locationId = intent.getStringExtra("locationId");
@@ -267,6 +271,7 @@ public class DetailCheckInFragment extends Fragment {
         lat = intent.getStringExtra("lat");
         lng = intent.getStringExtra("lng");
         location = intent.getStringExtra("location");
+        desc = intent.getStringExtra("desc");
 
 
 

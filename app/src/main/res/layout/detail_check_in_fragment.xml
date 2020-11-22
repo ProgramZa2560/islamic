@@ -103,6 +103,32 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="รายละเอียด : "
+                        android:textAlignment="textEnd"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_16"/>
+
+                    <TextView
+                        android:id="@+id/tv_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="dfffffffff"
+                        android:textAlignment="textStart"
+                        android:textSize="@dimen/text_size_16"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="เส้นทาง : "
                         android:textAlignment="textEnd"
                         android:textStyle="bold"

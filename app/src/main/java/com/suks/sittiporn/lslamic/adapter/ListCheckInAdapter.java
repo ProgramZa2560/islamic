@@ -125,6 +125,7 @@ public class ListCheckInAdapter extends RecyclerView.Adapter implements Filterab
                     intent.putExtra("lat", mDataset.get(position).getLatitude());
                     intent.putExtra("lng", mDataset.get(position).getLongitude());
                     intent.putExtra("location", mDataset.get(position).getLocation());
+                    intent.putExtra("desc", mDataset.get(position).getAddress());
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     v.getContext().startActivity(intent);
