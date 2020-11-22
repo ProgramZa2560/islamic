@@ -72,7 +72,8 @@
         <activity
             android:name=".main.maps.CustomInfoWindowMapsActivity"
             android:label="maps" />
-        <activity android:name=".profile.ProfileActivity" />
+        <activity android:name=".profile.ProfileActivity"
+            android:label="Profile"/>
         <activity android:name=".main.place.PlaceActivity" />
         <activity
             android:name=".main.checkinlist.CheckInListActivity"

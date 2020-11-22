@@ -635,21 +635,48 @@ public class CheckInFragment extends Fragment {
                     public void onNext(LocationListModel response) {
 
                         if (response.getSuccess().equals("true")) {
+
+
+                            boolean count  = false;
                             if (encodedImage1 !=  ""){
+                                count  = true;
                                 addImgLocation(n+x, 1);
                             }
                             if (encodedImage2 !=  ""){
+                                count  = true;
                                 addImgLocation(n+x, 2);
                             }
 
                             if (encodedImage3 !=  ""){
+                                count  = true;
                                 addImgLocation(n+x, 3);
+                            }
+                            if (!count){
+                                llviewlooad.setVisibility(View.GONE);
+                                final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                                adbConfirmExit.create();
+                                adbConfirmExit.setTitle("กลับเมนูหลัก");
+                                adbConfirmExit.setMessage(response.getMessage());
+                                adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+
+                                        Intent intent = new Intent(getContext(), HomeActivity.class);
+//                                    intent.putExtra("vv", "vv");
+                                        intent.addCategory(Intent.CATEGORY_HOME);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+//                                    getActivity().finish();
+
+                                    }
+                                });
+                                adbConfirmExit.create().show();
                             }
 
                         } else {
 
                         }
-                        llviewlooad.setVisibility(View.GONE);
+
                     }
 
                     @Override

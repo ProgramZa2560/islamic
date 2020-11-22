@@ -45,29 +45,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.logout) {
-
-            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(this);
-            adbConfirmExit.create();
-            adbConfirmExit.setTitle("ออกจากระบบ");
-            adbConfirmExit.setMessage("คุณต้องการออกจากระบบใช่หรือไม่!");
-            adbConfirmExit.setNegativeButton("ยกเลิก", null);
-            adbConfirmExit.setPositiveButton("ออกจากระบบ", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    int count = RealmUtil.deleteRealm(HomeActivity.this);
-                    if (count == 0) {
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-            });
-            adbConfirmExit.create().show();
-            return true;
-        }
 
         if (id == R.id.info) {
 

@@ -91,11 +91,11 @@ public class CheckInListFragment extends Fragment {
     private void initinstanceState() {
 
         id = RealmUtil.getMemberId();
-        getList("");
+        getList(id);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getList("");
+                getList(id);
             }
         });
     }

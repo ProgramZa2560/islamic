@@ -30,6 +30,7 @@ import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
+import com.suks.sittiporn.lslamic.realm.RealmUtil;
 
 import java.util.ArrayList;
 
