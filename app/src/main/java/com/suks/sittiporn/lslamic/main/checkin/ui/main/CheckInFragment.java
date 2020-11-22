@@ -94,6 +94,7 @@ public class CheckInFragment extends Fragment {
     Button bt_can;
     EditText editTextNumberRoom;
     EditText editTextNumber;
+    EditText editTextDesc;
     private Uri photoUri;
     String encodedImage1 = "";
     String encodedImage2 = "";
@@ -115,6 +116,7 @@ public class CheckInFragment extends Fragment {
     Bitmap bitmap;
 
     String n;
+    String x;
 
     private static final int REQUEST_LOCATION = 1;
     Button btnGetLocation;
@@ -194,9 +196,11 @@ public class CheckInFragment extends Fragment {
         Sprite doubleBounce = new DoubleBounce();
         progressBar.setIndeterminateDrawable(doubleBounce);
 
+
         id = RealmUtil.getMemberId();
         llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
         editTextNameplace = (EditText) view.findViewById(R.id.editTextNameplace);
+        editTextDesc = (EditText) view.findViewById(R.id.editTextDesc);
         txt_location = (TextView) view.findViewById(R.id.txt_location);
         imageViewMaps = (ImageView) view.findViewById(R.id.imageViewMaps);
         imageView1 = (ImageView) view.findViewById(R.id.imageView1);
@@ -241,7 +245,8 @@ public class CheckInFragment extends Fragment {
                            llviewlooad.setVisibility(View.VISIBLE);
                            addLocation(editTextNumberRoom.getText().toString(),
                                    editTextNumber.getText().toString(),
-                                   editTextNameplace.getText().toString());
+                                   editTextNameplace.getText().toString(),
+                                   editTextDesc.getText().toString());
 
                        }
                    });
@@ -579,7 +584,25 @@ public class CheckInFragment extends Fragment {
     }
 
     private void addLocation(final String editTextNumberRoom, final String editTextNumber,
-                             final String name) {
+                             final String name, final String address) {
+
+        Random rand = new Random();
+        for (int i = 0; i < 6; i++) {
+            if (i == 0) {
+                n = String.valueOf(rand.nextInt(9) + 0);
+            } else {
+                n = n + String.valueOf(rand.nextInt(9) + 0);
+            }
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (i == 0) {
+                x = String.valueOf(rand.nextInt(9) + 0);
+            } else {
+                x = x + String.valueOf(rand.nextInt(9) + 0);
+            }
+        }
+
 
         time = DateTimeUtils.getDate("HH:mm:ss");
         date = DateTimeUtils.getDate("yyyy-MM-dd");
@@ -587,13 +610,15 @@ public class CheckInFragment extends Fragment {
         requestModel.setLatitude(latitude);
         requestModel.setLongitude(longitude);
         requestModel.setName_l(name);
-        requestModel.setNumberFull(editTextNumber);
+        requestModel.setNumberFull((editTextNumber.equals("") ? "0" : editTextNumber));
         requestModel.setStatus("0");
-        requestModel.setRoomNumber(editTextNumberRoom);
+        requestModel.setRoomNumber((editTextNumberRoom.equals("") ? "0" : editTextNumberRoom));
         requestModel.setTimeStart(time);
         requestModel.setTimeEnd(time);
         requestModel.setUser_id(id);
         requestModel.setDatetime(date+ " " + time);
+        requestModel.setAddress(address);
+        requestModel.setLocation(n+x);
 
         ApiService apiService = Retrofit2.getApiService();
         Observable<LocationListModel> observable = apiService.addLocation(requestModel);
@@ -603,30 +628,33 @@ public class CheckInFragment extends Fragment {
                 .subscribe(new Observer<LocationListModel>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+//                        llviewlooad.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onNext(LocationListModel response) {
+
                         if (response.getSuccess().equals("true")) {
                             if (encodedImage1 !=  ""){
-                                addImgLocation(response.getData().get(0).getId(), 1);
+                                addImgLocation(n+x, 1);
                             }
                             if (encodedImage2 !=  ""){
-                                addImgLocation(response.getData().get(0).getId(), 2);
+                                addImgLocation(n+x, 2);
                             }
 
                             if (encodedImage3 !=  ""){
-                                addImgLocation(response.getData().get(0).getId(), 3);
+                                addImgLocation(n+x, 3);
                             }
 
                         } else {
 
                         }
+                        llviewlooad.setVisibility(View.GONE);
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        llviewlooad.setVisibility(View.GONE);
                         Toast.makeText(getContext(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
                     }
 

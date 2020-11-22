@@ -12,6 +12,8 @@ public class LocationRequestModel {
     private String datetime;
     private String timeStart;
     private String timeEnd;
+    private String address;
+    private String location;
 
     public String getName_l() {
         return name_l;
@@ -91,5 +93,21 @@ public class LocationRequestModel {
 
     public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
