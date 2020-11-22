@@ -2,6 +2,7 @@ package com.suks.sittiporn.lslamic.manager.http;
 
 import com.suks.sittiporn.lslamic.model.reponse.AddCommentModel;
 import com.suks.sittiporn.lslamic.model.reponse.CommentListModel;
+import com.suks.sittiporn.lslamic.model.reponse.FavoriteByLocationResponeModel;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
@@ -68,6 +69,11 @@ public interface ApiService {
     @POST("addFavoriteUse.php")
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<SuccessModel> addFavoriteUse(@Body FavoriteUseRequestModel requestModel);
+
+    @GET("getFavoritebyLocation.php")
+    Observable<FavoriteByLocationResponeModel> getFavoritebyLocation(@Query("user_id") String user_id,
+                                                                     @Query("location_id") String location_id);
+
 
 
 }

@@ -39,6 +39,7 @@ import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.AddCommentModel;
 import com.suks.sittiporn.lslamic.model.reponse.CommentListModel;
 import com.suks.sittiporn.lslamic.model.reponse.CommentReponseModel;
+import com.suks.sittiporn.lslamic.model.reponse.FavoriteByLocationResponeModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgReponseModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
@@ -143,19 +144,20 @@ public class DetailCheckInFragment extends Fragment {
 
         getDescLocation(locationId);
         getListComment(locationId);
+        getFavoritebyLocation(locationId);
 
         boolean favorite = false;
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         isEnable = favorite;
-        if (isEnable) {
-//            isEnable = false;
-            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
-        } else {
-//            isEnable = true;
-            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
-        }
+//        if (isEnable) {
+////            isEnable = false;
+//            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+//        } else {
+////            isEnable = true;
+//            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+//        }
 
 //        setupAdapter();
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -597,5 +599,52 @@ public class DetailCheckInFragment extends Fragment {
                 });
 
     }
+
+    private void getFavoritebyLocation(String location_id) {
+
+        ApiService apiService = Retrofit2.getApiService();
+
+        Observable<FavoriteByLocationResponeModel> observable = apiService.getFavoritebyLocation(RealmUtil.getMemberId(),location_id);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<FavoriteByLocationResponeModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(FavoriteByLocationResponeModel dataModel) {
+
+                        if (dataModel.getSuccess().equals("true")){
+                            if (dataModel.getData().get(0).getStatus().equals("1")){
+                                isEnable = true;
+                                star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+                            }else {
+                                isEnable = false;
+                                star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+                            }
+
+                        } else {
+                            isEnable = false;
+                            star.setImageDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
 
 }

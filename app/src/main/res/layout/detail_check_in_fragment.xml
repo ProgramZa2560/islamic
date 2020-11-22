@@ -5,7 +5,7 @@
     android:id="@+id/detail_check_in"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/card_item_press"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
 
