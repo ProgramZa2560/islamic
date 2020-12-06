@@ -8,7 +8,7 @@ public class UpdateProfileRequestModel {
     private String gender;
     private String age;
     private String url;
-    private String imgName;
+    private String nameUrl;
 
     public String getId() {
         return id;
@@ -58,12 +58,12 @@ public class UpdateProfileRequestModel {
         this.url = url;
     }
 
-    public String getImgName() {
-        return imgName;
+    public String getNameUrl() {
+        return nameUrl;
     }
 
-    public void setImgName(String imgName) {
-        this.imgName = imgName;
+    public void setNameUrl(String nameUrl) {
+        this.nameUrl = nameUrl;
     }
 }
 

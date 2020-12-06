@@ -4,11 +4,11 @@
 
 
     <item android:id="@+id/profile"
-        android:title="Profile"
+        android:title="โปรไฟล์"
         android:orderInCategory="100"
         app:showAsAction="never" />
     <item android:id="@+id/info"
-        android:title="Info"
+        android:title="เกี่ยวกับ"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

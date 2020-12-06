@@ -84,13 +84,13 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/tel"
+                android:id="@+id/age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="2dp"
                 android:background="@drawable/normal_edittext"
                 android:inputType="number"
-                android:hint="99000"
+                android:hint="99"
                 android:textColor="#3C3C3C"
                 android:textSize="18sp" />
 

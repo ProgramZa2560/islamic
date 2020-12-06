@@ -373,6 +373,8 @@ public class CheckInFragment extends Fragment {
         }
 
 
+
+
     }
 
     public File createImageFile() throws IOException {
@@ -664,7 +666,7 @@ public class CheckInFragment extends Fragment {
                                 adbConfirmExit.create();
                                 adbConfirmExit.setTitle("กลับเมนูหลัก");
                                 adbConfirmExit.setMessage(response.getMessage());
-                                adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {
 
@@ -743,7 +745,7 @@ public class CheckInFragment extends Fragment {
                             adbConfirmExit.create();
                             adbConfirmExit.setTitle("กลับเมนูหลัก");
                             adbConfirmExit.setMessage(response.getMesage());
-                            adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
 

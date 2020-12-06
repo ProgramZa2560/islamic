@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,6 +46,7 @@ import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.UpdateProfileRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -74,7 +76,7 @@ public class ProfileFragment extends Fragment {
     ImageView bt_logout, ic_edit, ic_upload;
     CircleImageView ic_person;
     RadioButton radio1, radio2;
-    EditText userf, userl, mail, tel, status;
+    EditText userf, userl, mail, age, status;
     LinearLayout llBtn;
     Button btnCancel, btnSave;
 
@@ -94,6 +96,7 @@ public class ProfileFragment extends Fragment {
     String x;
     String encodedImage = "";
     String sex;
+    String date;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -117,6 +120,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         this.initinstanceState(view, savedInstanceState);
+
     }
 
     @Override
@@ -133,18 +137,18 @@ public class ProfileFragment extends Fragment {
             case R.id.radio1:
                 if (checked)
                     sex = "0";
-                    // Pirates are the best
-                    break;
+                // Pirates are the best
+                break;
             case R.id.radio2:
                 if (checked)
                     sex = "1";
-                    // Ninjas rule
-                    break;
+                // Ninjas rule
+                break;
         }
     }
 
     private void initinstanceState(View view, Bundle savedInstanceState) {
-
+//        onRadioButtonClicked(view);
 
 //        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.spin_kit);
 //        Sprite doubleBounce = new DoubleBounce();
@@ -162,7 +166,7 @@ public class ProfileFragment extends Fragment {
         userf = (EditText) view.findViewById(R.id.userf);
         userl = (EditText) view.findViewById(R.id.userl);
         mail = (EditText) view.findViewById(R.id.mail);
-        tel = (EditText) view.findViewById(R.id.tel);
+        age = (EditText) view.findViewById(R.id.age);
         status = (EditText) view.findViewById(R.id.status);
 
         bt_logout = (ImageView) view.findViewById(R.id.bt_logout);
@@ -189,7 +193,7 @@ public class ProfileFragment extends Fragment {
     private void Enabled(boolean enabled) {
         userf.setEnabled(enabled);
         userl.setEnabled(enabled);
-        tel.setEnabled(enabled);
+        age.setEnabled(enabled);
 
 
     }
@@ -271,7 +275,7 @@ public class ProfileFragment extends Fragment {
                 adbConfirmExit.create();
                 adbConfirmExit.setTitle("บันทึก");
                 adbConfirmExit.setMessage("คุณต้องการบันทึกใช่หรือไม่?");
-                adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
@@ -279,7 +283,7 @@ public class ProfileFragment extends Fragment {
 
                     }
                 });
-                adbConfirmExit.setNegativeButton("ยกเลิก",null);
+                adbConfirmExit.setNegativeButton("ยกเลิก", null);
                 adbConfirmExit.create().show();
 
 
@@ -296,6 +300,20 @@ public class ProfileFragment extends Fragment {
         });
 
 
+        radio1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "0";
+            }
+        });
+
+        radio2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "1";
+            }
+        });
+
 //        llviewlooad.setVisibility(View.GONE);
 //        Calendar c = Calendar.getInstance();
 //        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
@@ -306,13 +324,24 @@ public class ProfileFragment extends Fragment {
 
     private void updateProfile() {
 
+        Random rand = new Random();
+        for (int i = 0; i < 6; i++) {
+            if (i == 0) {
+                n = String.valueOf(rand.nextInt(9) + 0);
+            } else {
+                n = n + String.valueOf(rand.nextInt(9) + 0);
+            }
+        }
+        date = DateTimeUtils.getDate("yyyy-MM-dd");
+        String id = RealmUtil.getMemberId();
         UpdateProfileRequestModel requestModel = new UpdateProfileRequestModel();
-        requestModel.setId(RealmUtil.getMemberId());
-        requestModel.setUrl(encodedImage.trim());
+        requestModel.setId(id);
+        requestModel.setUrl((encodedImage.trim().equals("")) ? "1" : encodedImage.trim());
         requestModel.setFristname(userf.getText().toString());
         requestModel.setLastname(userl.getText().toString());
-        requestModel.setAge(tel.getText().toString());
+        requestModel.setAge(age.getText().toString());
         requestModel.setGender(sex);
+        requestModel.setNameUrl(id + "__" + date + "_" + n + ".png");
 
 
         ApiService apiService = Retrofit2.getApiService();
@@ -330,22 +359,22 @@ public class ProfileFragment extends Fragment {
                     public void onNext(SuccessModel response) {
 //                        if (response.getResult().equals("true")) {
 
-                            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
-                            adbConfirmExit.create();
-                            adbConfirmExit.setTitle("สำเร็จ");
-                            adbConfirmExit.setMessage(response.getMesage());
-                            adbConfirmExit.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
+                        final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                        adbConfirmExit.create();
+                        adbConfirmExit.setTitle("สำเร็จ");
+                        adbConfirmExit.setMessage(response.getMesage());
+                        adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
 
-                                    Enabled(false);
-                                    llBtn.setVisibility(View.GONE);
-                                    ic_upload.setVisibility(View.GONE);
-                                    ic_edit.setVisibility(View.VISIBLE);
 
-                                }
-                            });
-                            adbConfirmExit.create().show();
+                            }
+                        });
+                        adbConfirmExit.create().show();
+                        Enabled(false);
+                        llBtn.setVisibility(View.GONE);
+                        ic_upload.setVisibility(View.GONE);
+                        ic_edit.setVisibility(View.VISIBLE);
 //                        } else {
 //                            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
 //                            adbConfirmExit.create();
@@ -373,7 +402,6 @@ public class ProfileFragment extends Fragment {
                     }
                 });
     }
-
 
 
     public File createImageFile() throws IOException {
@@ -587,7 +615,7 @@ public class ProfileFragment extends Fragment {
                             userf.setText(dataModel.getData().get(0).getFristname());
                             userl.setText(dataModel.getData().get(0).getLastname());
                             mail.setText(dataModel.getData().get(0).getFristname());
-                            tel.setText(dataModel.getData().get(0).getAge());
+                            age.setText(dataModel.getData().get(0).getAge());
 
 //                            if (dataModel.getData().get(0).getUser_image().equals("")){
 //                                url = "";
@@ -600,15 +628,15 @@ public class ProfileFragment extends Fragment {
 //                                        .into(ic_person);
 //
 //                            }else {
-                                url = Retrofit2.BASE_URL + dataModel.getData().get(0).getUser_image();
-                                Glide.with(ic_person.getContext())
-                                        .load(url)
-                                        .apply(new RequestOptions().fitCenter()
-                                                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                                .error(R.drawable.group__22)
-                                                .placeholder(R.drawable.group__22)
-                                                .skipMemoryCache(true))
-                                        .into(ic_person);
+                            url = Retrofit2.BASE_URL + dataModel.getData().get(0).getUser_image();
+                            Glide.with(ic_person.getContext())
+                                    .load(url)
+                                    .apply(new RequestOptions().fitCenter()
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .error(R.drawable.group__22)
+                                            .placeholder(R.drawable.group__22)
+                                            .skipMemoryCache(true))
+                                    .into(ic_person);
 
 //                            }
 
