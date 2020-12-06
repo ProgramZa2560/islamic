@@ -61,7 +61,7 @@
         <activity android:name=".main.maps.MapsIslamicActivity" />
         <activity
             android:name=".main.favorite.FavoriteActivity"
-            android:label="Favorite" />
+            android:label="ถูกใจ" />
         <activity
             android:name=".main.checkinlist.detail.DetailCheckInActivity"
             android:label="รายละเอียด" />
@@ -71,22 +71,22 @@
         <activity android:name=".help.HelpActivity" />
         <activity
             android:name=".main.maps.CustomInfoWindowMapsActivity"
-            android:label="maps" />
+            android:label="แผนที่" />
         <activity android:name=".profile.ProfileActivity"
             android:label="Profile"/>
         <activity android:name=".main.place.PlaceActivity" />
         <activity
             android:name=".main.checkinlist.CheckInListActivity"
-            android:label="CheckInList" />
+            android:label="รายการเช็คอิน" />
         <activity
             android:name=".main.checkin.CheckInActivity"
             android:label="เพิ่ม" />
         <activity
             android:name=".main.time.TimeActivity"
-            android:label="Time" />
+            android:label="เวลา" />
         <activity
             android:name=".main.MapsActivity"
-            android:label="Maps" /> <!-- <receiver -->
+            android:label="แผนที่" /> <!-- <receiver -->
         <!-- android:name=".service.SyncVipAlarmBroadCastReceiver" -->
         <!-- android:permission="android.permission.BIND_JOB_SERVICE"> -->
         <!-- <intent-filter> -->
@@ -95,10 +95,10 @@
         <!-- </receiver> -->
         <activity
             android:name=".login.LoginActivity"
-            android:label="Login" />
+            android:label="เข้าสู่ระบบ" />
         <activity
             android:name=".home.HomeActivity"
-            android:label="HOME"
+            android:label="หน้าหลัก"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

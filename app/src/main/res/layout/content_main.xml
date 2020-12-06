@@ -16,13 +16,13 @@
             android:id="@+id/bt_menu1"
             android:layout_width="325dp"
             android:layout_height="90dp"
+            android:background="@drawable/component_17__1"
             android:contentDescription="@string/bt_m1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.207"
-            android:background="@drawable/component_17__1" />
+            app:layout_constraintVertical_bias="0.207" />
 
         <Button
             android:id="@+id/bt_menu2"

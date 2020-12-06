@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/dialog_title"
                 android:padding="@dimen/padding16dp"
-                android:text="เลือกคนที่ต้องการ"
+                android:text="รายการสถานที่"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white"
                 android:textStyle="bold" />

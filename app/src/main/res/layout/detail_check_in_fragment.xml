@@ -265,7 +265,7 @@
                     android:id="@+id/editText_Comment"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:hint="Comment"
+                    android:hint="แสดงความคิดเห็น"
                     android:keyboardNavigationCluster="false"
                     android:paddingLeft="@dimen/margin8dp"
                     android:background="@drawable/btn_approve_track" />
@@ -276,7 +276,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/btn_blue"
-                    android:text="sent"
+                    android:layout_gravity="end"
+                    android:text="ส่ง"
                     android:textColor="@color/white" />
 
             </LinearLayout>

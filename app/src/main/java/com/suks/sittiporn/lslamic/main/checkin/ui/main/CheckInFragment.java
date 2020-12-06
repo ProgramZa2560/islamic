@@ -95,6 +95,8 @@ public class CheckInFragment extends Fragment {
     EditText editTextNumberRoom;
     EditText editTextNumber;
     EditText editTextDesc;
+    EditText editTextTimeOpen;
+    EditText editTextTimeClose;
 
     String encodedImage1 = "";
     String encodedImage2 = "";
@@ -211,6 +213,8 @@ public class CheckInFragment extends Fragment {
         bt_can = (Button) view.findViewById(R.id.bt_can);
         editTextNumberRoom = (EditText) view.findViewById(R.id.editTextNumberRoom);
         editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
+        editTextTimeOpen = (EditText) view.findViewById(R.id.editTextTimeOpen);
+        editTextTimeClose = (EditText) view.findViewById(R.id.editTextTimeClose);
 
         llviewlooad.setVisibility(View.GONE);
 
@@ -247,7 +251,9 @@ public class CheckInFragment extends Fragment {
                            addLocation(editTextNumberRoom.getText().toString(),
                                    editTextNumber.getText().toString(),
                                    editTextNameplace.getText().toString(),
-                                   editTextDesc.getText().toString());
+                                   editTextDesc.getText().toString(),
+                                   editTextTimeOpen.getText().toString(),
+                                   editTextTimeClose.getText().toString());
 
                        }
                    });
@@ -585,7 +591,7 @@ public class CheckInFragment extends Fragment {
     }
 
     private void addLocation(final String editTextNumberRoom, final String editTextNumber,
-                             final String name, final String address) {
+                             final String name, final String address, String editTextTimeOpen, String editTextTimeClose) {
 
         Random rand = new Random();
         for (int i = 0; i < 6; i++) {
@@ -614,8 +620,8 @@ public class CheckInFragment extends Fragment {
         requestModel.setNumberFull((editTextNumber.equals("") ? "0" : editTextNumber));
         requestModel.setStatus("0");
         requestModel.setRoomNumber((editTextNumberRoom.equals("") ? "0" : editTextNumberRoom));
-        requestModel.setTimeStart(time);
-        requestModel.setTimeEnd(time);
+        requestModel.setTimeStart((editTextTimeOpen.equals("") ? "07:00" : editTextTimeOpen));
+        requestModel.setTimeEnd((editTextTimeClose.equals("") ? "18:00" : editTextTimeClose));
         requestModel.setUser_id(id);
         requestModel.setDatetime(date+ " " + time);
         requestModel.setAddress(address);
