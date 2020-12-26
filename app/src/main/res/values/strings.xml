@@ -15,7 +15,7 @@
     <string name="bt_gotoregister" />
     <string name="bt_nologin">ใช้งานโดยไม่ล็อกอิน</string>
     <string name="bt_registerhere">Register Here</string>
-    <string name="email">ชื่อผู้ใช้</string>
+    <string name="email">อีเมล</string>
     <string name="password">รหัสผ่าน</string>
     <string name="bt_login" />
     <string name="username">User Name</string>
