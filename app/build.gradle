@@ -84,4 +84,22 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:11.0.2'
     implementation 'com.google.android.gms:play-services-places:11.0.2'
 
+    // butterknife dependencies
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    // navigation dependencies
+    def nav_version = "2.3.0-alpha03"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+
+    // lifecycle dependencies - viewmodel, livedata
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // room dependencies
+    def room_version = "2.2.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+
 }

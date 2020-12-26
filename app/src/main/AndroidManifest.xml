@@ -36,7 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".register.RegisterActivity"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -101,8 +101,18 @@
             android:label="หน้าหลัก"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity android:name=".register.RegisterActivity"/>
+
         <activity
             android:name=".MainActivity"
+            />
+
+        <activity android:name=".alram.activities.RingActivity"/>
+
+        <activity
+
+            android:name=".alram.activities.MainAlramActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoThemeBarStatus"
             tools:ignore="LockedOrientationActivity">
