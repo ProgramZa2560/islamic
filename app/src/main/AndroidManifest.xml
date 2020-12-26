@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
         android:name="myPackageName.permission.MAPS_RECEIVE"
@@ -59,6 +62,7 @@
                 android:resource="@xml/provider_paths" />
         </provider> <!-- Service -->
         <activity android:name=".main.maps.MapsIslamicActivity" />
+
         <activity
             android:name=".main.favorite.FavoriteActivity"
             android:label="ถูกใจ" />
@@ -109,6 +113,15 @@
             />
 
         <activity android:name=".alram.activities.RingActivity"/>
+
+        <receiver android:name=".alram.broadcastreceiver.AlarmBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".alram.service.AlarmService" />
+        <service android:name=".alram.service.RescheduleAlarmsService" />
 
         <activity
 
