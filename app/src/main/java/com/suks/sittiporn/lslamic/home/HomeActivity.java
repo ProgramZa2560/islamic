@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.about.AboutActivity;
+import com.suks.sittiporn.lslamic.alram.activities.MainAlramActivity;
 import com.suks.sittiporn.lslamic.login.LoginActivity;
 import com.suks.sittiporn.lslamic.profile.ProfileActivity;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
@@ -55,10 +56,15 @@ public class HomeActivity extends BaseActivity {
         }
         if (id == R.id.profile) {
 
-            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainAlramActivity.class);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+
+//            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+//            intent.addCategory(Intent.CATEGORY_HOME);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent);
 
             return true;
         }

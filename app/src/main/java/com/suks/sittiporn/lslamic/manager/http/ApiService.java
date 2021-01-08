@@ -16,6 +16,7 @@ import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.model.request.RegisterRequestModel;
+import com.suks.sittiporn.lslamic.model.request.TimeStatusRequestModel;
 import com.suks.sittiporn.lslamic.model.request.UpdateProfileRequestModel;
 
 import io.reactivex.Observable;
@@ -46,6 +47,11 @@ public interface ApiService {
 
     @GET("getTime.php")
     Observable<GetTimeModel> getTime(@Query("date") String date);
+
+
+    @POST("updateTimeStatus.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessModel> updateTimeStatus(@Body TimeStatusRequestModel requestModel);
 
     @GET("getListFavoriteUse.php")
     Observable<LocationListModel> getListFavoriteUse(@Query("id") String id);

@@ -40,7 +40,7 @@ public class CreateAlarmFragment extends Fragment {
     @BindView(R.id.fragment_createalarm_checkSun) CheckBox sun;
     @BindView(R.id.fragment_createalarm_recurring_options) LinearLayout recurringOptions;
 
-    private CreateAlarmViewModel createAlarmViewModel;
+    static CreateAlarmViewModel createAlarmViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class CreateAlarmFragment extends Fragment {
         return view;
     }
 
-    private void scheduleAlarm() {
+    public void scheduleAlarm() {
         int alarmId = new Random().nextInt(Integer.MAX_VALUE);
 
         Alarm alarm = new Alarm(

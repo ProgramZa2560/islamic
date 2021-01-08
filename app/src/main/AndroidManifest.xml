@@ -109,10 +109,11 @@
         <activity android:name=".register.RegisterActivity"/>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".alram.activities.MainAlramActivity"
             />
 
-        <activity android:name=".alram.activities.RingActivity"/>
+        <activity android:name=".alram.activities.RingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <receiver android:name=".alram.broadcastreceiver.AlarmBroadcastReceiver">
             <intent-filter>
@@ -123,9 +124,12 @@
         <service android:name=".alram.service.AlarmService" />
         <service android:name=".alram.service.RescheduleAlarmsService" />
 
+
+
+
         <activity
 
-            android:name=".alram.activities.MainAlramActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoThemeBarStatus"
             tools:ignore="LockedOrientationActivity">
