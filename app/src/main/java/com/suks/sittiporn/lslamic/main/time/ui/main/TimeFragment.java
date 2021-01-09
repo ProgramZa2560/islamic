@@ -1,10 +1,13 @@
 package com.suks.sittiporn.lslamic.main.time.ui.main;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,12 +20,15 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.alram.alarmslist.AlarmsListViewModel;
 import com.suks.sittiporn.lslamic.alram.createalarm.CreateAlarmViewModel;
 import com.suks.sittiporn.lslamic.alram.data.Alarm;
+import com.suks.sittiporn.lslamic.login.LoginActivity;
 import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
@@ -32,9 +38,10 @@ import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.DateTimeAppUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -72,7 +79,15 @@ public class TimeFragment extends Fragment {
     Calendar myCalendar;
     DatePickerDialog.OnDateSetListener datedate;
 
+    int alarmId = 0;
+
+    boolean count = false;
+
     private CreateAlarmViewModel createAlarmViewModel;
+
+    private AlarmsListViewModel alarmsListViewModel;
+
+    List<Alarm> alarmsList = new ArrayList<>();
 
     public static TimeFragment newInstance() {
         return new TimeFragment();
@@ -109,6 +124,15 @@ public class TimeFragment extends Fragment {
         progressBar.setIndeterminateDrawable(doubleBounce);
 
         createAlarmViewModel = ViewModelProviders.of(this).get(CreateAlarmViewModel.class);
+        alarmsListViewModel = ViewModelProviders.of(this).get(AlarmsListViewModel.class);
+        alarmsListViewModel.getAlarmsLiveData().observe(getActivity(), new androidx.lifecycle.Observer<List<Alarm>>() {
+            @Override
+            public void onChanged(List<Alarm> alarms) {
+                if (alarms != null) {
+                    alarmsList = alarms;
+                }
+            }
+        });
 
         llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
         ic_date = (ImageView) view.findViewById(R.id.ic_date);
@@ -121,9 +145,7 @@ public class TimeFragment extends Fragment {
         llviewlooad.setVisibility(View.GONE);
 //        initi();
 
-
         id = RealmUtil.getMemberId();
-
         initi();
 
 
@@ -172,86 +194,276 @@ public class TimeFragment extends Fragment {
         switch1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int check = (switch1.isChecked()) ? 1 : 0;
-                TimeStatusRequestModel model = new TimeStatusRequestModel();
-                model.setId(id);
-                model.setTime_status1(check);
-                model.setTime_status2(Integer.parseInt(statusTime2));
-                model.setTime_status3(Integer.parseInt(statusTime3));
-                model.setTime_status4(Integer.parseInt(statusTime4));
-                model.setTime_status5(Integer.parseInt(statusTime5));
 
-                updateTimeStatus(model);
-                scheduleAlarm(switch1String, switch1.isChecked(), "ซุบฮิ");
+                if (currentDate.equals(dateText.getText().toString())) {
+                    count = false;
+                    int check = (switch1.isChecked()) ? 1 : 0;
+                    int idStatus = idAlarm(switch1String, 1);
+                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+                    model.setId(id);
+                    model.setTime_status1(check);
+                    model.setTime_status2(Integer.parseInt(statusTime2));
+                    model.setTime_status3(Integer.parseInt(statusTime3));
+                    model.setTime_status4(Integer.parseInt(statusTime4));
+                    model.setTime_status5(Integer.parseInt(statusTime5));
+
+                    updateTimeStatus(model);
+                    if (switch1.isChecked()) {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.schedule(getContext());
+                                alarmsListViewModel.update(alarm);
+                                count = true;
+                                break;
+                            }
+                        }
+                        if (!count)
+                            scheduleAlarm(switch1String, switch1.isChecked(), "ซุบฮิ", 1);
+
+                    } else {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.cancelAlarm(getContext());
+                                alarmsListViewModel.update(alarm);
+                                break;
+
+                            }
+                        }
+                    }
+                } else {
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                           switch1.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }
             }
         });
 
         switch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int check = (switch2.isChecked()) ? 1 : 0;
-                TimeStatusRequestModel model = new TimeStatusRequestModel();
-                model.setId(id);
-                model.setTime_status1(Integer.parseInt(statusTime1));
-                model.setTime_status2(check);
-                model.setTime_status3(Integer.parseInt(statusTime3));
-                model.setTime_status4(Integer.parseInt(statusTime4));
-                model.setTime_status5(Integer.parseInt(statusTime5));
+                if (currentDate.equals(dateText.getText().toString())) {
+                    count = false;
+                    int check = (switch2.isChecked()) ? 1 : 0;
+                    int idStatus = idAlarm(switch2String, 2);
+                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+                    model.setId(id);
+                    model.setTime_status1(Integer.parseInt(statusTime1));
+                    model.setTime_status2(check);
+                    model.setTime_status3(Integer.parseInt(statusTime3));
+                    model.setTime_status4(Integer.parseInt(statusTime4));
+                    model.setTime_status5(Integer.parseInt(statusTime5));
 
-                updateTimeStatus(model);
-                scheduleAlarm("21:45", switch2.isChecked(), "ดุอริ");
+                    updateTimeStatus(model);
+
+                    if (switch2.isChecked()) {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.schedule(getContext());
+                                alarmsListViewModel.update(alarm);
+                                count = true;
+                                break;
+                            }
+                        }
+                        if (!count)
+                            scheduleAlarm(switch2String, switch2.isChecked(), "ดุอริ", 2);
+                    } else {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.cancelAlarm(getContext());
+                                alarmsListViewModel.update(alarm);
+                                break;
+
+                            }
+                        }
+                    }
+                } else {
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            switch2.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }
             }
         });
 
         switch3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (currentDate.equals(dateText.getText().toString())) {
+                    count = false;
+                    int idStatus = idAlarm(switch3String, 3);
+                    int check = (switch3.isChecked()) ? 1 : 0;
+                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+                    model.setId(id);
+                    model.setTime_status1(Integer.parseInt(statusTime1));
+                    model.setTime_status2(Integer.parseInt(statusTime2));
+                    model.setTime_status3(check);
+                    model.setTime_status4(Integer.parseInt(statusTime4));
+                    model.setTime_status5(Integer.parseInt(statusTime5));
 
-                int check = (switch3.isChecked()) ? 1 : 0;
-                TimeStatusRequestModel model = new TimeStatusRequestModel();
-                model.setId(id);
-                model.setTime_status1(Integer.parseInt(statusTime1));
-                model.setTime_status2(Integer.parseInt(statusTime2));
-                model.setTime_status3(check);
-                model.setTime_status4(Integer.parseInt(statusTime4));
-                model.setTime_status5(Integer.parseInt(statusTime5));
+                    updateTimeStatus(model);
 
+                    if (switch3.isChecked()) {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.schedule(getContext());
+                                alarmsListViewModel.update(alarm);
+                                count = true;
+                                break;
+                            }
+                        }
+                        if (!count)
+                            scheduleAlarm(switch3String, switch3.isChecked(), "อัสริ", 3);
+                    } else {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.cancelAlarm(getContext());
+                                alarmsListViewModel.update(alarm);
+                                break;
 
-                updateTimeStatus(model);
-                scheduleAlarm(switch3String, switch3.isChecked(), "อัสริ");
+                            }
+                        }
+                    }
+                } else {
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            switch3.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }
             }
         });
 
         switch4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int check = (switch4.isChecked()) ? 1 : 0;
-                TimeStatusRequestModel model = new TimeStatusRequestModel();
-                model.setId(id);
-                model.setTime_status1(Integer.parseInt(statusTime1));
-                model.setTime_status2(Integer.parseInt(statusTime2));
-                model.setTime_status3(Integer.parseInt(statusTime3));
-                model.setTime_status4(check);
-                model.setTime_status5(Integer.parseInt(statusTime5));
+                if (currentDate.equals(dateText.getText().toString())) {
+                    count = false;
+                    int idStatus = idAlarm(switch4String, 4);
+                    int check = (switch4.isChecked()) ? 1 : 0;
+                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+                    model.setId(id);
+                    model.setTime_status1(Integer.parseInt(statusTime1));
+                    model.setTime_status2(Integer.parseInt(statusTime2));
+                    model.setTime_status3(Integer.parseInt(statusTime3));
+                    model.setTime_status4(check);
+                    model.setTime_status5(Integer.parseInt(statusTime5));
+                    updateTimeStatus(model);
 
-                updateTimeStatus(model);
-                scheduleAlarm(switch4String, switch4.isChecked(), "มักริก");
+                    if (switch4.isChecked()) {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.schedule(getContext());
+                                alarmsListViewModel.update(alarm);
+                                count = true;
+                                break;
+                            }
+                        }
+                        if (!count)
+                            scheduleAlarm(switch4String, switch4.isChecked(), "มักริก", 4);
+
+                    } else {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.cancelAlarm(getContext());
+                                alarmsListViewModel.update(alarm);
+                                break;
+
+                            }
+                        }
+                    }
+                } else {
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            switch4.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }
             }
         });
 
         switch5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int check = (switch5.isChecked()) ? 1 : 0;
-                TimeStatusRequestModel model = new TimeStatusRequestModel();
-                model.setId(id);
-                model.setTime_status1(Integer.parseInt(statusTime1));
-                model.setTime_status2(Integer.parseInt(statusTime2));
-                model.setTime_status3(Integer.parseInt(statusTime3));
-                model.setTime_status4(Integer.parseInt(statusTime4));
-                model.setTime_status5(check);
-                updateTimeStatus(model);
-                scheduleAlarm(switch5String, switch5.isChecked(), "อิชา");
+                if (currentDate.equals(dateText.getText().toString())) {
+                    count = false;
+                    int idStatus = idAlarm(switch5String, 5);
+                    int check = (switch5.isChecked()) ? 1 : 0;
+                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+                    model.setId(id);
+                    model.setTime_status1(Integer.parseInt(statusTime1));
+                    model.setTime_status2(Integer.parseInt(statusTime2));
+                    model.setTime_status3(Integer.parseInt(statusTime3));
+                    model.setTime_status4(Integer.parseInt(statusTime4));
+                    model.setTime_status5(check);
+                    updateTimeStatus(model);
+
+                    if (switch5.isChecked()) {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.schedule(getContext());
+                                alarmsListViewModel.update(alarm);
+                                count = true;
+                                break;
+                            }
+                        }
+                        if (!count)
+                            scheduleAlarm("23:16", switch5.isChecked(), "อิชา", 5);
+                    } else {
+                        for (Alarm alarm : alarmsList) {
+                            if (alarm.getAlarmId() == idStatus) {
+                                alarm.cancelAlarm(getContext());
+                                alarmsListViewModel.update(alarm);
+                                break;
+
+                            }
+                        }
+                    }
+                } else {
+
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            switch5.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }
             }
         });
     }
@@ -300,8 +512,8 @@ public class TimeFragment extends Fragment {
     }
 
     private String chknull(String chk) {
-        if (chk == null){
-            return "";
+        if (chk == null) {
+            return "0";
         } else return chk;
 
     }
@@ -378,13 +590,26 @@ public class TimeFragment extends Fragment {
         initi();
     }
 
-    private void scheduleAlarm(String switch1String, boolean checked, String name) {
-        int alarmId = new Random().nextInt(Integer.MAX_VALUE);
+    private int idAlarm(String switch1String, int switchNum) {
+        int HH = Integer.parseInt(switch1String.split(":")[0]);
+        int mm = Integer.parseInt(switch1String.split(":")[1]);
+        String dateString = dateText.getText().toString();
 
+        alarmId = Integer.parseInt(dateString.split("-")[0] +
+                dateString.split("-")[1] +
+                dateString.split("-")[2] +
+                switchNum);
+        return alarmId;
+    }
+
+    private void scheduleAlarm(String switchString, boolean checked, String name, int switchNum) {
+        int id = idAlarm(switchString, switchNum);
+        int HH = Integer.parseInt(switch1String.split(":")[0]);
+        int mm = Integer.parseInt(switch1String.split(":")[1]);
         Alarm alarm = new Alarm(
-                alarmId,
-                Integer.parseInt(switch1String.split(":")[0]),
-                Integer.parseInt(switch1String.split(":")[1]),
+                id,
+                HH,
+                mm,
                 name,
                 System.currentTimeMillis(),
                 checked,
