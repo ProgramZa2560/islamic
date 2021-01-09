@@ -37,9 +37,12 @@ import com.suks.sittiporn.lslamic.model.request.TimeStatusRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.DateTimeAppUtils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -151,6 +154,38 @@ public class TimeFragment extends Fragment {
 
     }
 
+    private boolean checkDate(String currentDate, String dateText) {
+
+//        String sDate1 = "2013-08-13";
+//        String sDate2 = "2013-08-12";
+
+        boolean chk = false;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            Date date1 = df.parse(currentDate);
+            Date date2 = df.parse(dateText);
+
+            if (date1.compareTo(date2) > 0) {
+                System.out.println(currentDate + " after date " + dateText);
+                chk = true;
+            } else if (date1.compareTo(date2) == 0) {
+                chk = true;
+                System.out.println(currentDate + " equal date " + dateText);
+            } else {
+                chk = false;
+                System.out.println(currentDate + " before date " + dateText);
+
+            }
+        } catch (ParseException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return true;
+    }
+
     private void initi() {
 
 
@@ -195,7 +230,8 @@ public class TimeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if (currentDate.equals(dateText.getText().toString())) {
+                boolean cc = checkDate(currentDate, dateText.getText().toString());
+                if (cc) {
                     count = false;
                     int check = (switch1.isChecked()) ? 1 : 0;
                     int idStatus = idAlarm(switch1String, 1);
@@ -235,11 +271,11 @@ public class TimeFragment extends Fragment {
                     adbConfirmExit.create();
                     adbConfirmExit.setCancelable(true);
                     adbConfirmExit.setTitle("แจ้งเตือน");
-                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าได้!");
                     adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                           switch1.setChecked(false);
+                            switch1.setChecked(false);
                         }
                     });
                     adbConfirmExit.create().show();
@@ -250,7 +286,8 @@ public class TimeFragment extends Fragment {
         switch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentDate.equals(dateText.getText().toString())) {
+                boolean cc = checkDate(currentDate, dateText.getText().toString());
+                if (cc) {
                     count = false;
                     int check = (switch2.isChecked()) ? 1 : 0;
                     int idStatus = idAlarm(switch2String, 2);
@@ -290,7 +327,7 @@ public class TimeFragment extends Fragment {
                     adbConfirmExit.create();
                     adbConfirmExit.setCancelable(true);
                     adbConfirmExit.setTitle("แจ้งเตือน");
-                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าได้!");
                     adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
@@ -305,7 +342,8 @@ public class TimeFragment extends Fragment {
         switch3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentDate.equals(dateText.getText().toString())) {
+                boolean cc = checkDate(currentDate, dateText.getText().toString());
+                if (cc) {
                     count = false;
                     int idStatus = idAlarm(switch3String, 3);
                     int check = (switch3.isChecked()) ? 1 : 0;
@@ -345,7 +383,7 @@ public class TimeFragment extends Fragment {
                     adbConfirmExit.create();
                     adbConfirmExit.setCancelable(true);
                     adbConfirmExit.setTitle("แจ้งเตือน");
-                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าได้!");
                     adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
@@ -360,7 +398,8 @@ public class TimeFragment extends Fragment {
         switch4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentDate.equals(dateText.getText().toString())) {
+                boolean cc = checkDate(currentDate, dateText.getText().toString());
+                if (cc) {
                     count = false;
                     int idStatus = idAlarm(switch4String, 4);
                     int check = (switch4.isChecked()) ? 1 : 0;
@@ -400,7 +439,7 @@ public class TimeFragment extends Fragment {
                     adbConfirmExit.create();
                     adbConfirmExit.setCancelable(true);
                     adbConfirmExit.setTitle("แจ้งเตือน");
-                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าได้!");
                     adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
@@ -415,7 +454,8 @@ public class TimeFragment extends Fragment {
         switch5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentDate.equals(dateText.getText().toString())) {
+                boolean cc = checkDate(currentDate, dateText.getText().toString());
+                if (cc) {
                     count = false;
                     int idStatus = idAlarm(switch5String, 5);
                     int check = (switch5.isChecked()) ? 1 : 0;
@@ -455,7 +495,7 @@ public class TimeFragment extends Fragment {
                     adbConfirmExit.create();
                     adbConfirmExit.setCancelable(true);
                     adbConfirmExit.setTitle("แจ้งเตือน");
-                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าหรือย้อนหลังได้!");
+                    adbConfirmExit.setMessage("ไม่สามารถตั้งเตือนล่วงหน้าได้!");
                     adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
