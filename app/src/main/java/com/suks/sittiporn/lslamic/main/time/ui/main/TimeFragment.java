@@ -34,6 +34,8 @@ import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.SuccessModel;
 import com.suks.sittiporn.lslamic.model.request.TimeStatusRequestModel;
+import com.suks.sittiporn.lslamic.realm.AlertModelRealm;
+import com.suks.sittiporn.lslamic.realm.DiskRealmDao;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.DateTimeAppUtils;
 
@@ -51,6 +53,9 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.realm.Realm;
+
+import static io.realm.Realm.getDefaultInstance;
 
 
 public class TimeFragment extends Fragment {
@@ -83,6 +88,13 @@ public class TimeFragment extends Fragment {
     DatePickerDialog.OnDateSetListener datedate;
 
     int alarmId = 0;
+    DiskRealmDao diskRealmDao;
+
+    int idStatus1;
+    int idStatus2;
+    int idStatus3;
+    int idStatus4;
+    int idStatus5;
 
     boolean count = false;
 
@@ -121,6 +133,9 @@ public class TimeFragment extends Fragment {
     }
 
     private void initinstanceState(View view, Bundle savedInstanceState) {
+
+        diskRealmDao = new DiskRealmDao(getContext());
+
 
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.spin_kit);
         Sprite doubleBounce = new DoubleBounce();
@@ -233,20 +248,28 @@ public class TimeFragment extends Fragment {
                 boolean cc = checkDate(currentDate, dateText.getText().toString());
                 if (cc) {
                     count = false;
-                    int check = (switch1.isChecked()) ? 1 : 0;
-                    int idStatus = idAlarm(switch1String, 1);
-                    TimeStatusRequestModel model = new TimeStatusRequestModel();
-                    model.setId(id);
-                    model.setTime_status1(check);
-                    model.setTime_status2(Integer.parseInt(statusTime2));
-                    model.setTime_status3(Integer.parseInt(statusTime3));
-                    model.setTime_status4(Integer.parseInt(statusTime4));
-                    model.setTime_status5(Integer.parseInt(statusTime5));
 
-                    updateTimeStatus(model);
+
+
+                    Realm realm = getDefaultInstance();
+                    realm.where(AlertModelRealm.class).findAll();
+
+//                    RealmUtil.addAlertAlarmRealm();
+
+                    diskRealmDao.saveS(String.valueOf(idStatus1), "true", "1", getContext());
+
+//                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+//                    model.setId(id);
+//                    model.setTime_status1(check);
+//                    model.setTime_status2(Integer.parseInt(statusTime2));
+//                    model.setTime_status3(Integer.parseInt(statusTime3));
+//                    model.setTime_status4(Integer.parseInt(statusTime4));
+//                    model.setTime_status5(Integer.parseInt(statusTime5));
+//
+//                    updateTimeStatus(model);
                     if (switch1.isChecked()) {
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus1) {
                                 alarm.schedule(getContext());
                                 alarmsListViewModel.update(alarm);
                                 count = true;
@@ -257,8 +280,9 @@ public class TimeFragment extends Fragment {
                             scheduleAlarm(switch1String, switch1.isChecked(), "ซุบฮิ", 1);
 
                     } else {
+                        diskRealmDao.saveS(String.valueOf(idStatus1), "false", "1", getContext());
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus1) {
                                 alarm.cancelAlarm(getContext());
                                 alarmsListViewModel.update(alarm);
                                 break;
@@ -289,21 +313,22 @@ public class TimeFragment extends Fragment {
                 boolean cc = checkDate(currentDate, dateText.getText().toString());
                 if (cc) {
                     count = false;
-                    int check = (switch2.isChecked()) ? 1 : 0;
-                    int idStatus = idAlarm(switch2String, 2);
-                    TimeStatusRequestModel model = new TimeStatusRequestModel();
-                    model.setId(id);
-                    model.setTime_status1(Integer.parseInt(statusTime1));
-                    model.setTime_status2(check);
-                    model.setTime_status3(Integer.parseInt(statusTime3));
-                    model.setTime_status4(Integer.parseInt(statusTime4));
-                    model.setTime_status5(Integer.parseInt(statusTime5));
-
-                    updateTimeStatus(model);
+                    diskRealmDao.saveS(String.valueOf(idStatus2), "true", "2", getContext());
+//                    int check = (switch2.isChecked()) ? 1 : 0;
+//                    int idStatus = idAlarm(switch2String, 2);
+//                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+//                    model.setId(id);
+//                    model.setTime_status1(Integer.parseInt(statusTime1));
+//                    model.setTime_status2(0);
+//                    model.setTime_status3(Integer.parseInt(statusTime3));
+//                    model.setTime_status4(Integer.parseInt(statusTime4));
+//                    model.setTime_status5(Integer.parseInt(statusTime5));
+//
+//                    updateTimeStatus(model);
 
                     if (switch2.isChecked()) {
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus2) {
                                 alarm.schedule(getContext());
                                 alarmsListViewModel.update(alarm);
                                 count = true;
@@ -313,8 +338,9 @@ public class TimeFragment extends Fragment {
                         if (!count)
                             scheduleAlarm(switch2String, switch2.isChecked(), "ดุอริ", 2);
                     } else {
+                        diskRealmDao.saveS(String.valueOf(idStatus2), "false", "2", getContext());
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus2) {
                                 alarm.cancelAlarm(getContext());
                                 alarmsListViewModel.update(alarm);
                                 break;
@@ -344,22 +370,23 @@ public class TimeFragment extends Fragment {
             public void onClick(View v) {
                 boolean cc = checkDate(currentDate, dateText.getText().toString());
                 if (cc) {
+                    diskRealmDao.saveS(String.valueOf(idStatus3), "true", "3", getContext());
                     count = false;
-                    int idStatus = idAlarm(switch3String, 3);
-                    int check = (switch3.isChecked()) ? 1 : 0;
-                    TimeStatusRequestModel model = new TimeStatusRequestModel();
-                    model.setId(id);
-                    model.setTime_status1(Integer.parseInt(statusTime1));
-                    model.setTime_status2(Integer.parseInt(statusTime2));
-                    model.setTime_status3(check);
-                    model.setTime_status4(Integer.parseInt(statusTime4));
-                    model.setTime_status5(Integer.parseInt(statusTime5));
-
-                    updateTimeStatus(model);
+//                    int idStatus = idAlarm(switch3String, 3);
+//                    int check = (switch3.isChecked()) ? 1 : 0;
+//                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+//                    model.setId(id);
+//                    model.setTime_status1(Integer.parseInt(statusTime1));
+//                    model.setTime_status2(Integer.parseInt(statusTime2));
+//                    model.setTime_status3(check);
+//                    model.setTime_status4(Integer.parseInt(statusTime4));
+//                    model.setTime_status5(Integer.parseInt(statusTime5));
+//
+//                    updateTimeStatus(model);
 
                     if (switch3.isChecked()) {
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus3) {
                                 alarm.schedule(getContext());
                                 alarmsListViewModel.update(alarm);
                                 count = true;
@@ -369,8 +396,9 @@ public class TimeFragment extends Fragment {
                         if (!count)
                             scheduleAlarm(switch3String, switch3.isChecked(), "อัสริ", 3);
                     } else {
+                        diskRealmDao.saveS(String.valueOf(idStatus3), "false", "3", getContext());
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus3) {
                                 alarm.cancelAlarm(getContext());
                                 alarmsListViewModel.update(alarm);
                                 break;
@@ -401,20 +429,21 @@ public class TimeFragment extends Fragment {
                 boolean cc = checkDate(currentDate, dateText.getText().toString());
                 if (cc) {
                     count = false;
-                    int idStatus = idAlarm(switch4String, 4);
-                    int check = (switch4.isChecked()) ? 1 : 0;
-                    TimeStatusRequestModel model = new TimeStatusRequestModel();
-                    model.setId(id);
-                    model.setTime_status1(Integer.parseInt(statusTime1));
-                    model.setTime_status2(Integer.parseInt(statusTime2));
-                    model.setTime_status3(Integer.parseInt(statusTime3));
-                    model.setTime_status4(check);
-                    model.setTime_status5(Integer.parseInt(statusTime5));
-                    updateTimeStatus(model);
+                    diskRealmDao.saveS(String.valueOf(idStatus4), "true", "4", getContext());
+//                    int idStatus = idAlarm(switch4String, 4);
+//                    int check = (switch4.isChecked()) ? 1 : 0;
+//                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+//                    model.setId(id);
+//                    model.setTime_status1(Integer.parseInt(statusTime1));
+//                    model.setTime_status2(Integer.parseInt(statusTime2));
+//                    model.setTime_status3(Integer.parseInt(statusTime3));
+//                    model.setTime_status4(check);
+//                    model.setTime_status5(Integer.parseInt(statusTime5));
+//                    updateTimeStatus(model);
 
                     if (switch4.isChecked()) {
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus4) {
                                 alarm.schedule(getContext());
                                 alarmsListViewModel.update(alarm);
                                 count = true;
@@ -425,8 +454,9 @@ public class TimeFragment extends Fragment {
                             scheduleAlarm(switch4String, switch4.isChecked(), "มักริก", 4);
 
                     } else {
+                        diskRealmDao.saveS(String.valueOf(idStatus4), "false", "4", getContext());
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus4) {
                                 alarm.cancelAlarm(getContext());
                                 alarmsListViewModel.update(alarm);
                                 break;
@@ -457,20 +487,21 @@ public class TimeFragment extends Fragment {
                 boolean cc = checkDate(currentDate, dateText.getText().toString());
                 if (cc) {
                     count = false;
-                    int idStatus = idAlarm(switch5String, 5);
-                    int check = (switch5.isChecked()) ? 1 : 0;
-                    TimeStatusRequestModel model = new TimeStatusRequestModel();
-                    model.setId(id);
-                    model.setTime_status1(Integer.parseInt(statusTime1));
-                    model.setTime_status2(Integer.parseInt(statusTime2));
-                    model.setTime_status3(Integer.parseInt(statusTime3));
-                    model.setTime_status4(Integer.parseInt(statusTime4));
-                    model.setTime_status5(check);
-                    updateTimeStatus(model);
+                    diskRealmDao.saveS(String.valueOf(idStatus5), "true", "5", getContext());
+//                    int idStatus = idAlarm(switch5String, 5);
+//                    int check = (switch5.isChecked()) ? 1 : 0;
+//                    TimeStatusRequestModel model = new TimeStatusRequestModel();
+//                    model.setId(id);
+//                    model.setTime_status1(Integer.parseInt(statusTime1));
+//                    model.setTime_status2(Integer.parseInt(statusTime2));
+//                    model.setTime_status3(Integer.parseInt(statusTime3));
+//                    model.setTime_status4(Integer.parseInt(statusTime4));
+//                    model.setTime_status5(check);
+//                    updateTimeStatus(model);
 
                     if (switch5.isChecked()) {
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus5) {
                                 alarm.schedule(getContext());
                                 alarmsListViewModel.update(alarm);
                                 count = true;
@@ -480,8 +511,9 @@ public class TimeFragment extends Fragment {
                         if (!count)
                             scheduleAlarm("23:16", switch5.isChecked(), "อิชา", 5);
                     } else {
+                        diskRealmDao.saveS(String.valueOf(idStatus5), "false", "5", getContext());
                         for (Alarm alarm : alarmsList) {
-                            if (alarm.getAlarmId() == idStatus) {
+                            if (alarm.getAlarmId() == idStatus5) {
                                 alarm.cancelAlarm(getContext());
                                 alarmsListViewModel.update(alarm);
                                 break;
@@ -538,16 +570,28 @@ public class TimeFragment extends Fragment {
         switch4.setText(switch4String);
         switch5.setText(switch5String);
 
-        if (statusTime1.equals("1")) switch1.setChecked(true);
-        else switch1.setChecked(false);
-        if (statusTime2.equals("1")) switch2.setChecked(true);
-        else switch2.setChecked(false);
-        if (statusTime3.equals("1")) switch3.setChecked(true);
-        else switch3.setChecked(false);
-        if (statusTime4.equals("1")) switch4.setChecked(true);
-        else switch4.setChecked(false);
-        if (statusTime5.equals("1")) switch5.setChecked(true);
-        else switch5.setChecked(false);
+        idStatus1 = idAlarm(switch1String, 1);
+        idStatus2 = idAlarm(switch2String, 2);
+        idStatus3 = idAlarm(switch3String, 3);
+        idStatus4 = idAlarm(switch4String, 4);
+        idStatus5 = idAlarm(switch5String, 5);
+//        int check1 = (diskRealmDao.getIDSswitch(String.valueOf(idStatus1))) ? 1 : 0;
+        switch1.setChecked(diskRealmDao.getIDSswitch(String.valueOf(idStatus1)));
+        switch2.setChecked(diskRealmDao.getIDSswitch(String.valueOf(idStatus2)));
+        switch3.setChecked(diskRealmDao.getIDSswitch(String.valueOf(idStatus3)));
+        switch4.setChecked(diskRealmDao.getIDSswitch(String.valueOf(idStatus4)));
+        switch5.setChecked(diskRealmDao.getIDSswitch(String.valueOf(idStatus5)));
+
+//        if (statusTime1.equals("1")) switch1.setChecked(true);
+//        else switch1.setChecked(false);
+//        if (statusTime2.equals("1")) switch2.setChecked(true);
+//        else switch2.setChecked(false);
+//        if (statusTime3.equals("1")) switch3.setChecked(true);
+//        else switch3.setChecked(false);
+//        if (statusTime4.equals("1")) switch4.setChecked(true);
+//        else switch4.setChecked(false);
+//        if (statusTime5.equals("1")) switch5.setChecked(true);
+//        else switch5.setChecked(false);
 
     }
 

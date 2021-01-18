@@ -1,6 +1,7 @@
 package com.suks.sittiporn.lslamic.realm;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.reponse.VipListDataResponseModel;
@@ -8,6 +9,8 @@ import com.suks.sittiporn.lslamic.model.reponse.VipListDataResponseModel;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
+
+import static io.realm.Realm.getDefaultInstance;
 
 public class RealmUtil {
 
@@ -27,7 +30,7 @@ public class RealmUtil {
     }
 
     public static Boolean member() {
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = getDefaultInstance();
         realm.beginTransaction();
         if (realm.where(LiginDataModelRealm.class).findAll() == null) {
             return false;
@@ -45,16 +48,16 @@ public class RealmUtil {
 
     }
 
-    public static boolean getMember(){
+    public static boolean getMember() {
         boolean member = false;
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = getDefaultInstance();
         member = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? true : false;
         return member;
     }
 
-    public static String getMemberId(){
+    public static String getMemberId() {
         String id = "";
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = getDefaultInstance();
         id = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? realm.where(LiginDataModelRealm.class).findFirst().getId() : "";
         return id;
     }
@@ -65,7 +68,7 @@ public class RealmUtil {
 //        RealmResults<LiginDataModelRealm> Members = realm.where(LiginDataModelRealm.class).findAll();
 //        Members.deleteAllFromRealm();
 //        realm.commitTransaction();
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm = getDefaultInstance();
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
@@ -253,17 +256,16 @@ public class RealmUtil {
     public static int addMemberRealm(final MemberModel loginModelReponse) {
 //        config(context);
 //        Realm.init(getApplicationContext());
-        final Realm realm = Realm.getDefaultInstance();
+        final Realm realm = getDefaultInstance();
         realm.executeTransactionAsync(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
                 if (loginModelReponse.getData() != null) {
+                    realm.beginTransaction();
                     LiginDataModelRealm loginModelRealm = realm.createObject(LiginDataModelRealm.class);
                     loginModelRealm.setId(loginModelReponse.getData().getId());
                     loginModelRealm.setEmail(loginModelReponse.getData().getEmail());
                     loginModelRealm.setStatus(loginModelReponse.getData().getStatus());
-
-
                     realm.commitTransaction();
                 }
             }
@@ -288,39 +290,46 @@ public class RealmUtil {
     }
 
 
-//    public static int addAlertAlarmRealm(final MemberModel loginModelReponse) {
-//
-//        final Realm realm = Realm.getDefaultInstance();
-//        realm.executeTransactionAsync(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-//                if (loginModelReponse.getData() != null) {
-//                    AlertModelRealm loginModelRealm = realm.createObject(AlertModelRealm.class);
-//                    loginModelRealm.setId("202101101");
-//                    loginModelRealm.setDate("2021-01-10");
-//                    loginModelRealm.setSwitchDate("1");
-//                    loginModelRealm.setCheck("true");
-//
-//                    realm.commitTransaction();
-//                }
-//            }
-//        }, new Realm.Transaction.OnSuccess() {
-//            @Override
-//            public void onSuccess() {
-//                realm.beginTransaction();
-//                RealmResults<AlertModelRealm> result = realm.where(AlertModelRealm.class).findAll();
-//                realm.commitTransaction();
-//                count = result.size();
-//
-//            }
-//        }, new Realm.Transaction.OnError() {
-//            @Override
-//            public void onError(Throwable error) {
-////                 Toast.makeText(context,"Create user error", Toast.LENGTH_SHORT).show();
-//
-//            }
-//        });
-//
-//        return count;
-//    }
+    public static int addAlertAlarmRealm(final String idStatus, final String staus, final String sw, final Context context) {
+
+//        config(context);
+        Realm.init(context);
+        final Realm realm = getDefaultInstance();
+//        Realm.init(context);
+//        RealmConfiguration config = new RealmConfiguration.Builder()
+//                .name(Realm.DEFAULT_REALM_NAME)
+//                .deleteRealmIfMigrationNeeded()
+//                .build();
+//        realm = Realm.getInstance(config);
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.beginTransaction();
+                AlertModelRealm loginModelRealm = realm.createObject(AlertModelRealm.class);
+                loginModelRealm.setId(idStatus);
+                loginModelRealm.setDate("2021-01-10");
+                loginModelRealm.setSwitchDate(sw);
+                loginModelRealm.setCheck(staus);
+                realm.commitTransaction();
+
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                realm.beginTransaction();
+                RealmResults<AlertModelRealm> result = realm.where(AlertModelRealm.class).findAll();
+                realm.commitTransaction();
+                count = result.size();
+
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                 Toast.makeText(context,"Create user error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        return count;
+    }
 }
