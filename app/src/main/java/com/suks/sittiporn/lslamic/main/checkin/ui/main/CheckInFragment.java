@@ -2,12 +2,15 @@ package com.suks.sittiporn.lslamic.main.checkin.ui.main;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
@@ -169,6 +172,7 @@ public class CheckInFragment extends Fragment {
 
     }
 
+    @SuppressLint("MissingPermission")
     private void getLocation() {
         locationManager = (LocationManager) getContext()
                 .getSystemService(LOCATION_SERVICE);
@@ -178,19 +182,25 @@ public class CheckInFragment extends Fragment {
                 getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (locationGPS != null) {
-                double lat = locationGPS.getLatitude();
-                double longi = locationGPS.getLongitude();
-                latitude = String.valueOf(lat);
-                longitude = String.valueOf(longi);
-//                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
-            } else {
-                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
-            }
+            LocationListener locationListener = new LocationListener() {
+
+                public void onLocationChanged(Location location) {
+                    double lat = location.getLatitude();
+                    double longi = location.getLongitude();
+                    latitude = String.valueOf(lat);
+                    longitude = String.valueOf(longi);
+                    txt_location.setText(latitude +", "+ longitude);
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+                public void onProviderEnabled(String provider) {}
+
+                public void onProviderDisabled(String provider) {}
+            };
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
 
-        txt_location.setText(latitude +", "+ longitude);
     }
 
     private void init(View view, Bundle savedInstanceState) {
@@ -205,6 +215,7 @@ public class CheckInFragment extends Fragment {
         editTextNameplace = (EditText) view.findViewById(R.id.editTextNameplace);
         editTextDesc = (EditText) view.findViewById(R.id.editTextDesc);
         txt_location = (TextView) view.findViewById(R.id.txt_location);
+        getLocation();
         imageViewMaps = (ImageView) view.findViewById(R.id.imageViewMaps);
         imageView1 = (ImageView) view.findViewById(R.id.imageView1);
         imageView2 = (ImageView) view.findViewById(R.id.imageView2);
@@ -215,10 +226,9 @@ public class CheckInFragment extends Fragment {
         editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         editTextTimeOpen = (EditText) view.findViewById(R.id.editTextTimeOpen);
         editTextTimeClose = (EditText) view.findViewById(R.id.editTextTimeClose);
-
         llviewlooad.setVisibility(View.GONE);
 
-        getLocation();
+
 
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override

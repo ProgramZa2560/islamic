@@ -56,15 +56,15 @@ public class HomeActivity extends BaseActivity {
         }
         if (id == R.id.profile) {
 
-            Intent intent = new Intent(getApplicationContext(), MainAlramActivity.class);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-
-//            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+//            Intent intent = new Intent(getApplicationContext(), MainAlramActivity.class);
 //            intent.addCategory(Intent.CATEGORY_HOME);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            startActivity(intent);
+
+            Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
 
             return true;
         }

@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -78,6 +79,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     public static String ARG_LIST = "ARG_LIST";
     LocationListModel locationListModel;
 
+    LatLng currentLatLng;
+
     private static final int REQUEST_LOCATION = 1;
     Button btnGetLocation;
     TextView showLocation;
@@ -115,7 +118,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mMap.getUiSettings().setMapToolbarEnabled(true);
 
 //        LatLng currentLatLng = new LatLng(latitude, longitude);
-        LatLng currentLatLng = getLocation();
+
 //
 
         // MapWrapperLayout initialization
@@ -288,7 +291,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        currentLatLng = getLocation();
         this.init(view, savedInstanceState);
     }
 
@@ -383,18 +386,34 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
                 getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
         } else {
-            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (locationGPS != null) {
-                double lat = locationGPS.getLatitude();
-                double longi = locationGPS.getLongitude();
-                latitude = lat;
-                longitude = longi;
-//                showLocation.setText("Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
-            } else {
-                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
-            }
+//            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            if (locationGPS != null) {
+//                double lat = locationGPS.getLatitude();
+//                double longi = locationGPS.getLongitude();
+//                latitude = lat;
+//                longitude = longi;
+//            } else {
+//                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
+//            }
+
+            LocationListener locationListener = new LocationListener() {
+
+                public void onLocationChanged(Location location) {
+                    double lat = location.getLatitude();
+                    double longi = location.getLongitude();
+                    latitude = lat;
+                    longitude = longi;
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+                public void onProviderEnabled(String provider) {}
+
+                public void onProviderDisabled(String provider) {}
+            };
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
-//        txt_location.setText(latitude +", "+ longitude);
+
         LatLng currentLatLng = new LatLng(latitude, longitude);
         return currentLatLng;
     }

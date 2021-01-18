@@ -289,7 +289,7 @@ public class DetailCheckInFragment extends Fragment {
 
     private void setupAdapter() {
         getListImgLocation(locationId);
-        ;
+
 
 
     }

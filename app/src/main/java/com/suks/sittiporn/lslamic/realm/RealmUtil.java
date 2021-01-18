@@ -287,4 +287,40 @@ public class RealmUtil {
         return count;
     }
 
+
+//    public static int addAlertAlarmRealm(final MemberModel loginModelReponse) {
+//
+//        final Realm realm = Realm.getDefaultInstance();
+//        realm.executeTransactionAsync(new Realm.Transaction() {
+//            @Override
+//            public void execute(Realm realm) {
+//                if (loginModelReponse.getData() != null) {
+//                    AlertModelRealm loginModelRealm = realm.createObject(AlertModelRealm.class);
+//                    loginModelRealm.setId("202101101");
+//                    loginModelRealm.setDate("2021-01-10");
+//                    loginModelRealm.setSwitchDate("1");
+//                    loginModelRealm.setCheck("true");
+//
+//                    realm.commitTransaction();
+//                }
+//            }
+//        }, new Realm.Transaction.OnSuccess() {
+//            @Override
+//            public void onSuccess() {
+//                realm.beginTransaction();
+//                RealmResults<AlertModelRealm> result = realm.where(AlertModelRealm.class).findAll();
+//                realm.commitTransaction();
+//                count = result.size();
+//
+//            }
+//        }, new Realm.Transaction.OnError() {
+//            @Override
+//            public void onError(Throwable error) {
+////                 Toast.makeText(context,"Create user error", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
+//
+//        return count;
+//    }
 }
