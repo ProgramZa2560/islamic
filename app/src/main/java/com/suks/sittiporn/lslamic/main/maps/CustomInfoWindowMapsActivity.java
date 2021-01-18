@@ -1,7 +1,13 @@
 package com.suks.sittiporn.lslamic.main.maps;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.Menu;
@@ -12,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
@@ -34,14 +41,22 @@ public class CustomInfoWindowMapsActivity extends BaseActivity {
     public static final String INTENT_PROFILE_MODEL = "INTENT_PROFILE_MODEL";
     LocationListModel locationListModel;
 
+
+    String latitude;
+    String longitude;
+    private LocationManager locationManager;
+    private static final int REQUEST_LOCATION = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_info_window);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
+
         locationListModel = (LocationListModel) getIntent().getSerializableExtra(INTENT_PROFILE_MODEL);
         if (savedInstanceState == null) {
+            getLocation();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, MapsIslamicFragment.newInstance(locationListModel))
                     .commitNow();
@@ -52,6 +67,36 @@ public class CustomInfoWindowMapsActivity extends BaseActivity {
         Intent i = new Intent(context, CustomInfoWindowMapsActivity.class);
         i.putExtra(INTENT_PROFILE_MODEL, locationListModel);
         return i;
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            LocationListener locationListener = new LocationListener() {
+
+                public void onLocationChanged(Location location) {
+                    double lat = location.getLatitude();
+                    double longi = location.getLongitude();
+                    latitude = String.valueOf(lat);
+                    longitude = String.valueOf(longi);
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+                public void onProviderEnabled(String provider) {}
+
+                public void onProviderDisabled(String provider) {}
+            };
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
+
     }
 
     @Override

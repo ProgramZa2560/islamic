@@ -173,4 +173,9 @@
 
     <string name="select_image" tools:ignore="MissingTranslation">select_image</string>
     <string name="unknown_location">unknown location</string>
+
+
+    <string name="cancel">cancel</string>
+    <string name="GPSAlertDialogTitle">GPSAlertDialogTitle</string>
+    <string name="GPSAlertDialogMessage">GPSAlertDialogMessage</string>
 </resources>

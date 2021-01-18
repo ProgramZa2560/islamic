@@ -50,6 +50,7 @@ import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.LocationListModel;
 import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
 import com.suks.sittiporn.lslamic.util.GPSTracker;
+import com.suks.sittiporn.lslamic.util.GPSTracker2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     private TextView infoSnippet;
     private Button infoButton;
     private OnInfoWindowElemTouchListener infoButtonListener;
+    public static String ARG_LAT= "ARG_LAT";
+    public static String ARG_LNG = "ARG_LNG";
     public static String ARG_LIST = "ARG_LIST";
     LocationListModel locationListModel;
 
@@ -117,7 +120,11 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setMapToolbarEnabled(true);
 
-//        LatLng currentLatLng = new LatLng(latitude, longitude);
+//        latitude = Double.valueOf(getArguments().getString(ARG_LAT));
+//        latitude = Double.valueOf(getArguments().getString(ARG_LNG));
+
+        GPSTracker2 gpsTracker = new GPSTracker2(getContext());
+        LatLng currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
 
 //
 
@@ -199,6 +206,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         // Let's add a couple of markers
 
         locationListModel = (LocationListModel) getArguments().getSerializable(ARG_LIST);
+
         setMapsLocation(locationListModel.getData());
 
     }
@@ -233,6 +241,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mMap.addMarker(new MarkerOptions()
                 .title(locationReponseModel.getName())
                 .snippet(sub)
+                .draggable(true)
+                .visible(true)
                 .position(new LatLng(Double.parseDouble(locationReponseModel.getLatitude()), Double.parseDouble(locationReponseModel.getLongitude()))));
 
     }
@@ -264,6 +274,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         MapsIslamicFragment fragment = new MapsIslamicFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_LIST, locationListModel);
+//        args.putString(ARG_LAT, lat);
+//        args.putString(ARG_LNG, lng);
         fragment.setArguments(args);
 
         return fragment;
@@ -291,7 +303,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        currentLatLng = getLocation();
+//        currentLatLng = getLocation();
         this.init(view, savedInstanceState);
     }
 
@@ -378,45 +390,45 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     }
 
-    private LatLng getLocation() {
-        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(
-                getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        } else {
-//            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            if (locationGPS != null) {
-//                double lat = locationGPS.getLatitude();
-//                double longi = locationGPS.getLongitude();
-//                latitude = lat;
-//                longitude = longi;
-//            } else {
-//                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
-//            }
-
-            LocationListener locationListener = new LocationListener() {
-
-                public void onLocationChanged(Location location) {
-                    double lat = location.getLatitude();
-                    double longi = location.getLongitude();
-                    latitude = lat;
-                    longitude = longi;
-                }
-
-                public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-                public void onProviderEnabled(String provider) {}
-
-                public void onProviderDisabled(String provider) {}
-            };
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-        }
-
-        LatLng currentLatLng = new LatLng(latitude, longitude);
-        return currentLatLng;
-    }
+//    private LatLng getLocation() {
+//        locationManager = (LocationManager) getContext().getSystemService(LOCATION_SERVICE);
+//
+//        if (ActivityCompat.checkSelfPermission(
+//                getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+//        } else {
+////            Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+////            if (locationGPS != null) {
+////                double lat = locationGPS.getLatitude();
+////                double longi = locationGPS.getLongitude();
+////                latitude = lat;
+////                longitude = longi;
+////            } else {
+////                Toast.makeText(getContext(), "Unable to find location.", Toast.LENGTH_SHORT).show();
+////            }
+//
+//            LocationListener locationListener = new LocationListener() {
+//
+//                public void onLocationChanged(Location location) {
+//                    double lat = location.getLatitude();
+//                    double longi = location.getLongitude();
+//                    latitude = lat;
+//                    longitude = longi;
+//                }
+//
+//                public void onStatusChanged(String provider, int status, Bundle extras) {}
+//
+//                public void onProviderEnabled(String provider) {}
+//
+//                public void onProviderDisabled(String provider) {}
+//            };
+//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+//        }
+//
+//        LatLng currentLatLng = new LatLng(latitude, longitude);
+//        return currentLatLng;
+//    }
 
     FixLocationListAdapter.Listener location = new FixLocationListAdapter.Listener() {
         @Override
@@ -426,6 +438,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //            edt_Lng.setText(location.getLng());
             LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
+//            infoButton.setOnTouchListener(infoButtonListener);
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mapsSet(location);
             dialog.dismiss();
