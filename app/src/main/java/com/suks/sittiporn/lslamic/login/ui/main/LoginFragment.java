@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.suks.sittiporn.lslamic.BuildConfig;
 import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.forgetpassword.forgetemail.ForgetEmailActivity;
 import com.suks.sittiporn.lslamic.home.HomeActivity;
 import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
@@ -52,6 +54,7 @@ public class LoginFragment extends Fragment {
 
     String email;
     String pass;
+    TextView forgetpassword;
 
 //
 //    @BindView(R.id.btn_login)
@@ -103,7 +106,7 @@ public class LoginFragment extends Fragment {
         password = (EditText) view.findViewById(R.id.password);
         login = (Button) view.findViewById(R.id.btn_login);
         register = (Button) view.findViewById(R.id.btn_register);
-//        forgetpassword = (TextView) view.findViewById(R.id.tv_forgetpassword);
+        forgetpassword = (TextView) view.findViewById(R.id.forgotpass);
         initinstanceState();
     }
 
@@ -208,6 +211,17 @@ public class LoginFragment extends Fragment {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                 }
+
+
+            }
+        });
+
+        forgetpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ForgetEmailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
 
 
             }

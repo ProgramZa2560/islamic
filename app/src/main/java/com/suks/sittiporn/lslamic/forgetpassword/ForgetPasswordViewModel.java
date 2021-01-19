@@ -1,0 +1,1 @@
+package com.suks.sittiporn.lslamic.forgetpassword;import androidx.lifecycle.ViewModel;public class ForgetPasswordViewModel extends ViewModel {    // TODO: Implement the ViewModel}

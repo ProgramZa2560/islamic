@@ -49,11 +49,10 @@
     <EditText
 
         android:id="@+id/email"
-        android:layout_width="311dp"
+        android:layout_width="350dp"
         android:layout_height="55dp"
         android:autofillHints=""
-        android:background="#F8F8F8"
-        android:backgroundTint="#F8F8F8"
+        android:background="@drawable/normal_edittext_blue"
         android:hint="@string/email"
         android:inputType="text"
         android:selectAllOnFocus="true"
@@ -85,10 +84,10 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="311dp"
+        android:layout_width="350dp"
         android:layout_height="55dp"
         android:autofillHints=""
-        android:background="#F8F8F8"
+        android:background="@drawable/normal_edittext_blue"
         android:hint="@string/password"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
