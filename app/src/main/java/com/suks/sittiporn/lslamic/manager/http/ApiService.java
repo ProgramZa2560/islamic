@@ -2,6 +2,7 @@ package com.suks.sittiporn.lslamic.manager.http;
 
 import com.suks.sittiporn.lslamic.model.reponse.AddCommentModel;
 import com.suks.sittiporn.lslamic.model.reponse.CommentListModel;
+import com.suks.sittiporn.lslamic.model.reponse.EmailResponeModel;
 import com.suks.sittiporn.lslamic.model.reponse.FavoriteByLocationResponeModel;
 import com.suks.sittiporn.lslamic.model.reponse.GetTimeModel;
 import com.suks.sittiporn.lslamic.model.reponse.ImgListModel;
@@ -17,6 +18,7 @@ import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.model.request.RegisterRequestModel;
 import com.suks.sittiporn.lslamic.model.request.TimeStatusRequestModel;
+import com.suks.sittiporn.lslamic.model.request.UpdatePasswordRequestModel;
 import com.suks.sittiporn.lslamic.model.request.UpdateProfileRequestModel;
 
 import io.reactivex.Observable;
@@ -88,6 +90,14 @@ public interface ApiService {
     @POST("updateProfile.php")
     @Headers({"Content-Type: application/json;charset=UTF-8"})
     Observable<SuccessModel> updateProfile(@Body UpdateProfileRequestModel requestModel);
+
+
+    @GET("checkEmail.php")
+    Observable<EmailResponeModel> getEmail(@Query("email") String email);
+
+    @POST("updatePassword.php")
+    @Headers({"Content-Type: application/json;charset=UTF-8"})
+    Observable<SuccessModel> updatePassword(@Body UpdatePasswordRequestModel requestModel);
 
 
 }

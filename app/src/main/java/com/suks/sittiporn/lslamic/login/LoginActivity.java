@@ -1,16 +1,15 @@
 package com.suks.sittiporn.lslamic.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.login.ui.main.LoginFragment;
+import com.suks.sittiporn.lslamic.util.BaseActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity  extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
         if (savedInstanceState == null) {
