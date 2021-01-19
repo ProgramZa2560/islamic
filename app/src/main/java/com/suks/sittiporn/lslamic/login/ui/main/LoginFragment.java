@@ -262,7 +262,7 @@ public class LoginFragment extends Fragment {
         MemberRequestModel model = new MemberRequestModel();
         model.setUser(email);
         model.setPass(pass);
-        Toast.makeText(getContext(), email+"SSSSSSS"+pass, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), email+"SSSSSSS"+pass, Toast.LENGTH_SHORT).show();
         ApiService apiService = Retrofit2.getApiService();
         Observable<MemberModel> observable = apiService.login(model);
         observable.subscribeOn(Schedulers.io())

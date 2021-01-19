@@ -207,14 +207,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/normal_edittext"
-                        android:textColor="@color/black"
-                        android:textColorHint="#dad2d2"
                         android:layout_weight="1"
-                        android:inputType="textPassword"
+                        android:background="@drawable/normal_edittext"
                         android:hint="กรอกยืนยันรหัสผ่าน 4-15 ตัว"
+                        android:inputType="textPassword"
                         android:maxLength="15"
-                        android:minEms="4"/>
+                        android:minEms="4"
+                        android:textColor="@color/black"
+                        android:textColorHint="#dad2d2" />
 
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
