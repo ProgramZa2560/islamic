@@ -30,6 +30,7 @@ import com.suks.sittiporn.lslamic.manager.Retrofit2;
 import com.suks.sittiporn.lslamic.manager.http.ApiService;
 import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
 import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
+import com.suks.sittiporn.lslamic.realm.DiskRealmDao;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.register.RegisterActivity;
 
@@ -260,7 +261,8 @@ public class LoginFragment extends Fragment {
                     }
                     @Override
                     public void onNext(MemberModel response) {
-                        int count = RealmUtil.addMemberRealm(response);
+                        DiskRealmDao diskRealmDao = new DiskRealmDao(getContext());
+                        diskRealmDao.saveMember(response);
 //                        if (count > 0) {
                         Intent intent = new Intent(getContext(), HomeActivity.class);
 //                        intent.putExtra("vv", "vv");

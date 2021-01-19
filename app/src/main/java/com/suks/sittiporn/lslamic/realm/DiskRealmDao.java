@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.suks.sittiporn.lslamic.model.reponse.MemberModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -63,6 +65,33 @@ public class DiskRealmDao extends RealmDao {
             memberDeviceRealm.setCheck(staus);
             memberDeviceRealm.setSwitchDate(sw);
             memberDeviceRealm.setDate("22");
+
+            commitTransaction();
+//            Toast.makeText(context, "Create user setSuccess", Toast.LENGTH_SHORT).show();
+//            actionEntity.setSuccess(true);
+        } catch (Exception e) {
+//            Toast.makeText(context, "Create user error", Toast.LENGTH_SHORT).show();
+//            actionEntity.setSuccess(false);
+        } finally {
+            closeRealm();
+        }
+    }
+
+    public void saveMember(final MemberModel loginModelReponse) {
+        try {
+            beginTransaction();
+            RealmQuery<LiginDataModelRealm> memberDeviceRealmRealmQuery = where(LiginDataModelRealm.class);
+            memberDeviceRealmRealmQuery.equalTo("id", loginModelReponse.getData().getId());
+            LiginDataModelRealm memberDeviceRealm = memberDeviceRealmRealmQuery.findFirst();
+
+            if (memberDeviceRealm == null) {
+                memberDeviceRealm = createObject(LiginDataModelRealm.class);
+                memberDeviceRealm.setId(loginModelReponse.getData().getId());
+            }
+
+
+            memberDeviceRealm.setEmail(loginModelReponse.getData().getEmail());
+            memberDeviceRealm.setStatus(loginModelReponse.getData().getStatus());
 
             commitTransaction();
 //            Toast.makeText(context, "Create user setSuccess", Toast.LENGTH_SHORT).show();

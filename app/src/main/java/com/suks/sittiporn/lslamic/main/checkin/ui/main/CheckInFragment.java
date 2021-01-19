@@ -58,6 +58,7 @@ import com.suks.sittiporn.lslamic.model.request.ImgRequestModel;
 import com.suks.sittiporn.lslamic.model.request.LocationRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.DateTimeUtils;
+import com.suks.sittiporn.lslamic.util.GPSTracker2;
 import com.suks.sittiporn.lslamic.util.GalleryDispatcher;
 
 import java.io.ByteArrayOutputStream;
@@ -189,7 +190,7 @@ public class CheckInFragment extends Fragment {
                     double longi = location.getLongitude();
                     latitude = String.valueOf(lat);
                     longitude = String.valueOf(longi);
-                    txt_location.setText(latitude +", "+ longitude);
+
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {}
@@ -227,6 +228,9 @@ public class CheckInFragment extends Fragment {
         editTextTimeOpen = (EditText) view.findViewById(R.id.editTextTimeOpen);
         editTextTimeClose = (EditText) view.findViewById(R.id.editTextTimeClose);
         llviewlooad.setVisibility(View.GONE);
+
+        GPSTracker2 gpsTracker2 = new GPSTracker2(getContext());
+        txt_location.setText(gpsTracker2.getLatitude() +", "+ gpsTracker2.getLongitude());
 
 
 
