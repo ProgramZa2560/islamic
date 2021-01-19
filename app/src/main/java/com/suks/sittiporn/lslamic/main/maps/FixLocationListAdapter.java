@@ -75,15 +75,15 @@ public class FixLocationListAdapter extends RecyclerView.Adapter implements Filt
             tvLocation = (TextView) itemView.findViewById(R.id.tvLocation);
             tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
             items = (CardView) itemView.findViewById(R.id.items);
-
-            tvDistance.setText(mDataset.get(position).getLatitude() +", "+mDataset.get(position).getLongitude());
+            String dis = String.format("%.2f", Double.valueOf(mDataset.get(position).getDistance()));
+            tvDistance.setText(mDataset.get(position).getLatitude() + ", " + mDataset.get(position).getLongitude() + "\n" + dis + " กิโลเมตร");
             tvLocation.setText(mDataset.get(position).getName());
-           items.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   listener.location(mDataset.get(position));
-               }
-           });
+            items.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.location(mDataset.get(position));
+                }
+            });
 
         }
     }

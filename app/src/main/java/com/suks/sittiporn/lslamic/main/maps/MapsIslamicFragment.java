@@ -21,6 +21,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ import com.suks.sittiporn.lslamic.model.reponse.LocationReponseModel;
 import com.suks.sittiporn.lslamic.util.GPSTracker;
 import com.suks.sittiporn.lslamic.util.GPSTracker2;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +84,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     public static String ARG_LIST = "ARG_LIST";
     LocationListModel locationListModel;
 
+    List<LocationReponseModel> modelList = new ArrayList<>();
+
     LatLng currentLatLng;
 
     private static final int REQUEST_LOCATION = 1;
@@ -92,6 +96,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     ImageButton searchMaps;
     FixLocationListAdapter locationAdapter;
     private RecyclerView.LayoutManager manager;
+    GPSTracker2 gpsTracker;
 
 
     private void addLocation(LatLng latLng, String locationName) {
@@ -123,7 +128,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //        latitude = Double.valueOf(getArguments().getString(ARG_LAT));
 //        latitude = Double.valueOf(getArguments().getString(ARG_LNG));
 
-        GPSTracker2 gpsTracker = new GPSTracker2(getContext());
+        gpsTracker = new GPSTracker2(getContext());
         LatLng currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
 
 //
@@ -213,10 +218,52 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     private void setMapsLocation(List<LocationReponseModel> list) {
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                mapsSet(list.get(i));
+//            for (int i = 0; i < list.size(); i++) {
+//                mapsSet(list.get(i));
+//                LatLng latLng = new LatLng(ist.get(i))
+//                CalculationByDistance();
+//            }
+            for (LocationReponseModel reponseModel : list){
+                mapsSet(reponseModel);
+                Double aDoubleLat = Double.valueOf(reponseModel.getLatitude());
+                Double aDoubleLng = Double.valueOf(reponseModel.getLongitude());
+                LatLng latLngEnd = new LatLng(aDoubleLat, aDoubleLng);
+//                gpsTracker = new GPSTracker2(getContext());
+                LatLng latLnnS = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+                Double distance = CalculationByDistance(latLnnS, latLngEnd);
+                String dis = String.valueOf(distance);
+                dis.split(".", 2);
+                reponseModel.setDistance(String.valueOf(distance));
+                modelList.add(reponseModel);
+
+
             }
         }
+    }
+
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+
+        return Radius * c;
     }
 
     private void mapsSet(LocationReponseModel locationReponseModel) {
@@ -353,7 +400,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
-        locationAdapter = new FixLocationListAdapter(getContext(), locationListModel.getData(), location);
+        locationAdapter = new FixLocationListAdapter(getContext(), modelList, location);
         nestedScrollView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(locationAdapter);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
