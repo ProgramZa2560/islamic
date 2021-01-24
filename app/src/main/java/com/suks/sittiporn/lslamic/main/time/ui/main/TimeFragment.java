@@ -509,7 +509,7 @@ public class TimeFragment extends Fragment {
                             }
                         }
                         if (!count)
-                            scheduleAlarm("23:16", switch5.isChecked(), "อิชา", 5);
+                            scheduleAlarm(switch5String, switch5.isChecked(), "อิชา", 5);
                     } else {
                         diskRealmDao.saveS(String.valueOf(idStatus5), "false", "5", getContext());
                         for (Alarm alarm : alarmsList) {
@@ -688,8 +688,8 @@ public class TimeFragment extends Fragment {
 
     private void scheduleAlarm(String switchString, boolean checked, String name, int switchNum) {
         int id = idAlarm(switchString, switchNum);
-        int HH = Integer.parseInt(switch1String.split(":")[0]);
-        int mm = Integer.parseInt(switch1String.split(":")[1]);
+        int HH = Integer.parseInt(switchString.split(":")[0]);
+        int mm = Integer.parseInt(switchString.split(":")[1]);
         Alarm alarm = new Alarm(
                 id,
                 HH,
