@@ -77,7 +77,13 @@ public class FavoriteAdapter extends RecyclerView.Adapter implements Filterable 
 
         public void bindView(final int position) {
 //
-            tv_time.setText(mDataset.get(position).getTimeStart() +"-"+ mDataset.get(position).getTimeStart());
+//            tv_time.setText(mDataset.get(position).getTimeStart() +"-"+ mDataset.get(position).getTimeStart());
+
+            tv_time.setText(mDataset.get(position).getTimeStart().split(":")[0] +":"+
+                    mDataset.get(position).getTimeStart().split(":")[1] +"-"+
+                    mDataset.get(position).getTimeEnd().split(":")[0] +":"+
+                    mDataset.get(position).getTimeEnd().split(":")[1] +" น.");
+
             tv_room.setText(mDataset.get(position).getNumberfull());
             tv_person.setText(mDataset.get(position).getNumberfull());
             tv_head_name.setText(mDataset.get(position).getName());
