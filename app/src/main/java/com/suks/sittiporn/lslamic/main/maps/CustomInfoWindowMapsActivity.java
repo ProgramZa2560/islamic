@@ -56,7 +56,6 @@ public class CustomInfoWindowMapsActivity extends BaseActivity {
 
         locationListModel = (LocationListModel) getIntent().getSerializableExtra(INTENT_PROFILE_MODEL);
         if (savedInstanceState == null) {
-            getLocation();
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, MapsIslamicFragment.newInstance(locationListModel))
                     .commitNow();
@@ -67,36 +66,6 @@ public class CustomInfoWindowMapsActivity extends BaseActivity {
         Intent i = new Intent(context, CustomInfoWindowMapsActivity.class);
         i.putExtra(INTENT_PROFILE_MODEL, locationListModel);
         return i;
-    }
-
-
-    @SuppressLint("MissingPermission")
-    private void getLocation() {
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-        } else {
-            LocationListener locationListener = new LocationListener() {
-
-                public void onLocationChanged(Location location) {
-                    double lat = location.getLatitude();
-                    double longi = location.getLongitude();
-                    latitude = String.valueOf(lat);
-                    longitude = String.valueOf(longi);
-                }
-
-                public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-                public void onProviderEnabled(String provider) {}
-
-                public void onProviderDisabled(String provider) {}
-            };
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-        }
-
     }
 
     @Override

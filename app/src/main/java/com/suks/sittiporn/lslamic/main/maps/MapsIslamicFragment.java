@@ -82,7 +82,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     public static String ARG_LAT= "ARG_LAT";
     public static String ARG_LNG = "ARG_LNG";
     public static String ARG_LIST = "ARG_LIST";
-    LocationListModel locationListModel;
+    static LocationListModel locationListModel;
 
     List<LocationReponseModel> modelList = new ArrayList<>();
 
@@ -94,9 +94,11 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     private LocationManager locationManager;
     Double latitude = 0.0, longitude = 0.0;
     ImageButton searchMaps;
+    ImageButton refresh;
     FixLocationListAdapter locationAdapter;
     private RecyclerView.LayoutManager manager;
     GPSTracker2 gpsTracker;
+
 
 
     private void addLocation(LatLng latLng, String locationName) {
@@ -128,8 +130,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //        latitude = Double.valueOf(getArguments().getString(ARG_LAT));
 //        latitude = Double.valueOf(getArguments().getString(ARG_LNG));
 
-        gpsTracker = new GPSTracker2(getContext());
-        LatLng currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+
 
 //
 
@@ -138,15 +139,11 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         // 20 - offset between the default InfoWindow bottom edge and it's content bottom edge
         mapWrapperLayout.init(mMap, getPixelsFromDp(getContext(), 39 + 20));
 
-        // We want to reuse the info window for all the markers,
-        // so let's create only one class member instance
         this.infoWindow = (ViewGroup) getLayoutInflater().inflate(R.layout.custom_info_window, null);
         this.infoTitle = (TextView) infoWindow.findViewById(R.id.title);
         this.infoSnippet = (TextView) infoWindow.findViewById(R.id.snippet);
         this.infoButton = (Button) infoWindow.findViewById(R.id.button);
 
-        // Setting custom OnTouchListener which deals with the pressed state
-        // so it shows up
         this.infoButtonListener = new OnInfoWindowElemTouchListener(infoButton,
                 getResources().getDrawable(R.drawable.button_normal),
                 getResources().getDrawable(R.drawable.button_pressed)) {
@@ -197,11 +194,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
             }
         });
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
-//        mMap.addCircle()
-//        addLocation(currentLatLng,"home");
-//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20f));
-        drawCircle(currentLatLng, 5000.0);
+
 //        mMap.addMarker(new MarkerOptions()
 //                .title("")
 //                .snippet("Czech Republic")
@@ -212,11 +205,22 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         locationListModel = (LocationListModel) getArguments().getSerializable(ARG_LIST);
 
-        setMapsLocation(locationListModel.getData());
+        mapsLocation();
 
     }
 
-    private void setMapsLocation(List<LocationReponseModel> list) {
+    public void  mapsLocation(){
+        gpsTracker = new GPSTracker2(getContext());
+        LatLng currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
+//        mMap.addCircle()
+//        addLocation(currentLatLng,"home");
+//        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20f));
+        drawCircle(currentLatLng, 5000.0);
+        setMapsLocation(locationListModel.getData());
+    }
+
+    public void setMapsLocation(List<LocationReponseModel> list) {
         if (list != null) {
 //            for (int i = 0; i < list.size(); i++) {
 //                mapsSet(list.get(i));
@@ -282,8 +286,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //                locationReponseModel.getRoomnumber() + ", " +
 //                locationReponseModel.getNumberfull() + ", " +
 //                locationReponseModel.getAddress()  + ", "
-                  locationReponseModel.getId()
-                ;
+                  locationReponseModel.getId();
 
         mMap.addMarker(new MarkerOptions()
                 .title(locationReponseModel.getName())
@@ -359,11 +362,20 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         mapWrapperLayout = (MapWrapperLayout) view.findViewById(R.id.map_relative_layout);
         searchMaps = (ImageButton) view.findViewById(R.id.searchMaps);
+        refresh = (ImageButton) view.findViewById(R.id.refresh);
 
         searchMaps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogListMapsS();
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                mapsLocation();
             }
         });
 
@@ -483,6 +495,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //            edt_Name.setText(location.getLocationName());
 //            edt_Lat.setText(location.getLat());
 //            edt_Lng.setText(location.getLng());
+            mMap.clear();
             LatLng latLng = new LatLng(Double.parseDouble(location.getLatitude()), Double.parseDouble(location.getLongitude()));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
 //            infoButton.setOnTouchListener(infoButtonListener);
