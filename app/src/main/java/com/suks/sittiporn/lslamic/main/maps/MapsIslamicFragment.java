@@ -392,6 +392,23 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
 //        Toast.makeText(getContext(), "testtttttttt", Toast.LENGTH_LONG).show();
 //        locationListModel
+//        List<LocationReponseModel> models = new ArrayList<>();
+//
+//        for (int i = 0; i < modelList.size(); i++){
+//            if (models.size() > 0){
+//                for (int k = 0; k < models.size(); k ++){
+//                    if (Double.valueOf(modelList.get(i).getDistance()) >= Double.valueOf(models.get(k).getDistance())){
+//                        models.add(modelList.get(i));
+////                        break;
+//                    }else {
+//
+//                    }
+//                }
+//
+//            }else {
+//                models.add(modelList.get(i));
+//            }
+//        }
 
         dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
