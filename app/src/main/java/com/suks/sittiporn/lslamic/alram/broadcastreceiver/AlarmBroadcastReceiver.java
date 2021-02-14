@@ -1,11 +1,13 @@
 package com.suks.sittiporn.lslamic.alram.broadcastreceiver;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.widget.Toast;
 
+import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.alram.service.AlarmService;
 import com.suks.sittiporn.lslamic.alram.service.RescheduleAlarmsService;
 
@@ -81,6 +83,8 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void startAlarmService(Context context, Intent intent) {
+
+
         Intent intentService = new Intent(context, AlarmService.class);
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -88,6 +92,13 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         } else {
             context.startService(intentService);
         }
+
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+//                new Intent(this, LocalServiceActivities.Controller.class), 0);
+//
+//        // Set the info for the views that show in the notification panel.
+//        notification.setLatestEventInfo(this, getText(R.string.local_service_label),
+//                text, contentIntent);
     }
 
     private void startRescheduleAlarmsService(Context context) {

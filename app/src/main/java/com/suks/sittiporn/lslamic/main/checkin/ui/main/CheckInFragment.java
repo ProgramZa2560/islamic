@@ -3,6 +3,7 @@ package com.suks.sittiporn.lslamic.main.checkin.ui.main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
@@ -40,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -67,6 +70,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -109,6 +113,9 @@ public class CheckInFragment extends Fragment {
 
     String time;
     String date;
+
+    ImageView appCompatImageButtonTimeStart;
+    ImageView appCompatImageButtonTimeEnd;
 
     LinearLayout llviewlooad;
 
@@ -227,10 +234,60 @@ public class CheckInFragment extends Fragment {
         editTextNumber = (EditText) view.findViewById(R.id.editTextNumber);
         editTextTimeOpen = (EditText) view.findViewById(R.id.editTextTimeOpen);
         editTextTimeClose = (EditText) view.findViewById(R.id.editTextTimeClose);
+
+        appCompatImageButtonTimeStart = (ImageView) view.findViewById(R.id.AppCompatImageButtonTimeStart);
+        appCompatImageButtonTimeEnd = (ImageView) view.findViewById(R.id.AppCompatImageButtonTimeEnd);
+        editTextTimeOpen.setEnabled(false);
+        editTextTimeClose.setEnabled(false);
         llviewlooad.setVisibility(View.GONE);
 
-        GPSTracker2 gpsTracker2 = new GPSTracker2(getContext());
+        GPSTracker2 gpsTracker2 = new GPSTracker2
+
+                (getContext());
         txt_location.setText(gpsTracker2.getLatitude() +", "+ gpsTracker2.getLongitude());
+
+        appCompatImageButtonTimeStart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        editTextTimeOpen.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+        appCompatImageButtonTimeEnd.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        editTextTimeClose.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
 
 
 

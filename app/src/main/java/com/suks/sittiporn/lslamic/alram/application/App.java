@@ -5,7 +5,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-public class App extends Application {
+import com.suks.sittiporn.lslamic.MyApplication;
+
+public class App extends MyApplication {
     public static final String CHANNEL_ID = "ALARM_SERVICE_CHANNEL";
 
     @Override

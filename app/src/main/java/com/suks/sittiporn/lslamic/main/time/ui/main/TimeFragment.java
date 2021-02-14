@@ -1,6 +1,7 @@
 package com.suks.sittiporn.lslamic.main.time.ui.main;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -15,11 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
@@ -81,6 +85,10 @@ public class TimeFragment extends Fragment {
     String statusTime3;
     String statusTime4;
     String statusTime5;
+
+    EditText timeTextview;
+    ImageView timeImageView;
+
 
     DateTimeAppUtils dateTimeAppUtils;
     TextView dateText;
@@ -160,6 +168,33 @@ public class TimeFragment extends Fragment {
         switch3 = (Switch) view.findViewById(R.id.switch3);
         switch4 = (Switch) view.findViewById(R.id.switch4);
         switch5 = (Switch) view.findViewById(R.id.switch5);
+
+        timeTextview = (EditText) view.findViewById(R.id.timeTextview);
+        timeImageView = (ImageView) view.findViewById(R.id.timeImageView);
+
+
+        timeImageView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeTextview.setText(selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+
+
         llviewlooad.setVisibility(View.GONE);
 //        initi();
 
@@ -277,7 +312,7 @@ public class TimeFragment extends Fragment {
                             }
                         }
                         if (!count)
-                            scheduleAlarm(switch1String, switch1.isChecked(), "ซุบฮิ", 1);
+                            scheduleAlarm(timeTextview.getText().toString(), switch1.isChecked(), "ซุบฮิ", 1);
 
                     } else {
                         diskRealmDao.saveS(String.valueOf(idStatus1), "false", "1", getContext());
@@ -696,7 +731,7 @@ public class TimeFragment extends Fragment {
                 mm,
                 name,
                 System.currentTimeMillis(),
-                checked,
+                true,
                 false,
                 false,
                 false,
