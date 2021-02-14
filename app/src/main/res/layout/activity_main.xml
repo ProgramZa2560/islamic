@@ -26,11 +26,13 @@
             >
 
             <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/logo4"
                 android:layout_width="112dp"
                 android:layout_height="83dp"
                 android:contentDescription="@string/welcome"
                 android:src="@drawable/logo_1"
+                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
@@ -38,16 +40,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.412" />
 
-            <TextView
-                android:id="@+id/logoname4"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Islamic"
-                android:textAlignment="center"
-                android:textColor="#046057"
-                android:textSize="50sp"
+                android:orientation="vertical">
 
-                android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/logoname4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Islamic"
+                    android:textAlignment="center"
+                    android:textColor="#055E55"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#011917"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:text="prayer places"
+                    android:textColor="#158E83"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    tools:ignore="RtlCompat" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

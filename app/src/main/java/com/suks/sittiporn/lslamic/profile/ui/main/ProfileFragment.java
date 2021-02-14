@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.suks.sittiporn.lslamic.BuildConfig;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.home.HomeActivity;
@@ -73,7 +74,8 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel mViewModel;
 
-    ImageView bt_logout, ic_edit, ic_upload;
+    ImageView bt_logout, ic_upload;
+    FloatingActionButton ic_edit;
     CircleImageView ic_person;
     RadioButton radio1, radio2;
     EditText userf, userl, mail, age, status;
@@ -158,7 +160,7 @@ public class ProfileFragment extends Fragment {
 //        switch1 = (Switch) view.findViewById(R.id.switch1);
         ic_person = (CircleImageView) view.findViewById(R.id.ic_person);
         bt_logout = (ImageView) view.findViewById(R.id.bt_logout);
-        ic_edit = (ImageView) view.findViewById(R.id.ic_edit);
+        ic_edit = (FloatingActionButton) view.findViewById(R.id.ic_edit);
         ic_upload = (ImageView) view.findViewById(R.id.ic_upload);
         llBtn = (LinearLayout) view.findViewById(R.id.llBtn);
         btnCancel = (Button) view.findViewById(R.id.btnCancel);
@@ -614,7 +616,7 @@ public class ProfileFragment extends Fragment {
 
                             userf.setText(dataModel.getData().get(0).getFristname());
                             userl.setText(dataModel.getData().get(0).getLastname());
-                            mail.setText(dataModel.getData().get(0).getFristname());
+                            mail.setText(dataModel.getData().get(0).getEmail());
                             age.setText(dataModel.getData().get(0).getAge());
 
 //                            if (dataModel.getData().get(0).getUser_image().equals("")){

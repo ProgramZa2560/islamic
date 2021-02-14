@@ -312,7 +312,7 @@ public class TimeFragment extends Fragment {
                             }
                         }
                         if (!count)
-                            scheduleAlarm(timeTextview.getText().toString(), switch1.isChecked(), "ซุบฮิ", 1);
+                            scheduleAlarm(switch1String, switch1.isChecked(), "ซุบฮิ", 1);
 
                     } else {
                         diskRealmDao.saveS(String.valueOf(idStatus1), "false", "1", getContext());

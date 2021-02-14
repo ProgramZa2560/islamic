@@ -175,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="เวลาทำการ"
+                    android:text="เวลาเปิดทำการ"
                     android:textColor="#001273"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -210,16 +210,42 @@
                     android:layout_gravity="center"
                     android:src="@drawable/ic_time" />
 
-
                 <TextView
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin8dp"
-                    android:text="-"
-                    android:textAlignment="center"
+                    android:text="น."
                     android:textColor="#001273"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="เวลาปิดทำการ"
+                    android:textColor="#001273"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.062"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.564" />
+
+
+
+
+
 
                 <EditText
                     android:id="@+id/editTextTimeClose"

@@ -53,7 +53,9 @@ import com.suks.sittiporn.lslamic.model.request.MemberRequestModel;
 import com.suks.sittiporn.lslamic.realm.RealmUtil;
 import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -79,6 +81,7 @@ public class DetailCheckInFragment extends Fragment {
 
     String locationId;
     String id;
+    String email;
     String time;
     String room;
     String person;
@@ -95,6 +98,8 @@ public class DetailCheckInFragment extends Fragment {
     TextView tvPerson;
     TextView tvTime;
     TextView tvDesc;
+
+    String currentDate, currentTime;
 
     ImageButton star;
     boolean isEnable = true;
@@ -148,6 +153,14 @@ public class DetailCheckInFragment extends Fragment {
 
         boolean favorite = false;
 
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat date2 = new SimpleDateFormat("yyyy-MM-dd");
+        currentDate = date2.format(c.getTime());
+
+        Calendar t = Calendar.getInstance();
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm:ss");
+        currentTime = time.format(t.getTime());
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         isEnable = favorite;
@@ -200,7 +213,9 @@ public class DetailCheckInFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
 
-                        addComment("2020-10-10", "12:00", editText_Comment.getText().toString());
+
+
+                        addComment(currentDate, currentTime, editText_Comment.getText().toString());
                     }
                 });
                 adbConfirmExit.create().show();
@@ -284,6 +299,7 @@ public class DetailCheckInFragment extends Fragment {
 
 
         id = RealmUtil.getMemberId();
+        email = RealmUtil.getEmail();
 
     }
 
@@ -362,6 +378,7 @@ public class DetailCheckInFragment extends Fragment {
             model.setDate(reponseModel.getDate());
             model.setTime(reponseModel.getTime());
             model.setComment(reponseModel.getComment());
+            model.setEmail(reponseModel.getEmail());
         }
 
         return model;
@@ -382,6 +399,7 @@ public class DetailCheckInFragment extends Fragment {
         CommentRequestModel model = new CommentRequestModel();
         model.setComment(comment);
         model.setUser_id(id);
+        model.setEmail(email);
         model.setLocation_id(locationId);
         model.setDate(date);
         model.setTime(time);

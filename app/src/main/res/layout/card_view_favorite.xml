@@ -58,7 +58,7 @@
                     android:text="ชื่อ"
                     android:layout_gravity="bottom"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_24"
+                    android:textSize="@dimen/sizetext14sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:paddingLeft="@dimen/text_size_16"
                     android:text="วันเวลาเปิดปิด"
                     android:textColor="@color/red"
-                    android:textSize="16sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:text="ห้อง"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
 
 
@@ -109,9 +109,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/text_size_16"
-                    android:text="จำนวนรองรับ"
+                    android:text="รองรับ"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tv_person"
@@ -121,7 +121,7 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginStart="2dp"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
 
                     android:text="คน"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
 
 
             </LinearLayout>

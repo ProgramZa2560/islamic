@@ -61,6 +61,12 @@ public class RealmUtil {
         id = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? realm.where(LiginDataModelRealm.class).findFirst().getId() : "";
         return id;
     }
+    public static String getEmail() {
+        String email = "";
+        Realm realm = getDefaultInstance();
+        email = (realm.where(LiginDataModelRealm.class).findAll().size() > 0) ? realm.where(LiginDataModelRealm.class).findFirst().getEmail() : "";
+        return email;
+    }
 
     public static int deleteRealm(Context context) {
 //        config(context);

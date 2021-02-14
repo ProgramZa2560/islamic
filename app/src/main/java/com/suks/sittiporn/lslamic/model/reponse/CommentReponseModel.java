@@ -7,6 +7,7 @@ public class CommentReponseModel {
     private String date;
     private String time;
     private String comment;
+    private String email;
 
     public String getLocation_id() {
         return location_id;
@@ -46,5 +47,13 @@ public class CommentReponseModel {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

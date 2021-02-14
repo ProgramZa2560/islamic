@@ -66,7 +66,7 @@
         <activity android:name=".main.maps.MapsIslamicActivity" />
         <activity
             android:name=".main.favorite.FavoriteActivity"
-            android:label="ถูกใจ" />
+            android:label="สถานที่ละหมาดของฉัน" />
         <activity
             android:name=".main.checkinlist.detail.DetailCheckInActivity"
             android:label="รายละเอียด" />
@@ -76,7 +76,7 @@
         <activity android:name=".help.HelpActivity" />
         <activity
             android:name=".main.maps.CustomInfoWindowMapsActivity"
-            android:label="แผนที่" />
+            android:label="ค้นหาสถานที่ละหมาด" />
         <activity
             android:name=".profile.ProfileActivity"
             android:label="โปรไฟล์" />
@@ -86,10 +86,10 @@
             android:label="รายการเช็คอิน" />
         <activity
             android:name=".main.checkin.CheckInActivity"
-            android:label="เพิ่ม" />
+            android:label="เช็คอินสถานที่ละหมาด" />
         <activity
             android:name=".main.time.TimeActivity"
-            android:label="เวลา" />
+            android:label="เวลาละหมาดวันนี้" />
         <activity
             android:name=".main.MapsActivity"
             android:label="แผนที่" /> <!-- <receiver -->

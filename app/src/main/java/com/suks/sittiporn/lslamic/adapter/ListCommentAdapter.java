@@ -76,8 +76,10 @@ public class ListCommentAdapter extends RecyclerView.Adapter {
 
         public void bindView(final int position) {
 //
-            tv_time.setText(mDataset.get(position).getDate() +" : "+ mDataset.get(position).getTime());
-            tv_name.setText(mDataset.get(position).getUser_id());
+            tv_time.setText(mDataset.get(position).getDate() +" : "+
+                    mDataset.get(position).getTime().split(":")[0] +":"+
+                    mDataset.get(position).getTime().split(":")[1] +" น.");
+            tv_name.setText(mDataset.get(position).getEmail());
             tv_comment.setText(mDataset.get(position).getComment());
 //            tv_head_name.setText(mDataset.get(position).getName());
 //            String url = BASE_URL + mDataset.get(position).getImage_url();
