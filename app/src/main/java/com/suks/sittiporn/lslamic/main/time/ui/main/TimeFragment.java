@@ -271,7 +271,7 @@ public class TimeFragment extends Fragment {
             public void onClick(View v) {
 //                String datestart = DateTimeUtils.toFormat(dateTimeAppUtils.getCalendar(), DateTimeUtils.yyyy_MM_dd);
 //                String datestart = dateTimeAppUtils.createDatePicketDialog();
-                new DatePickerDialog(getContext(), datedate, myCalendar
+                new DatePickerDialog(getContext(),R.style.SpinnerTimePickerDialog, datedate, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
 
@@ -307,6 +307,8 @@ public class TimeFragment extends Fragment {
 //
 //                    updateTimeStatus(model);
                     if (switch1.isChecked()) {
+//                        getResources.getColor(R.color.red)
+//                       switch1.setThumbResource(R.color.red);
                         for (Alarm alarm : alarmsList) {
                             if (alarm.getAlarmId() == idStatus1) {
                                 alarm.schedule(getContext());
@@ -726,9 +728,19 @@ public class TimeFragment extends Fragment {
     }
 
     private void scheduleAlarm(String switchString, boolean checked, String name, int switchNum) {
+        timeSum(switchString);
         int id = idAlarm(switchString, switchNum);
         int HH = Integer.parseInt(switchString.split(":")[0]);
         int mm = Integer.parseInt(switchString.split(":")[1]);
+        mm = mm - 5;
+        if(mm < 0 ){
+            HH = HH - 1;
+            if (HH < 0){
+                HH = 24 + HH;
+            }
+            mm = 60 + mm;
+        }
+
         Alarm alarm = new Alarm(
                 id,
                 HH,
@@ -749,6 +761,13 @@ public class TimeFragment extends Fragment {
         createAlarmViewModel.insert(alarm);
 
         alarm.schedule(getContext());
+    }
+    private String timeSum(String switchString){
+
+
+
+        return "";
+
     }
 
 }

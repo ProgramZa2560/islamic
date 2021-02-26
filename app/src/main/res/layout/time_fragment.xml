@@ -69,13 +69,16 @@
             android:textColorLink="#009117"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:thumbTint="#838383"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintHorizontal_bias="0.829"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.289" />
+            app:layout_constraintVertical_bias="0.289"
+            app:thumbTint="#838383"
+            app:trackTint="@drawable/toggle_style" />
+
 
         <TextView
             android:id="@+id/time1"
@@ -118,7 +121,8 @@
             android:textColorLink="#FF009117"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:thumbTint="#838383"
+            app:thumbTint="#838383"
+            app:trackTint="@drawable/toggle_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.829"
@@ -207,7 +211,8 @@
             android:textColorLink="#FF009117"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:thumbTint="#838383"
+            app:thumbTint="#838383"
+            app:trackTint="@drawable/toggle_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.829"
@@ -256,7 +261,8 @@
             android:textColorLink="#FF009117"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:thumbTint="#838383"
+            app:thumbTint="#838383"
+            app:trackTint="@drawable/toggle_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.829"
@@ -292,7 +298,8 @@
             android:textColorLink="#FF009117"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:thumbTint="#838383"
+            app:thumbTint="#838383"
+            app:trackTint="@drawable/toggle_style"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.829"

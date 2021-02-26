@@ -64,6 +64,8 @@ import com.suks.sittiporn.lslamic.util.DateTimeUtils;
 import com.suks.sittiporn.lslamic.util.GPSTracker2;
 import com.suks.sittiporn.lslamic.util.GalleryDispatcher;
 
+import org.intellij.lang.annotations.Language;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -254,8 +256,11 @@ public class CheckInFragment extends Fragment {
                 Calendar mcurrentTime = Calendar.getInstance();
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                Locale language = new Locale("th");
+
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(getContext(), R.style.SpinnerTimePickerDialog, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         editTextTimeOpen.setText( selectedHour + ":" + selectedMinute);
@@ -276,7 +281,7 @@ public class CheckInFragment extends Fragment {
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(getContext(), R.style.SpinnerTimePickerDialog, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         editTextTimeClose.setText( selectedHour + ":" + selectedMinute);

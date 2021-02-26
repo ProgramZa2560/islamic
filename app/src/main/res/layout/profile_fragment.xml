@@ -68,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:background="@drawable/normal_edittext"
-                        android:hint="@string/user1"
+                        android:hint="ชื่อ"
                         android:textColor="#001171"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -80,7 +80,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="2dp"
                         android:background="@drawable/normal_edittext"
-                        android:hint="@string/user1"
+                        android:hint="นามสกุล"
                         android:textColor="#001171"
                         android:textSize="20sp"
                         android:textStyle="bold" />
