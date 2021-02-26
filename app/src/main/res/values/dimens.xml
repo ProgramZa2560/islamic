@@ -43,4 +43,5 @@
     <dimen name="lv_row_text_size_header">17sp</dimen>
     <dimen name="lv_row_text_size_detail1">14sp</dimen>
     <dimen name="padding16dp">16dp</dimen>
+    <dimen name="d12dp">12dp</dimen>
 </resources>

@@ -241,6 +241,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
                 modelList.add(reponseModel);
 
 
+
+
             }
         }
     }
@@ -359,6 +361,14 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     private void init(View view, Bundle savedInstanceState) {
 
+        ArrayList list = new ArrayList();
+
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        list.add(6);
+
+        list.size();
 
         mapWrapperLayout = (MapWrapperLayout) view.findViewById(R.id.map_relative_layout);
         searchMaps = (ImageButton) view.findViewById(R.id.searchMaps);
@@ -388,27 +398,9 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //        mapFragment.getMapAsync(this);
     }
 
-    public void dialogListMapsS() {
 
-//        Toast.makeText(getContext(), "testtttttttt", Toast.LENGTH_LONG).show();
-//        locationListModel
-//        List<LocationReponseModel> models = new ArrayList<>();
-//
-//        for (int i = 0; i < modelList.size(); i++){
-//            if (models.size() > 0){
-//                for (int k = 0; k < models.size(); k ++){
-//                    if (Double.valueOf(modelList.get(i).getDistance()) >= Double.valueOf(models.get(k).getDistance())){
-//                        models.add(modelList.get(i));
-////                        break;
-//                    }else {
-//
-//                    }
-//                }
-//
-//            }else {
-//                models.add(modelList.get(i));
-//            }
-//        }
+
+    public void dialogListMapsS() {
 
         dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);

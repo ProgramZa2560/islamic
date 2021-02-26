@@ -40,8 +40,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".forgetpassword.forgetemail.ForgetEmailActivity"></activity>
-        <activity android:name=".forgetpassword.ForgetPasswordActivity" />
+        <activity android:name=".forgetpassword.forgetemail.ForgetEmailActivity"
+            android:label="ลืมรหัสผ่าน"></activity>
+        <activity android:name=".forgetpassword.ForgetPasswordActivity"
+            android:label="ยืนยันรหัสผ่าน"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -107,7 +109,8 @@
             android:label="หน้าหลัก"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".register.RegisterActivity"
+            android:label="สมัครสมาชิก"/>
         <activity android:name=".alram.activities.MainAlramActivity" />
         <activity
             android:name=".alram.activities.RingActivity"

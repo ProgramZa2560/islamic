@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184267874132",
+    "project_id": "islamic-3c586",
+    "storage_bucket": "islamic-3c586.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184267874132:android:403b81dbedc7daa8bbf2c1",
+        "android_client_info": {
+          "package_name": "com.suks.sittiporn.lslamic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184267874132-pokn3d601571ouoig5a35ldp31sfri49.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaJC3Tp89WwhgCwZ9MS0EUmeti7zN66xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184267874132-pokn3d601571ouoig5a35ldp31sfri49.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

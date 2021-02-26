@@ -241,14 +241,18 @@ public class TimeFragment extends Fragment {
 
         myCalendar = Calendar.getInstance();
         llviewlooad.setVisibility(View.GONE);
+
         Calendar c = Calendar.getInstance();
         SimpleDateFormat date2 = new SimpleDateFormat("yyyy-MM-dd");
         currentDate = date2.format(c.getTime());
+
+
         getTime(currentDate);
+
         dateText.setText(currentDate);
 
 
-        datedate = new DatePickerDialog.OnDateSetListener() {
+         datedate = new DatePickerDialog.OnDateSetListener() {
 
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear,
