@@ -825,12 +825,12 @@ public class CheckInFragment extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {
 
-                                    Intent intent = new Intent(getContext(), HomeActivity.class);
-//                                    intent.putExtra("vv", "vv");
-                                    intent.addCategory(Intent.CATEGORY_HOME);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-//                                    getActivity().finish();
+//                                    Intent intent = new Intent(getContext(), HomeActivity.class);
+////                                    intent.putExtra("vv", "vv");
+//                                    intent.addCategory(Intent.CATEGORY_HOME);
+//                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                                    startActivity(intent);
+                                    getActivity().finish();
 
                                 }
                             });

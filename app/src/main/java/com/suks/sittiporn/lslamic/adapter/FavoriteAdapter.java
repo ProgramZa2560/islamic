@@ -84,7 +84,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter implements Filterable 
                     mDataset.get(position).getTimeEnd().split(":")[0] +":"+
                     mDataset.get(position).getTimeEnd().split(":")[1] +" น.");
 
-            tv_room.setText(mDataset.get(position).getNumberfull());
+            tv_room.setText(mDataset.get(position).getRoomnumber());
             tv_person.setText(mDataset.get(position).getNumberfull());
             tv_head_name.setText(mDataset.get(position).getName());
 

@@ -74,7 +74,7 @@ public class DetailCheckInFragment extends Fragment {
 
     private ListCommentAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
 
     EditText editText_Comment;
     Button btnComment;
@@ -193,12 +193,12 @@ public class DetailCheckInFragment extends Fragment {
         });
 
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getListComment(locationId);
-            }
-        });
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                getListComment(locationId);
+//            }
+//        });
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -272,7 +272,7 @@ public class DetailCheckInFragment extends Fragment {
     private void binID(View view, Bundle savedInstanceState) {
 
         recyclerViewComment = (RecyclerView) view.findViewById(R.id.recyclerViewComment);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         editText_Comment = (EditText) view.findViewById(R.id.editText_Comment);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewImg);
         btnComment = (Button) view.findViewById(R.id.btnComment);
@@ -348,7 +348,7 @@ public class DetailCheckInFragment extends Fragment {
                             CommentReponseModel commentReponseModel = transform(model);
                             list.add(commentReponseModel);
                         }
-                        swipeRefreshLayout.setRefreshing(false);
+//                        swipeRefreshLayout.setRefreshing(false);
                         mLayoutManager = new LinearLayoutManager(getContext());
                         recyclerViewComment.setLayoutManager(mLayoutManager);
                         mAdapter = new ListCommentAdapter(getContext(), list);

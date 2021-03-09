@@ -79,7 +79,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     private TextView infoSnippet;
     private Button infoButton;
     private OnInfoWindowElemTouchListener infoButtonListener;
-    public static String ARG_LAT= "ARG_LAT";
+    public static String ARG_LAT = "ARG_LAT";
     public static String ARG_LNG = "ARG_LNG";
     public static String ARG_LIST = "ARG_LIST";
     static LocationListModel locationListModel;
@@ -97,8 +97,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     ImageButton refresh;
     FixLocationListAdapter locationAdapter;
     private RecyclerView.LayoutManager manager;
-    GPSTracker2 gpsTracker;
-
+    GPSTracker gpsTracker;
+    GPSTracker2 gpsTracker2;
 
 
     private void addLocation(LatLng latLng, String locationName) {
@@ -124,12 +124,12 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-        mMap.getUiSettings().setMapToolbarEnabled(true);
+//        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+//        mMap.getUiSettings().setMapToolbarEnabled(true);
+
 
 //        latitude = Double.valueOf(getArguments().getString(ARG_LAT));
 //        latitude = Double.valueOf(getArguments().getString(ARG_LNG));
-
 
 
 //
@@ -158,12 +158,12 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
                 Intent intent = new Intent(getContext(), DetailCheckInActivity.class);
                 intent.putExtra("locationId", sub.split(", ")[2]);
                 intent.putExtra("time", "");
-                intent.putExtra("room","");
+                intent.putExtra("room", "");
                 intent.putExtra("person", "");
-                intent.putExtra("name","");
+                intent.putExtra("name", "");
                 intent.putExtra("lat", sub.split(", ")[0]);
                 intent.putExtra("lng", sub.split(", ")[1]);
-                intent.putExtra("location","");
+                intent.putExtra("location", "");
                 intent.putExtra("desc", "");
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -204,14 +204,20 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         // Let's add a couple of markers
 
         locationListModel = (LocationListModel) getArguments().getSerializable(ARG_LIST);
-
         mapsLocation();
 
     }
 
-    public void  mapsLocation(){
-        gpsTracker = new GPSTracker2(getContext());
-        LatLng currentLatLng = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+    public void mapsLocation() {
+
+
+
+//        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
+        gpsTracker = new GPSTracker(getContext());
+        gpsTracker2 = new GPSTracker2(getContext());
+        LatLng currentLatLng = new LatLng(latitude, longitude);
+//        LatLng currentLatLng = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
 //        mMap.addCircle()
 //        addLocation(currentLatLng,"home");
@@ -220,6 +226,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         setMapsLocation(locationListModel.getData());
     }
 
+
     public void setMapsLocation(List<LocationReponseModel> list) {
         if (list != null) {
 //            for (int i = 0; i < list.size(); i++) {
@@ -227,20 +234,21 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 //                LatLng latLng = new LatLng(ist.get(i))
 //                CalculationByDistance();
 //            }
-            for (LocationReponseModel reponseModel : list){
-                mapsSet(reponseModel);
-                Double aDoubleLat = Double.valueOf(reponseModel.getLatitude());
-                Double aDoubleLng = Double.valueOf(reponseModel.getLongitude());
-                LatLng latLngEnd = new LatLng(aDoubleLat, aDoubleLng);
+            for (LocationReponseModel reponseModel : list) {
+                if (!reponseModel.getLongitude().equals("") || !reponseModel.getLatitude().equals("")) {
+                    mapsSet(reponseModel);
+                    Double aDoubleLat = Double.valueOf(reponseModel.getLatitude());
+                    Double aDoubleLng = Double.valueOf(reponseModel.getLongitude());
+                    LatLng latLngEnd = new LatLng(aDoubleLat, aDoubleLng);
 //                gpsTracker = new GPSTracker2(getContext());
-                LatLng latLnnS = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
-                Double distance = CalculationByDistance(latLnnS, latLngEnd);
-                String dis = String.valueOf(distance);
-                dis.split(".", 2);
-                reponseModel.setDistance(String.valueOf(distance));
-                modelList.add(reponseModel);
+                    LatLng latLnnS = new LatLng(gpsTracker.getLatitude(), gpsTracker.getLongitude());
+                    Double distance = CalculationByDistance(latLnnS, latLngEnd);
+                    String dis = String.valueOf(distance);
+                    dis.split(".", 2);
+                    reponseModel.setDistance(String.valueOf(distance));
+                    modelList.add(reponseModel);
 
-
+                }
 
 
             }
@@ -274,21 +282,15 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
     private void mapsSet(LocationReponseModel locationReponseModel) {
 
-        String time = locationReponseModel.getTimeStart().split(":")[0] + ":" +
-                locationReponseModel.getTimeStart().split(":")[1] + "-" +
-                locationReponseModel.getTimeEnd().split(":")[0] + ":" +
-                locationReponseModel.getTimeEnd().split(":")[1] + " น.";
+//        String time = locationReponseModel.getTimeStart().split(":")[0] + ":" +
+//                locationReponseModel.getTimeStart().split(":")[1] + "-" +
+//                locationReponseModel.getTimeEnd().split(":")[0] + ":" +
+//                locationReponseModel.getTimeEnd().split(":")[1] + " น.";
 
         String sub =
-//                locationReponseModel.getName() + ", " +
-
                 locationReponseModel.getLatitude() + ", " +
-                locationReponseModel.getLongitude() + ", " +
-//                time + ", " +
-//                locationReponseModel.getRoomnumber() + ", " +
-//                locationReponseModel.getNumberfull() + ", " +
-//                locationReponseModel.getAddress()  + ", "
-                  locationReponseModel.getId();
+                        locationReponseModel.getLongitude() + ", " +
+                        locationReponseModel.getId();
 
         mMap.addMarker(new MarkerOptions()
                 .title(locationReponseModel.getName())
@@ -356,6 +358,8 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        currentLatLng = getLocation();
+
+
         this.init(view, savedInstanceState);
     }
 
@@ -399,7 +403,6 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     }
 
 
-
     public void dialogListMapsS() {
 
         dialog = new Dialog(getContext());
@@ -408,7 +411,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         dialog.setContentView(R.layout.custom_dialog_location_fix);
 
         RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recyclerView);
-        NestedScrollView nestedScrollView = (NestedScrollView) dialog.findViewById(R.id.nestedScrollView);
+//        NestedScrollView nestedScrollView = (NestedScrollView) dialog.findViewById(R.id.nestedScrollView);
         SearchView search = (SearchView) dialog.findViewById(R.id.search);
         ImageView imgClose = (ImageView) dialog.findViewById(R.id.img_close);
         search.setQueryHint("search");
@@ -422,7 +425,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
         locationAdapter = new FixLocationListAdapter(getContext(), modelList, location);
-        nestedScrollView.setNestedScrollingEnabled(false);
+//        nestedScrollView.setNestedScrollingEnabled(false);
         recyclerView.setAdapter(locationAdapter);
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
