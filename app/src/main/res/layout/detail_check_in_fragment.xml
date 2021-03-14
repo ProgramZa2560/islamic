@@ -62,7 +62,8 @@
                                 android:layout_weight="1"
                                 android:text="มัสยิด ท่าอิฐ"
                                 android:textAlignment="center"
-                                android:textSize="@dimen/text_size_24" />
+                                android:textSize="@dimen/text_size_24"
+                                tools:ignore="RtlCompat" />
 
                             <ImageButton
                                 android:id="@+id/star"
@@ -70,7 +71,8 @@
                                 android:layout_height="wrap_content"
                                 android:background="@null"
                                 android:paddingEnd="@dimen/padding16dp"
-                                android:src="@android:drawable/btn_star" />
+                                android:src="@android:drawable/btn_star"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -87,7 +89,8 @@
                                 android:text="ตำแหน่งที่ตั้ง : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <TextView
                                 android:id="@+id/tv_location"
@@ -96,7 +99,8 @@
                                 android:layout_weight="2"
                                 android:text="10.0000000000, 100.323232332"
                                 android:textAlignment="textStart"
-                                android:textSize="@dimen/text_size_16" />
+                                android:textSize="@dimen/text_size_16"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -113,7 +117,8 @@
                                 android:text="รายละเอียด : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <TextView
                                 android:id="@+id/tv_desc"
@@ -122,7 +127,8 @@
                                 android:layout_weight="2"
                                 android:text="dfffffffff"
                                 android:textAlignment="textStart"
-                                android:textSize="@dimen/text_size_16" />
+                                android:textSize="@dimen/text_size_16"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -139,7 +145,8 @@
                                 android:text="เส้นทาง : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -170,7 +177,8 @@
                                 android:text="จำนวนห้อง : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <TextView
                                 android:id="@+id/tvRoom"
@@ -179,7 +187,8 @@
                                 android:layout_weight="2"
                                 android:text="2 ห้อง"
                                 android:textAlignment="textStart"
-                                android:textSize="@dimen/text_size_16" />
+                                android:textSize="@dimen/text_size_16"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -197,7 +206,8 @@
                                 android:text="รองรับ : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <TextView
                                 android:id="@+id/tvPerson"
@@ -206,7 +216,8 @@
                                 android:layout_weight="2"
                                 android:text="5 คน"
                                 android:textAlignment="textStart"
-                                android:textSize="@dimen/text_size_16" />
+                                android:textSize="@dimen/text_size_16"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -223,7 +234,8 @@
                                 android:text="เวลาเปิด - ปิด : "
                                 android:textAlignment="textEnd"
                                 android:textSize="@dimen/text_size_16"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:ignore="RtlCompat" />
 
                             <TextView
                                 android:id="@+id/tvTime"
@@ -232,7 +244,8 @@
                                 android:layout_weight="2"
                                 android:text="05:00-18:00 น."
                                 android:textAlignment="textStart"
-                                android:textSize="@dimen/text_size_16" />
+                                android:textSize="@dimen/text_size_16"
+                                tools:ignore="RtlCompat" />
 
                         </LinearLayout>
 
@@ -254,8 +267,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
 
                     <LinearLayout
@@ -287,16 +300,16 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:padding="4dp">
 
 
                         <androidx.recyclerview.widget.RecyclerView
 
                             android:id="@+id/recyclerViewComment"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <!--                            tools:listitem="@layout/card_view_list_comment"-->
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/card_view_list_comment">
                         </androidx.recyclerview.widget.RecyclerView>
 
                     </LinearLayout>

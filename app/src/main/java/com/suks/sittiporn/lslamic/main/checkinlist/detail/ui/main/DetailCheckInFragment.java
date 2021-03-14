@@ -2,6 +2,7 @@ package com.suks.sittiporn.lslamic.main.checkinlist.detail.ui.main;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -26,6 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.adapter.ListCheckInAdapter;
 import com.suks.sittiporn.lslamic.adapter.ListCommentAdapter;
@@ -105,6 +109,7 @@ public class DetailCheckInFragment extends Fragment {
     boolean isEnable = true;
 
     List<ImgReponseModel> list = new ArrayList<>();
+    private FusedLocationProviderClient fusedLocationClient;
 
 
     public static DetailCheckInFragment newInstance() {
@@ -127,6 +132,7 @@ public class DetailCheckInFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         this.init(view, savedInstanceState);
     }
 
@@ -144,6 +150,17 @@ public class DetailCheckInFragment extends Fragment {
     private void init(View view, Bundle savedInstanceState) {
 
         binID(view, savedInstanceState);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            lat = String.valueOf(location.getLatitude());
+                            lng = String.valueOf(location.getLongitude());
+                        }
+                    }
+                });
 
         tv_location.setText(lat + ", " + lng);
 

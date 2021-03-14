@@ -33,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,6 +44,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.suks.sittiporn.lslamic.R;
 import com.suks.sittiporn.lslamic.adapter.ListCheckInAdapter;
 import com.suks.sittiporn.lslamic.main.checkinlist.detail.DetailCheckInActivity;
@@ -72,6 +75,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
     List<LocationReponseModel> list;
 
     Dialog dialog;
+    private FusedLocationProviderClient fusedLocationClient;
 
     private MapWrapperLayout mapWrapperLayout;
     private ViewGroup infoWindow;
@@ -207,6 +211,43 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mapsLocation();
 
     }
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        locationManager = (LocationManager) getContext()
+                .getSystemService(LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+        } else {
+            LocationListener locationListener = new LocationListener() {
+
+                public void onLocationChanged(Location location) {
+                    double lat = location.getLatitude();
+                    double longi = location.getLongitude();
+
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+                    currentLatLng = new LatLng(latitude, longitude);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
+                    drawCircle(currentLatLng, 5000.0);
+//                    latitude = String.valueOf(lat);
+//                    longitude = String.valueOf(longi);
+//                    txt_location.setText(latitude +", "+ longitude);
+
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+                public void onProviderEnabled(String provider) {}
+
+                public void onProviderDisabled(String provider) {}
+            };
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
+
+    }
 
     public void mapsLocation() {
 
@@ -214,15 +255,34 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
 
 //        locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 //        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
-        gpsTracker = new GPSTracker(getContext());
-        gpsTracker2 = new GPSTracker2(getContext());
-        LatLng currentLatLng = new LatLng(latitude, longitude);
+//        gpsTracker = new GPSTracker(getContext());
+//        gpsTracker2 = new GPSTracker2(getContext());
+
+
+
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+//        fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        // Got last known location. In some rare situations this can be null.
+//                        if (location != null) {
+//                            latitude = location.getLatitude();
+//                            longitude = location.getLongitude();
+//                            currentLatLng = new LatLng(latitude, longitude);
+//                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
+//                            drawCircle(currentLatLng, 5000.0);
+//                        }
+//                    }
+//                });
+
+
 //        LatLng currentLatLng = new LatLng(mMap.getMyLocation().getLatitude(), mMap.getMyLocation().getLongitude());
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f));
+
 //        mMap.addCircle()
 //        addLocation(currentLatLng,"home");
 //        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 20f));
-        drawCircle(currentLatLng, 5000.0);
+
         setMapsLocation(locationListModel.getData());
     }
 
@@ -377,6 +437,7 @@ public class MapsIslamicFragment extends Fragment implements OnMapReadyCallback 
         mapWrapperLayout = (MapWrapperLayout) view.findViewById(R.id.map_relative_layout);
         searchMaps = (ImageButton) view.findViewById(R.id.searchMaps);
         refresh = (ImageButton) view.findViewById(R.id.refresh);
+        getLocation();
 
         searchMaps.setOnClickListener(new View.OnClickListener() {
             @Override

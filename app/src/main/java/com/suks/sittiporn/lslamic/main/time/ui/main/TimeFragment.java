@@ -204,6 +204,7 @@ public class TimeFragment extends Fragment {
 
     }
 
+
     private boolean checkDate(String currentDate, String dateText) {
 
 //        String sDate1 = "2013-08-13";

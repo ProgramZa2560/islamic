@@ -5,8 +5,8 @@ public class LocationRequestModel {
     private String name_l;
     private String latitude;
     private String longitude;
-    private String numberFull;
-    private String roomNumber;
+    private String numberfull;
+    private String roomnumber;
     private String status;
     private String user_id;
     private String datetime;
@@ -39,20 +39,20 @@ public class LocationRequestModel {
         this.longitude = longitude;
     }
 
-    public String getNumberFull() {
-        return numberFull;
+    public String getNumberfull() {
+        return numberfull;
     }
 
-    public void setNumberFull(String numberFull) {
-        this.numberFull = numberFull;
+    public void setNumberfull(String numberfull) {
+        this.numberfull = numberfull;
     }
 
-    public String getRoomNumber() {
-        return roomNumber;
+    public String getRoomnumber() {
+        return roomnumber;
     }
 
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setRoomnumber(String roomnumber) {
+        this.roomnumber = roomnumber;
     }
 
     public String getStatus() {

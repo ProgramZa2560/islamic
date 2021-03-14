@@ -185,6 +185,7 @@ public class FavoriteFragment extends Fragment {
             model.setLatitude(reponseModel.getLatitude());
             model.setLongitude(reponseModel.getLongitude());
             model.setNumberfull(reponseModel.getNumberfull());
+            model.setRoomnumber(reponseModel.getRoomnumber());
             model.setStatus(reponseModel.getStatus());
             model.setTimeEnd(reponseModel.getTimeEnd());
             model.setTimeStart(reponseModel.getTimeStart());

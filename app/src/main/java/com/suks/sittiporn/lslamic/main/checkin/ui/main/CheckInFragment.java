@@ -199,6 +199,7 @@ public class CheckInFragment extends Fragment {
                     double longi = location.getLongitude();
                     latitude = String.valueOf(lat);
                     longitude = String.valueOf(longi);
+                    txt_location.setText(latitude +", "+ longitude);
 
                 }
 
@@ -243,10 +244,9 @@ public class CheckInFragment extends Fragment {
         editTextTimeClose.setEnabled(false);
         llviewlooad.setVisibility(View.GONE);
 
-        GPSTracker2 gpsTracker2 = new GPSTracker2
+//        GPSTracker2 gpsTracker2 = new GPSTracker2
 
-                (getContext());
-        txt_location.setText(gpsTracker2.getLatitude() +", "+ gpsTracker2.getLongitude());
+
 
         appCompatImageButtonTimeStart.setOnClickListener(new View.OnClickListener() {
 
@@ -695,9 +695,9 @@ public class CheckInFragment extends Fragment {
         requestModel.setLatitude(latitude);
         requestModel.setLongitude(longitude);
         requestModel.setName_l(name);
-        requestModel.setNumberFull((editTextNumber.equals("") ? "0" : editTextNumber));
+        requestModel.setNumberfull((editTextNumber.equals("") ? "0" : editTextNumber));
         requestModel.setStatus("0");
-        requestModel.setRoomNumber((editTextNumberRoom.equals("") ? "0" : editTextNumberRoom));
+        requestModel.setRoomnumber((editTextNumberRoom.equals("") ? "0" : editTextNumberRoom));
         requestModel.setTimeStart((editTextTimeOpen.equals("") ? "07:00" : editTextTimeOpen));
         requestModel.setTimeEnd((editTextTimeClose.equals("") ? "18:00" : editTextTimeClose));
         requestModel.setUser_id(id);
@@ -761,7 +761,6 @@ public class CheckInFragment extends Fragment {
                         } else {
 
                         }
-
                     }
 
                     @Override

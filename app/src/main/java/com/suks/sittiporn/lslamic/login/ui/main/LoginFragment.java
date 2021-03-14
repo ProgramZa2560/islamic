@@ -116,7 +116,6 @@ public class LoginFragment extends Fragment {
 //        pass = password.getText().toString();
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -273,23 +272,27 @@ public class LoginFragment extends Fragment {
                     public void onSubscribe(Disposable d) {
 
                     }
+
                     @Override
                     public void onNext(MemberModel response) {
-                        DiskRealmDao diskRealmDao = new DiskRealmDao(getContext());
-                        diskRealmDao.saveMember(response);
-//                        if (count > 0) {
-                        Intent intent = new Intent(getContext(), HomeActivity.class);
-//                        intent.putExtra("vv", "vv");
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-//                        }
+
+                        if (response.getResult().equals("true")) {
+                            DiskRealmDao diskRealmDao = new DiskRealmDao(getContext());
+                            diskRealmDao.saveMember(response);
+                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(getContext(), "User หรือ Passsword ไม่ถูกต้อง ", Toast.LENGTH_LONG).show();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Toast.makeText(getContext(), "User หรือ Passsword ไม่ถูกต้อง ", Toast.LENGTH_LONG).show();
                     }
+
                     @Override
                     public void onComplete() {
 
