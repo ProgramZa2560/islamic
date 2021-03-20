@@ -70,14 +70,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
 
 
-        Glide.with(context)
-                .load(url)
-                .apply(new RequestOptions()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .placeholder(R.drawable.frame)
-                        .error(R.drawable.frame)
-                        .fitCenter())
-                .into(holder.imageView);
+        try{
+            Glide.with(context)
+                    .load(url)
+                    .apply(new RequestOptions()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.frame)
+                            .error(R.drawable.frame)
+                            .fitCenter())
+                    .into(holder.imageView);
+        }catch (Exception e){
+            holder.imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.frame));
+        }
+
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,10 +91,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 dialog.requestWindowFeature(Window.FEATURE_ACTION_BAR);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.setContentView(R.layout.custom_dialog_view_img);
-                dialog.setCancelable(true);
-                Window window = dialog.getWindow();
-                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+//                dialog.setCancelable(true);
+//                Window window = dialog.getWindow();
+//                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+//                        WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
                 ImageView imageView = (ImageView) dialog.findViewById(R.id.img_url);
                 ImageView close = (ImageView) dialog.findViewById(R.id.close);

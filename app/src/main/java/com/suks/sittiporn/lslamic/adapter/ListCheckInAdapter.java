@@ -102,17 +102,19 @@ public class ListCheckInAdapter extends RecyclerView.Adapter implements Filterab
                 url = "https://lslamicplace.com/locationmuslim/" + mDataset.get(position).getImage_url();
             }
 
-            Glide.with(context)
-                    .load(url)
-                    .apply(new RequestOptions()
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.camera200)
-                            .error(R.drawable.camera200)
-                            .fitCenter())
-//                .placeholder(R.drawable.ic_photo)
-//                .fitCenter()
-//                .animate(android.R.anim.fade_in)
-                    .into(img_room);
+            try{
+                Glide.with(context)
+                        .load(url)
+                        .apply(new RequestOptions()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .placeholder(R.drawable.frame)
+                                .error(R.drawable.frame)
+                                .fitCenter())
+                        .into(img_room);
+            }catch (Exception e){
+                img_room.setImageDrawable(context.getResources().getDrawable(R.drawable.frame));
+            }
+
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
