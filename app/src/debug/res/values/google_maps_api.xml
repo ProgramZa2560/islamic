@@ -22,5 +22,8 @@
     -->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDpBvvJz0atXRBll2LITlTLvDNnKwdBKHM</string>-->
 <!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBVFyua_qc8BD5MShSm7KZ6GuZ58UVhhPo</string>-->
+<!--    zeeme-->
+<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCUxI1jc8gWOh7T5FUGIBl3ukdSoRIVn6E</string>-->
+<!--    fishingPIPO-->
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAFXjbuc8iu1uWuCwAEZmbVY6OmH2B2z4</string>
 </resources>

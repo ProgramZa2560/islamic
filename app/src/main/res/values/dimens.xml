@@ -7,6 +7,10 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     <dimen name="sizetext14sp">14sp</dimen>
     <dimen name="size_width_400">400dp</dimen>
+    <dimen name="size_width_350">350dp</dimen>
+    <dimen name="size_width_460">460dp</dimen>
+    <dimen name="size_width_450">450dp</dimen>
+    <dimen name="size_width_430">430dp</dimen>
     <dimen name="size_500">500dp</dimen>
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="text_size_16">16dp</dimen>
