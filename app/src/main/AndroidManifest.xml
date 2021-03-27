@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
     <!-- <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" /> -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -19,11 +19,11 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
+    <!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="17"        />
+        android:minSdkVersion="21"
+        android:targetSdkVersion="29" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <permission
         android:name="myPackageName.permission.MAPS_RECEIVE"
@@ -44,10 +44,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".forgetpassword.forgetemail.ForgetEmailActivity"
+        <activity
+            android:name=".forgetpassword.forgetemail.ForgetEmailActivity"
             android:label="ลืมรหัสผ่าน"></activity>
-        <activity android:name=".forgetpassword.ForgetPasswordActivity"
-            android:label="ยืนยันรหัสผ่าน"/>
+        <activity
+            android:name=".forgetpassword.ForgetPasswordActivity"
+            android:label="ยืนยันรหัสผ่าน" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -59,8 +61,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyDAFXjbuc8iu1uWuCwAEZmbVY6OmH2B2z4" />-->
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <meta-data
@@ -120,8 +126,9 @@
             android:label="หน้าหลัก"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".register.RegisterActivity"
-            android:label="สมัครสมาชิก"/>
+        <activity
+            android:name=".register.RegisterActivity"
+            android:label="สมัครสมาชิก" />
         <activity android:name=".alram.activities.MainAlramActivity" />
         <activity
             android:name=".alram.activities.RingActivity"

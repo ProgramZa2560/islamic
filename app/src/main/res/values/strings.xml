@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">islamic prayer places</string>
-    <string name="version10928">V 1.2.28</string>
+    <string name="version10928">V 1.2.29</string>
 
-<!--    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCUxI1jc8gWOh7T5FUGIBl3ukdSoRIVn6E</string>-->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDAFXjbuc8iu1uWuCwAEZmbVY6OmH2B2z4</string>
 
     <string name="title_activity_login">Login</string>
     <string name="prompt_email">Email</string>
