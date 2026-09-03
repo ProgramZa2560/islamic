@@ -1,0 +1,185 @@
+package com.suks.sittiporn.lslamic.features.forgetpassword.forgetemail;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import android.os.Parcel;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.suks.sittiporn.lslamic.R;
+import com.suks.sittiporn.lslamic.features.about.ui.main.AboutFragment;
+import com.suks.sittiporn.lslamic.features.forgetpassword.ForgetPasswordActivity;
+import com.suks.sittiporn.lslamic.features.home.HomeActivity;
+import com.suks.sittiporn.lslamic.core.network.RetrofitClient;
+import com.suks.sittiporn.lslamic.core.network.ApiService;
+import com.suks.sittiporn.lslamic.data.remote.response.EmailResponeModel;
+import com.suks.sittiporn.lslamic.data.remote.response.GetTimeModel;
+import com.suks.sittiporn.lslamic.core.util.Util;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+
+public class ForgetEmailFragment extends Fragment {
+
+    EditText message;
+    Button btn_next;
+    LinearLayout llviewlooad;
+    String ms;
+    String id;
+    String email;
+
+
+    public static ForgetEmailFragment newInstance() {
+        return new ForgetEmailFragment();
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.forget_email_fragment, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        this.initinstanceState(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    private void initinstanceState(View view, Bundle savedInstanceState) {
+        bindView(view, savedInstanceState);
+        initi();
+
+    }
+
+    private void bindView(View view, Bundle savedInstanceState) {
+        message = (EditText) view.findViewById(R.id.message);
+        btn_next = (Button) view.findViewById(R.id.btn_next);
+        llviewlooad = (LinearLayout) view.findViewById(R.id.llviewlooad);
+
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.spin_kit);
+        Sprite doubleBounce = new DoubleBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
+
+
+    }
+
+    private void initi() {
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String m = message.getText().toString();
+                if (m.equals("")) {
+                    final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                    adbConfirmExit.create();
+                    adbConfirmExit.setCancelable(true);
+                    adbConfirmExit.setTitle("แจ้งเตือน");
+                    adbConfirmExit.setMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+                    adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+//                            switch1.setChecked(false);
+                        }
+                    });
+                    adbConfirmExit.create().show();
+                }else {
+                    getTime(m);
+                }
+
+
+            }
+        });
+
+    }
+
+    private void getTime(final String id) {
+        llviewlooad.setVisibility(View.VISIBLE);
+        ApiService apiService = RetrofitClient.getApiService();
+        Observable<EmailResponeModel> observable = apiService.getEmail(id);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .unsubscribeOn(Schedulers.io())
+                .subscribe(new Observer<EmailResponeModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(EmailResponeModel dataModel) {
+                        llviewlooad.setVisibility(View.GONE);
+                        if (dataModel.getSuccess().equals("true")){
+                            setString(dataModel);
+                        }else {
+                            final AlertDialog.Builder adbConfirmExit = new AlertDialog.Builder(getContext());
+                            adbConfirmExit.create();
+                            adbConfirmExit.setCancelable(true);
+                            adbConfirmExit.setTitle("แจ้งเตือน");
+                            adbConfirmExit.setMessage("ไม่พบข้อมูล");
+                            adbConfirmExit.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+//                            switch1.setChecked(false);
+                                }
+                            });
+                            adbConfirmExit.create().show();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        llviewlooad.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+
+    private void setString(EmailResponeModel dataModel) {
+        Util.ID = dataModel.getData().get(0).getId();
+        Util.EMAIL = dataModel.getData().get(0).getEmail();
+
+        Intent intent = new Intent(getContext(), ForgetPasswordActivity.class);
+        startActivity(intent);
+
+    }
+}

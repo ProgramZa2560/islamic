@@ -4,12 +4,12 @@
 
     To get one, follow this link, follow the directions and press "Create" at the end:
 
-    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=1E:D6:9D:4F:6E:C3:C3:C3:DD:57:A6:5E:1F:FF:F2:EE:C1:20:E1:2B%3Bcom.suks.sittiporn.lslamic.main.maps
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=1E:D6:9D:4F:6E:C3:C3:C3:DD:57:A6:5E:1F:FF:F2:EE:C1:20:E1:2B%3Bcom.suks.sittiporn.lslamic.features.maps
 
     You can also add your credentials to an existing key, using these values:
 
     Package name:
-    com.suks.sittiporn.lslamic.main.maps
+    com.suks.sittiporn.lslamic.features.maps
 
     SHA-1 certificate fingerprint:
     1E:D6:9D:4F:6E:C3:C3:C3:DD:57:A6:5E:1F:FF:F2:EE:C1:20:E1:2B

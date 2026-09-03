@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.suks.sittiporn.lslamic.home.HomeActivity;
-import com.suks.sittiporn.lslamic.login.LoginActivity;
-import com.suks.sittiporn.lslamic.realm.RealmUtil;
+import com.suks.sittiporn.lslamic.features.home.HomeActivity;
+import com.suks.sittiporn.lslamic.features.login.LoginActivity;
+import com.suks.sittiporn.lslamic.data.local.RealmUtil;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,1 +1,0 @@
-package com.suks.sittiporn.lslamic.forgetpassword.forgetemail;import androidx.lifecycle.ViewModel;public class ForgetEmailViewModel extends ViewModel {    // TODO: Implement the ViewModel}

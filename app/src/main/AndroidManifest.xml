@@ -11,29 +11,21 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
-    <!-- <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" /> -->
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
-    <uses-sdk
-        android:minSdkVersion="21"
-        android:targetSdkVersion="29" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <permission
         android:name="myPackageName.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="myPackageName.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
-        android:name=".alram.application.App"
+        android:name=".alarm.application.App"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/logo"
@@ -45,25 +37,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".forgetpassword.forgetemail.ForgetEmailActivity"
+            android:name=".features.forgetpassword.forgetemail.ForgetEmailActivity"
             android:label="ลืมรหัสผ่าน"></activity>
         <activity
-            android:name=".forgetpassword.ForgetPasswordActivity"
+            android:name=".features.forgetpassword.ForgetPasswordActivity"
             android:label="ยืนยันรหัสผ่าน" />
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="AIzaSyDAFXjbuc8iu1uWuCwAEZmbVY6OmH2B2z4" />-->
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -71,8 +52,7 @@
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="face" /> <!-- Activity -->
-
+            android:value="face" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -81,67 +61,59 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider> <!-- Service -->
-        <activity android:name=".main.maps.MapsIslamicActivity" />
+        </provider>        <activity android:name=".features.maps.MapsIslamicActivity" />
         <activity
-            android:name=".main.favorite.FavoriteActivity"
+            android:name=".features.favorite.FavoriteActivity"
             android:label="สถานที่ละหมาดของฉัน" />
         <activity
-            android:name=".main.checkinlist.detail.DetailCheckInActivity"
+            android:name=".features.checkinlist.detail.DetailCheckInActivity"
             android:label="รายละเอียด" />
         <activity
-            android:name=".about.AboutActivity"
+            android:name=".features.about.AboutActivity"
             android:label="เกี่ยวกับ" />
-        <activity android:name=".help.HelpActivity" />
+        <activity android:name=".features.help.HelpActivity" />
         <activity
-            android:name=".main.maps.CustomInfoWindowMapsActivity"
+            android:name=".features.maps.CustomInfoWindowMapsActivity"
             android:label="ค้นหาสถานที่ละหมาด" />
         <activity
-            android:name=".profile.ProfileActivity"
+            android:name=".features.profile.ProfileActivity"
             android:label="โปรไฟล์" />
-        <activity android:name=".main.place.PlaceActivity" />
+        <activity android:name=".features.place.PlaceActivity" />
         <activity
-            android:name=".main.checkinlist.CheckInListActivity"
+            android:name=".features.checkinlist.CheckInListActivity"
             android:label="รายการเช็คอิน" />
         <activity
-            android:name=".main.checkin.CheckInActivity"
+            android:name=".features.checkin.CheckInActivity"
             android:label="เช็คอินสถานที่ละหมาด" />
         <activity
-            android:name=".main.time.TimeActivity"
+            android:name=".features.time.TimeActivity"
             android:label="เวลาละหมาดวันนี้" />
         <activity
-            android:name=".main.MapsActivity"
-            android:label="แผนที่" /> <!-- <receiver -->
-        <!-- android:name=".service.SyncVipAlarmBroadCastReceiver" -->
-        <!-- android:permission="android.permission.BIND_JOB_SERVICE"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.alarm.receiver" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-        <activity
-            android:name=".login.LoginActivity"
+            android:name=".features.maps.MapsActivity"
+            android:label="แผนที่" />        <activity
+            android:name=".features.login.LoginActivity"
             android:label="เข้าสู่ระบบ" />
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".features.home.HomeActivity"
             android:label="หน้าหลัก"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".register.RegisterActivity"
+            android:name=".features.register.RegisterActivity"
             android:label="สมัครสมาชิก" />
-        <activity android:name=".alram.activities.MainAlramActivity" />
+        <activity android:name=".alarm.activities.MainAlramActivity" />
         <activity
-            android:name=".alram.activities.RingActivity"
+            android:name=".alarm.activities.RingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".alram.broadcastreceiver.AlarmBroadcastReceiver">
+        <receiver android:name=".alarm.broadcastreceiver.AlarmBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".alram.service.AlarmService" />
-        <service android:name=".alram.service.RescheduleAlarmsService" />
+        <service android:name=".alarm.service.AlarmService" />
+        <service android:name=".alarm.service.RescheduleAlarmsService" />
 
         <activity
             android:name=".MainActivity"
